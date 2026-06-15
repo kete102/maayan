@@ -7,9 +7,14 @@ export function Hero() {
         autoPlay
         muted
         loop
+        playsInline
         className="absolute inset-0 h-full w-full object-cover"
-        src="/videos/hero-video.mp4"
-      />
+      >
+        <source
+          type="video/mp4"
+          src="https://res.cloudinary.com/dqkxothoe/video/upload/v1781536540/hero-video_1_ari1cw.mp4 "
+        />
+      </video>
       <div className="absolute inset-0 bg-linear-to-r from-primary/75 via-primary/45 to-primary/20" />
       <div className="relative flex flex-col gap-6 mx-auto w-full max-w-7xl px-4 py-24 md:px-8">
         <div className="max-w-2xl text-primary-foreground">

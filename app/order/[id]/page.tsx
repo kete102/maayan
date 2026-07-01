@@ -64,9 +64,21 @@ export default async function OrderPage({
           <span className="text-foreground">{order.payer_email}</span>
         </div>
         <div className="flex justify-between">
+          <span className="text-muted-foreground">Teléfono</span>
+          <span className="text-foreground">{order.shipping_phone || "—"}</span>
+        </div>
+        <div className="flex justify-between">
           <span className="text-muted-foreground">Envío a</span>
-          <span className="text-foreground">
-            {order.shipping_city}, {order.shipping_postal}
+          <span className="text-right text-foreground">
+            {[
+              order.shipping_address,
+              order.shipping_city,
+              order.shipping_state,
+              order.shipping_postal,
+              order.shipping_country,
+            ]
+              .filter(Boolean)
+              .join(", ")}
           </span>
         </div>
       </div>

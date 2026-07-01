@@ -5,8 +5,18 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { orderID, cartItems, shippingName, shippingCity, shippingPostal } =
-      await req.json();
+    const {
+      orderID,
+      cartItems,
+      shippingName,
+      shippingEmail,
+      shippingPhone,
+      shippingAddress,
+      shippingCity,
+      shippingState,
+      shippingPostal,
+      shippingCountry,
+    } = await req.json();
 
     if (!orderID) {
       return NextResponse.json({ error: "Missing orderID" }, { status: 400 });
@@ -47,8 +57,13 @@ export async function POST(req: Request) {
       currency: paypalCapture?.amount?.currency_code ?? "USD",
       items: orderItems,
       shipping_name: shippingName ?? "",
+      shipping_email: shippingEmail ?? "",
+      shipping_phone: shippingPhone ?? "",
+      shipping_address: shippingAddress ?? "",
       shipping_city: shippingCity ?? "",
+      shipping_state: shippingState ?? "",
       shipping_postal: shippingPostal ?? "",
+      shipping_country: shippingCountry ?? "",
     };
 
     // Save order to Supabase

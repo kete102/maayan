@@ -25,7 +25,12 @@ export type Order = {
   currency: string;
   items: OrderItem[];
   shipping_name: string;
+  shipping_email: string;
+  shipping_phone: string;
+  shipping_address: string;
   shipping_city: string;
+  shipping_state: string;
   shipping_postal: string;
+  shipping_country: string;
   created_at: string;
 };

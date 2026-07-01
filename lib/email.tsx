@@ -214,7 +214,15 @@ function OrderConfirmationEmail({ order }: { order: Order }) {
                             textAlign: "right",
                           }}
                         >
-                          {order.shipping_city}, {order.shipping_postal}
+                          {[
+                            order.shipping_address,
+                            order.shipping_city,
+                            order.shipping_state,
+                            order.shipping_postal,
+                            order.shipping_country,
+                          ]
+                            .filter(Boolean)
+                            .join(", ")}
                         </td>
                       </tr>
                     </table>

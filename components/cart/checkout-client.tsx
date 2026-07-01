@@ -22,6 +22,12 @@ const contactFields: Field[] = [
     type: "email",
     autoComplete: "email",
   },
+  {
+    id: "phone",
+    label: "Teléfono",
+    type: "tel",
+    autoComplete: "tel",
+  },
 ];
 
 const shippingFields: Field[] = [
@@ -35,9 +41,21 @@ const shippingFields: Field[] = [
   { id: "address", label: "Dirección", autoComplete: "street-address" },
   { id: "city", label: "Ciudad", autoComplete: "address-level2", half: true },
   {
+    id: "state",
+    label: "Estado / Provincia",
+    autoComplete: "address-level1",
+    half: true,
+  },
+  {
     id: "postal",
     label: "Código postal",
     autoComplete: "postal-code",
+    half: true,
+  },
+  {
+    id: "country",
+    label: "País",
+    autoComplete: "country-name",
     half: true,
   },
 ];
@@ -51,12 +69,26 @@ export function CheckoutClient() {
   const tax = subtotal * 0.07;
   const total = subtotal + shipping + tax;
 
-  async function handleSubmitOrder(e: React.FormEvent) {
+  async function handleSubmitOrder(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
+      const formData = new FormData(e.currentTarget);
+
+      const shippingInfo = {
+        firstName: formData.get("firstName") as string,
+        lastName: formData.get("lastName") as string,
+        email: formData.get("email") as string,
+        phone: formData.get("phone") as string,
+        address: formData.get("address") as string,
+        city: formData.get("city") as string,
+        state: formData.get("state") as string,
+        postal: formData.get("postal") as string,
+        country: formData.get("country") as string,
+      };
+
       const res = await fetch("/api/paypal/create-order", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -77,8 +109,9 @@ export function CheckoutClient() {
         return;
       }
 
-      // Save cart to sessionStorage so cancel/error pages can restore it
+      // Save cart and shipping info to sessionStorage before leaving the page
       sessionStorage.setItem("paypal_cart_backup", JSON.stringify(items));
+      sessionStorage.setItem("paypal_shipping_backup", JSON.stringify(shippingInfo));
 
       window.location.href = data.returnURL;
     } catch {

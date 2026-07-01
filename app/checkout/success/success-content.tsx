@@ -39,9 +39,11 @@ export function CheckoutSuccessContent() {
     if (hasCaptured.current) return;
     hasCaptured.current = true;
 
-    // Read cart backup from sessionStorage (cart may already be empty at this point)
+    // Read cart and shipping backups from sessionStorage
     const cartBackup = sessionStorage.getItem("paypal_cart_backup");
+    const shippingBackup = sessionStorage.getItem("paypal_shipping_backup");
     const cartItems = cartBackup ? JSON.parse(cartBackup) : items;
+    const shippingInfo = shippingBackup ? JSON.parse(shippingBackup) : {};
 
     async function captureOrder() {
       try {
@@ -51,6 +53,14 @@ export function CheckoutSuccessContent() {
           body: JSON.stringify({
             orderID: token,
             cartItems,
+            shippingName: `${shippingInfo.firstName ?? ""} ${shippingInfo.lastName ?? ""}`.trim(),
+            shippingEmail: shippingInfo.email ?? "",
+            shippingPhone: shippingInfo.phone ?? "",
+            shippingAddress: shippingInfo.address ?? "",
+            shippingCity: shippingInfo.city ?? "",
+            shippingState: shippingInfo.state ?? "",
+            shippingPostal: shippingInfo.postal ?? "",
+            shippingCountry: shippingInfo.country ?? "",
           }),
         });
 
@@ -74,6 +84,7 @@ export function CheckoutSuccessContent() {
         });
 
         sessionStorage.removeItem("paypal_cart_backup");
+        sessionStorage.removeItem("paypal_shipping_backup");
         clearCart();
         setStatus("success");
       } catch {

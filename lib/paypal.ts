@@ -140,8 +140,8 @@ export async function createPaypalOrder(
       },
     ],
     application_context: {
-      return_url: "http://localhost:3000/checkout/success",
-      cancel_url: "http://localhost:3000/checkout/cancel",
+      return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/cancel`,
     },
   };
 

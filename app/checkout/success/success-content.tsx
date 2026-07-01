@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 type CaptureStatus = "loading" | "success" | "error";
 
 type OrderDetails = {
+  orderId: string;
   transactionId: string;
   amount: string;
   currency: string;
@@ -20,7 +21,7 @@ type OrderDetails = {
 export function CheckoutSuccessContent() {
   const params = useSearchParams();
   const token = params.get("token");
-  const { clearCart } = useCart();
+  const { items, clearCart } = useCart();
 
   const [status, setStatus] = useState<CaptureStatus>("loading");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -38,12 +39,19 @@ export function CheckoutSuccessContent() {
     if (hasCaptured.current) return;
     hasCaptured.current = true;
 
+    // Read cart backup from sessionStorage (cart may already be empty at this point)
+    const cartBackup = sessionStorage.getItem("paypal_cart_backup");
+    const cartItems = cartBackup ? JSON.parse(cartBackup) : items;
+
     async function captureOrder() {
       try {
         const res = await fetch("/api/paypal/capture-order", {
           method: "POST",
           headers: { "Content-type": "application/json" },
-          body: JSON.stringify({ orderID: token }),
+          body: JSON.stringify({
+            orderID: token,
+            cartItems,
+          }),
         });
 
         const data = await res.json();
@@ -57,6 +65,7 @@ export function CheckoutSuccessContent() {
         // Extract order details from the PayPal capture response
         const capture = data.purchase_units?.[0]?.payments?.captures?.[0];
         setOrderDetails({
+          orderId: data.orderId ?? "",
           transactionId: capture?.id ?? token,
           amount: capture?.amount?.value ?? "—",
           currency: capture?.amount?.currency_code ?? "USD",
@@ -108,16 +117,16 @@ export function CheckoutSuccessContent() {
       </div>
       <h1 className="mt-8 font-serif text-4xl text-foreground">Gracias</h1>
       <p className="mt-4 leading-relaxed text-muted-foreground">
-        Tu pedido ha sido recibido. Que estas Escrituras sean un manantial de
-        gracia en tu hogar.
+        Tu pedido ha sido recibido. Te hemos enviado un correo de confirmación.
+        Que estas Escrituras sean un manantial de gracia en tu hogar.
       </p>
 
       {orderDetails && (
         <dl className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-6 text-left text-sm">
           <div className="flex justify-between">
-            <dt className="text-muted-foreground">Número de transacción</dt>
+            <dt className="text-muted-foreground">Número de pedido</dt>
             <dd className="font-mono text-xs text-foreground">
-              {orderDetails.transactionId}
+              {orderDetails.orderId.slice(0, 8).toUpperCase()}
             </dd>
           </div>
           <div className="flex justify-between">
@@ -140,12 +149,23 @@ export function CheckoutSuccessContent() {
         </dl>
       )}
 
-      <Button
-        render={<Link href="/shop" />}
-        className="mt-8 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90"
-      >
-        Seguir comprando
-      </Button>
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+        {orderDetails?.orderId && (
+          <Button
+            render={<Link href={`/order/${orderDetails.orderId}`} />}
+            variant="outline"
+            className="rounded-full px-8"
+          >
+            Ver mi pedido
+          </Button>
+        )}
+        <Button
+          render={<Link href="/shop" />}
+          className="rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90"
+        >
+          Seguir comprando
+        </Button>
+      </div>
     </div>
   );
 }

@@ -79,8 +79,9 @@ export function CheckoutSuccessContent() {
           transactionId: capture?.id ?? token,
           amount: capture?.amount?.value ?? "—",
           currency: capture?.amount?.currency_code ?? "USD",
-          payerName: `${data.payer?.name?.given_name ?? ""} ${data.payer?.name?.surname ?? ""}`.trim(),
-          payerEmail: data.payer?.email_address ?? "—",
+          payerName: `${shippingInfo.firstName ?? ""} ${shippingInfo.lastName ?? ""}`.trim()
+            || `${data.payer?.name?.given_name ?? ""} ${data.payer?.name?.surname ?? ""}`.trim(),
+          payerEmail: shippingInfo.email || data.payer?.email_address || "—",
         });
 
         sessionStorage.removeItem("paypal_cart_backup");
@@ -154,7 +155,7 @@ export function CheckoutSuccessContent() {
             <dd className="text-foreground">{orderDetails.payerName}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-muted-foreground">Correo PayPal</dt>
+            <dt className="text-muted-foreground">Correo</dt>
             <dd className="text-foreground">{orderDetails.payerEmail}</dd>
           </div>
         </dl>

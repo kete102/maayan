@@ -3,7 +3,6 @@
 import { useCart } from "@/components/cart/cart-provider";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/products";
-import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -43,52 +42,51 @@ const shippingFields: Field[] = [
   },
 ];
 
-const paymentFields: Field[] = [
-  { id: "card", label: "Número de tarjeta", autoComplete: "cc-number" },
-  {
-    id: "expiry",
-    label: "Vencimiento (MM/AA)",
-    autoComplete: "cc-exp",
-    half: true,
-  },
-  { id: "cvc", label: "CVC", autoComplete: "cc-csc", half: true },
-];
 
 export function CheckoutClient() {
   const { items, subtotal, clearCart } = useCart();
   const [placed, setPlaced] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const shipping = subtotal >= 75 || subtotal === 0 ? 0 : 6.5;
   const tax = subtotal * 0.07;
   const total = subtotal + shipping + tax;
 
-  function handleSubmitOrder(e: React.FormEvent) {
+  async function handleSubmitOrder(e: React.FormEvent) {
     e.preventDefault();
-    clearCart();
-    setPlaced(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+    setLoading(true);
+    setError(null);
 
-  if (placed) {
-    return (
-      <div className="mx-auto max-w-xl px-4 py-24 text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-accent">
-          <CheckCircle2 className="h-8 w-8" />
-        </div>
-        <h1 className="mt-8 font-serif text-4xl text-foreground">Gracias</h1>
-        <p className="mt-4 leading-relaxed text-muted-foreground">
-          Tu pedido ha sido recibido. Que estas Escrituras sean un manantial de
-          gracia en tu hogar. Se ha enviado una confirmación a tu bandeja de
-          entrada.
-        </p>
-        <Button
-          asChild
-          className="mt-8 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90"
-        >
-          <Link href="/shop">Seguir comprando</Link>
-        </Button>
-      </div>
-    );
+    try {
+      const res = await fetch("/api/paypal/create-order", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          amount: total.toFixed(2),
+          shipping: shipping.toFixed(2),
+          tax: tax.toFixed(2),
+          currency: "USD",
+          cart_items: items,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.returnURL) {
+        setError("No se pudo iniciar el pago. Intenta de nuevo.");
+        setLoading(false);
+        return;
+      }
+
+      // Save cart to sessionStorage so cancel/error pages can restore it
+      sessionStorage.setItem("paypal_cart_backup", JSON.stringify(items));
+
+      window.location.href = data.returnURL;
+    } catch {
+      setError("Ocurrió un error inesperado. Intenta de nuevo.");
+      setLoading(false);
+    }
   }
 
   if (items.length === 0) {
@@ -101,10 +99,10 @@ export function CheckoutClient() {
           Añade una Biblia a tu carrito antes de proceder al pago.
         </p>
         <Button
-          asChild
+          render={<Link href="/shop" />}
           className="mt-8 rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90"
         >
-          <Link href="/shop">Explorar la colección</Link>
+          Explorar la colección
         </Button>
       </div>
     );
@@ -117,17 +115,18 @@ export function CheckoutClient() {
         <form onSubmit={handleSubmitOrder} className="space-y-10">
           <Section title="Contacto" fields={contactFields} />
           <Section title="Dirección de envío" fields={shippingFields} />
-          <Section
-            title="Pago"
-            fields={paymentFields}
-            note="Esta es una tienda de demostración. No se procesa ningún pago real."
-          />
+
+          {/* <PaypalCheckout amount="20.00" currency="USD" /> */}
+          {error && (
+            <p className="text-sm text-destructive">{error}</p>
+          )}
           <Button
             type="submit"
             size="lg"
-            className="w-full rounded-full bg-primary text-base text-primary-foreground hover:bg-primary/90"
+            disabled={loading}
+            className="w-full rounded-full bg-primary text-base text-primary-foreground hover:bg-primary/90 disabled:opacity-60"
           >
-            Realizar pedido — {formatPrice(total)}
+            {loading ? "Redirigiendo a PayPal..." : `Pagar con PayPal — ${formatPrice(total)}`}
           </Button>
         </form>
 

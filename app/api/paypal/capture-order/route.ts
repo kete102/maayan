@@ -10,6 +10,16 @@ export async function POST(req: Request) {
 
     const capture = await capturePaypalOrder(orderID);
 
+    if (capture.status !== "COMPLETED") {
+      return NextResponse.json(
+        {
+          error: `Payment not completed. Status: ${capture.status}`,
+          status: capture.status,
+        },
+        { status: 422 },
+      );
+    }
+
     return NextResponse.json(capture);
   } catch (e: any) {
     return NextResponse.json(

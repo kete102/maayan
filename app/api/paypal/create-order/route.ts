@@ -3,9 +3,17 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { amount, currency } = await req.json();
+    const { amount, currency, cart_items, shipping, tax } = await req.json();
 
-    const order = await createPaypalOrder(amount, currency ?? "USD");
+    const order = await createPaypalOrder(
+      cart_items,
+      amount,
+      shipping,
+      tax,
+      currency ?? "USD",
+    );
+
+    console.log(order);
 
     return NextResponse.json(order);
   } catch (e: any) {

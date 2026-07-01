@@ -1,4 +1,5 @@
-import { cursorTo } from "readline";
+import { CartItem } from "@/components/cart/cart-provider";
+import { PaypalErrorResponse, PaypalCreateOrderError } from "./paypal-error";
 
 interface PaypalAccessTokenResponse {
   scope: string;
@@ -13,14 +14,6 @@ class PaypalAccessTokenError extends Error {
     super(message);
     this.name = "PAYPAL_ACCESS_TOKEN_ERROR";
     Object.setPrototypeOf(this, PaypalAccessTokenError.prototype);
-  }
-}
-
-class PaypalCreateOrderError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "PAYPAL_CREATE_ORDER_ERROR";
-    Object.setPrototypeOf(this, PaypalCreateOrderError.prototype);
   }
 }
 
@@ -67,47 +60,89 @@ export async function generateAccessToken(): Promise<GeneratePaypalAccessToken> 
   };
 }
 
-export async function createPaypalOrder(amount: string, currency = "USD") {
+interface PaypalItem {
+  name: string;
+  unit_amount: {
+    currency_code: string;
+    value: string;
+  };
+  quantity: string;
+}
+
+interface PaypalCreateOrderSuccess {
+  id: string;
+  status:
+    | "CREATED"
+    | "SAVED"
+    | "APPROVED"
+    | "VOIDED"
+    | "COMPLETED"
+    | "PAYER_ACTION_REQUIRED";
+  links: [
+    {
+      href: string;
+      rel: string;
+    },
+  ];
+}
+
+export async function createPaypalOrder(
+  cartItems: CartItem[],
+  amount: string,
+  shipping: string,
+  tax: string,
+  currency = "USD",
+) {
   const { accessToken } = await generateAccessToken();
+
+  const invoiceID = crypto.randomUUID();
+
+  const parsedCardItems: PaypalItem[] = cartItems.map((item) => {
+    return {
+      name: item.product.name,
+      unit_amount: {
+        currency_code: item.product.currency,
+        value: item.product.price.toFixed(2),
+      },
+      quantity: String(item.quantity),
+    };
+  });
+
+  // item_total must equal the sum of (unit_amount * quantity) across all items
+  const itemTotal = cartItems
+    .reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+    .toFixed(2);
 
   const paypalOrderPayload = {
     intent: "CAPTURE", // CAPTURE - pay now || AUTHORIZE - pay later
     purchase_units: [
       {
-        invoice_id: "1",
+        invoice_id: invoiceID,
         amount: {
           currency_code: currency,
-          value: amount, // Calculate total dynamically based on your DB prices
+          value: amount,
           breakdown: {
-            // CRITICAL: This must match the sum of your item prices exactly!
             item_total: {
               currency_code: currency,
-              value: amount,
+              value: itemTotal,
+            },
+            shipping: {
+              currency_code: currency,
+              value: shipping,
+            },
+            tax_total: {
+              currency_code: currency,
+              value: tax,
             },
           },
         },
-        items: [
-          {
-            name: "T-Shirt",
-            description: "Super Fresh Shirt",
-            unit_amount: {
-              currency_code: "USD",
-              value: "20.00",
-            },
-            quantity: "1",
-            category: "PHYSICAL_GOODS",
-            sku: "sku01",
-            image_url:
-              "https://example.com/static/images/items/1/tshirt_green.jpg",
-            url: "https://example.com/url-to-the-item-being-purchased-1",
-            upc: {
-              type: "UPC-A",
-              code: "123456789012",
-            },
-          },
-        ],
+        items: parsedCardItems,
       },
     ],
+    application_context: {
+      return_url: "http://localhost:3000/checkout/success",
+      cancel_url: "http://localhost:3000/checkout/cancel",
+    },
   };
 
   const res = await fetch(`${process.env.PAYPAL_BASE_URL}/v2/checkout/orders`, {
@@ -121,15 +156,31 @@ export async function createPaypalOrder(amount: string, currency = "USD") {
   });
 
   if (!res.ok) {
-    const errorMessage = await res.text();
+    let errorBody: PaypalErrorResponse;
+    try {
+      errorBody = await res.json();
+    } catch (error) {
+      const rawText = await res.text();
+      throw new PaypalCreateOrderError(
+        `Create order failed\n: ${rawText}`,
+        res.status,
+      );
+    }
+
     throw new PaypalCreateOrderError(
-      `Create order failed\n: ${JSON.stringify(errorMessage)}`,
+      "Create order failed",
+      res.status,
+      errorBody,
     );
   }
 
-  const data = await res.json();
+  const data: PaypalCreateOrderSuccess = await res.json();
 
-  return data;
+  const createOrderData = {
+    returnURL: data.links.find((link) => link.rel === "approve")?.href,
+  };
+
+  return createOrderData;
 }
 
 export async function capturePaypalOrder(orderID: string) {
@@ -155,6 +206,8 @@ export async function capturePaypalOrder(orderID: string) {
   }
 
   const data = await res.json();
+
+  console.log(data);
 
   return data;
 }

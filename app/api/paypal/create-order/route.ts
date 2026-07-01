@@ -13,8 +13,6 @@ export async function POST(req: Request) {
       currency ?? "USD",
     );
 
-    console.log(order);
-
     return NextResponse.json(order);
   } catch (e: any) {
     return NextResponse.json(

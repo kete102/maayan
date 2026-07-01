@@ -42,10 +42,8 @@ const shippingFields: Field[] = [
   },
 ];
 
-
 export function CheckoutClient() {
-  const { items, subtotal, clearCart } = useCart();
-  const [placed, setPlaced] = useState(false);
+  const { items, subtotal } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -116,7 +114,6 @@ export function CheckoutClient() {
           <Section title="Contacto" fields={contactFields} />
           <Section title="Dirección de envío" fields={shippingFields} />
 
-          {/* <PaypalCheckout amount="20.00" currency="USD" /> */}
           {error && (
             <p className="text-sm text-destructive">{error}</p>
           )}

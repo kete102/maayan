@@ -26,7 +26,7 @@ class PaypalCaptureOrderError extends Error {
 }
 
 type GeneratePaypalAccessToken = {
-  accessToken: PaypalAccessTokenResponse["access_token"];
+  accessToken: string;
 };
 
 export async function generateAccessToken(): Promise<GeneratePaypalAccessToken> {
@@ -159,7 +159,7 @@ export async function createPaypalOrder(
     let errorBody: PaypalErrorResponse;
     try {
       errorBody = await res.json();
-    } catch (error) {
+    } catch {
       const rawText = await res.text();
       throw new PaypalCreateOrderError(
         `Create order failed\n: ${rawText}`,
@@ -176,11 +176,13 @@ export async function createPaypalOrder(
 
   const data: PaypalCreateOrderSuccess = await res.json();
 
-  const createOrderData = {
-    returnURL: data.links.find((link) => link.rel === "approve")?.href,
-  };
+  const approvalURL = data.links.find((link) => link.rel === "approve")?.href;
 
-  return createOrderData;
+  if (!approvalURL) {
+    throw new PaypalCreateOrderError("PayPal did not return an approval URL", 500);
+  }
+
+  return { returnURL: approvalURL };
 }
 
 export async function capturePaypalOrder(orderID: string) {
@@ -206,8 +208,6 @@ export async function capturePaypalOrder(orderID: string) {
   }
 
   const data = await res.json();
-
-  console.log(data);
 
   return data;
 }

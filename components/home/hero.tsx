@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative isolate flex min-h-[88vh] items-center overflow-hidden">
+    <section className="relative isolate -mt-16 flex min-h-screen items-center overflow-hidden md:-mt-12">
       <video
         autoPlay
         muted

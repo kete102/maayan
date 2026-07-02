@@ -21,7 +21,7 @@ export function Logo({
         >
           <path d="M12 2c2 4 5 6 5 10a5 5 0 0 1-10 0c0-4 3-6 5-10Z" />
         </svg>
-        <span className="font-serif text-2xl font-medium tracking-wide">
+        <span className="font-serif text-2xl font-medium tracking-wide text-primary-foreground">
           Maayan
         </span>
       </span>

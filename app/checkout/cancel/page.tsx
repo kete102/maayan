@@ -22,6 +22,7 @@ export default function CheckoutCancelPage() {
       // Backup was malformed — silently ignore, cart stays empty
     } finally {
       sessionStorage.removeItem("paypal_cart_backup");
+      sessionStorage.removeItem("paypal_shipping_backup");
     }
   }, []);
 

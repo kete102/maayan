@@ -2,6 +2,7 @@
 
 import { useCart } from "@/components/cart/cart-provider";
 import { Button } from "@/components/ui/button";
+import { calcShipping, calcTax, calcTotal } from "@/lib/pricing";
 import { formatPrice } from "@/lib/products";
 import Image from "next/image";
 import Link from "next/link";
@@ -65,9 +66,9 @@ export function CheckoutClient() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const shipping = subtotal >= 75 || subtotal === 0 ? 0 : 6.5;
-  const tax = subtotal * 0.07;
-  const total = subtotal + shipping + tax;
+  const shipping = calcShipping(subtotal);
+  const tax = calcTax(subtotal);
+  const total = calcTotal(subtotal);
 
   async function handleSubmitOrder(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

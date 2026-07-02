@@ -4,11 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Minus, Plus, X } from 'lucide-react'
 import { useCart } from '@/components/cart/cart-provider'
+import { calcShipping, calcTax, calcTotal } from '@/lib/pricing'
+import { formatPrice } from '@/lib/products'
 
 export function CartPageClient() {
   const { items, updateQuantity, removeItem, subtotal } = useCart()
-  const shipping = subtotal >= 75 || subtotal === 0 ? 0 : 8
-  const total = subtotal + shipping
+  const shipping = calcShipping(subtotal)
+  const tax = calcTax(subtotal)
+  const total = calcTotal(subtotal)
 
   if (items.length === 0) {
     return (
@@ -90,7 +93,7 @@ export function CartPageClient() {
                     </button>
                   </div>
                   <span className="font-serif text-xl">
-                    ${item.product.price * item.quantity}
+                    {formatPrice(item.product.price * item.quantity)}
                   </span>
                 </div>
               </div>
@@ -103,15 +106,19 @@ export function CartPageClient() {
           <dl className="mt-6 space-y-4 text-sm">
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Subtotal</dt>
-              <dd>${subtotal}</dd>
+              <dd>{formatPrice(subtotal)}</dd>
             </div>
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Envío</dt>
-              <dd>{shipping === 0 ? 'Gratuito' : `$${shipping}`}</dd>
+              <dd>{shipping === 0 ? 'Gratuito' : formatPrice(shipping)}</dd>
+            </div>
+            <div className="flex justify-between">
+              <dt className="text-muted-foreground">Impuesto estimado</dt>
+              <dd>{formatPrice(tax)}</dd>
             </div>
             <div className="flex justify-between border-t border-border pt-4 font-serif text-xl">
               <dt>Total</dt>
-              <dd>${total}</dd>
+              <dd>{formatPrice(total)}</dd>
             </div>
           </dl>
           <Link

@@ -16,11 +16,11 @@ export function Logo({
     >
       <span className="flex items-center gap-2">
         <Image
-          src="/logo_v1.png"
+          src="/logo_v2.png"
           alt="Maayan logo"
           width={32}
           height={32}
-          className="h-8 w-8 object-contain"
+          className="size-18 object-contain"
         />
         <span className="font-serif text-3xl font-medium tracking-wide text-primary-foreground">
           Maayan

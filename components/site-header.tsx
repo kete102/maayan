@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { Logo } from "@/components/logo";
@@ -17,9 +17,40 @@ const navLinks = [
 export function SiteHeader() {
   const { count, setIsOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    function handleScroll() {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 10) {
+        // Always show at the very top
+        setVisible(true);
+      } else if (currentScrollY < lastScrollY.current) {
+        // Scrolling up — show
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        // Scrolling down — hide
+        setVisible(false);
+        // Close mobile menu when hiding
+        setMobileOpen(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 z-40 mx-auto  w-full   p-4 ">
+    <header
+      className={cn(
+        "fixed top-0 z-40 w-full p-4 transition-transform duration-300",
+        visible ? "translate-y-0" : "-translate-y-full",
+      )}
+    >
       <div className="mx-auto flex h-16 max-w-8xl items-center justify-between px-4 md:h-12 md:px-8">
         <div className="flex items-center gap-3">
           <button
@@ -96,3 +127,4 @@ export function SiteHeader() {
     </header>
   );
 }
+

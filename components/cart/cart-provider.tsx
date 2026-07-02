@@ -29,9 +29,45 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | null>(null)
 
+const CART_STORAGE_KEY = 'maayan_cart'
+
+function loadCartFromStorage(): CartItem[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY)
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed)) return []
+    return parsed
+  } catch {
+    return []
+  }
+}
+
+function saveCartToStorage(items: CartItem[]) {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
+  } catch {
+    // localStorage unavailable (e.g. private browsing with storage blocked)
+  }
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const [hydrated, setHydrated] = useState(false)
+
+  // Load cart from localStorage on mount (client-only)
+  useEffect(() => {
+    setItems(loadCartFromStorage())
+    setHydrated(true)
+  }, [])
+
+  // Persist cart to localStorage whenever it changes (skip before hydration)
+  useEffect(() => {
+    if (!hydrated) return
+    saveCartToStorage(items)
+  }, [items, hydrated])
 
   function addItem(product: Product, quantity = 1) {
     setItems((prev) => {
@@ -66,12 +102,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems([])
   }
 
-  const count = items.reduce((sum, i) => sum + i.quantity, 0)
-  const subtotal = items.reduce(
-    (sum, i) => sum + i.product.price * i.quantity,
-    0,
-  )
-
   // lock scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
@@ -79,6 +109,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       document.body.style.overflow = ''
     }
   }, [isOpen])
+
+  const count = items.reduce((sum, i) => sum + i.quantity, 0)
+  const subtotal = items.reduce(
+    (sum, i) => sum + i.product.price * i.quantity,
+    0,
+  )
 
   const value = useMemo(
     () => ({

@@ -19,8 +19,8 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-40 w-full max-w- p-4 border-b border-white/10 bg-white/5 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-12 md:px-8">
+    <header className="fixed top-0 z-40 mx-auto  w-full   p-4 ">
+      <div className="mx-auto flex h-16 max-w-8xl items-center justify-between px-4 md:h-12 md:px-8">
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -37,12 +37,12 @@ export function SiteHeader() {
           <Logo />
         </div>
 
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md gap-9 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="text-sm font-light tracking-wide text-white/80 transition-colors hover:text-white"
+              className="text-lg font-medium tracking-wide text-white/80 transition-colors hover:text-white"
             >
               {link.label}
             </Link>

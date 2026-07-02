@@ -1,0 +1,115 @@
+@startuml checkout-flow
+
+title Maayan — Checkout Flow
+
+skinparam sequenceArrowThickness 1.5
+skinparam sequenceGroupBorderThickness 1
+skinparam sequenceGroupBorderColor #888888
+skinparam sequenceLifeLineBorderColor #888888
+skinparam participantBorderColor #888888
+skinparam noteBorderColor #888888
+skinparam noteBackgroundColor #FAFAF8
+
+actor User as user
+participant "/shop\n/checkout" as browser #F5F0E8
+participant "sessionStorage" as session #F5F0E8
+participant "/api/paypal\n/create-order" as createRoute #E8F0F5
+participant "/api/paypal\n/capture-order" as captureRoute #E8F0F5
+participant "lib/paypal.ts" as paypalLib #EEF5E8
+participant "PayPal API" as paypal #FFF8E8
+participant "Supabase" as supabase #F0E8F5
+participant "Resend" as resend #F5E8E8
+participant "/checkout/success\n/order/[id]" as successPage #F5F0E8
+participant "/checkout/cancel" as cancelPage #F5F0E8
+
+' ─────────────────────────────────────────────
+group Browse & Cart
+  user -> browser : Add product to cart
+  note right of browser
+    CartProvider holds items
+    in React state (memory only)
+  end note
+end
+
+' ─────────────────────────────────────────────
+group Checkout Form
+  user -> browser : Fill in contact + shipping fields\n(email, phone, name, address,\ncity, state, postal, country)
+  user -> browser : Click "Pagar con PayPal"
+  browser -> session : Save cart → ""paypal_cart_backup""
+  browser -> session : Save shipping → ""paypal_shipping_backup""
+  browser -> createRoute : POST { amount, shipping, tax,\ncurrency, cart_items }
+end
+
+' ─────────────────────────────────────────────
+group Create PayPal Order (Server)
+  createRoute -> paypalLib : createPaypalOrder()
+  paypalLib -> paypal : POST /v1/oauth2/token\n(client_id + secret → Basic Auth)
+  paypal --> paypalLib : access_token
+  paypalLib -> paypal : POST /v2/checkout/orders\n{ intent: CAPTURE, items,\nbreakdown, application_context\n(return_url, cancel_url) }
+  paypal --> paypalLib : order { id, status: CREATED, links[] }
+  paypalLib -> paypalLib : links.find(rel == "approve") → approvalURL
+  paypalLib --> createRoute : { returnURL: approvalURL }
+  createRoute --> browser : { returnURL }
+  browser -> paypal : window.location.href = returnURL\n(user leaves your site)
+end
+
+' ─────────────────────────────────────────────
+group PayPal Approval
+  user -> paypal : Log in with PayPal account
+  user -> paypal : Review order and click "Pay Now"
+
+  alt User approves
+    paypal -> successPage : Redirect to /checkout/success\n?token=ORDER_ID&PayerID=PAYER_ID
+  else User cancels
+    paypal -> cancelPage : Redirect to /checkout/cancel
+    cancelPage -> session : Read ""paypal_cart_backup""
+    cancelPage -> browser : Restore cart items via addItem()
+    session -> session : Remove ""paypal_cart_backup""
+    note right of cancelPage
+      User sees cancellation message
+      with links to retry or keep browsing
+    end note
+  end
+end
+
+' ─────────────────────────────────────────────
+group Capture Payment (Server)
+  successPage -> session : Read ""paypal_cart_backup"" → cartItems
+  successPage -> session : Read ""paypal_shipping_backup"" → shippingInfo
+  successPage -> captureRoute : POST { orderID, cartItems,\nshippingName, shippingEmail,\nshippingPhone, shippingAddress,\nshippingCity, shippingState,\nshippingPostal, shippingCountry }
+  captureRoute -> paypalLib : capturePaypalOrder(orderID)
+  paypalLib -> paypal : POST /v1/oauth2/token
+  paypal --> paypalLib : access_token
+  paypalLib -> paypal : POST /v2/checkout/orders/:id/capture
+  paypal --> paypalLib : capture { status, payer, purchase_units }
+  paypalLib --> captureRoute : capture data
+
+  alt capture.status !== "COMPLETED"
+    captureRoute --> successPage : 422 { error, status }
+    note right of successPage
+      Shows error UI with
+      link back to /checkout
+    end note
+  else capture.status === "COMPLETED"
+    captureRoute -> supabase : INSERT orders\n{ paypal_order_id, paypal_transaction_id,\nstatus, payer_name, payer_email,\namount, currency, items (JSONB),\nshipping_name, shipping_email,\nshipping_phone, shipping_address,\nshipping_city, shipping_state,\nshipping_postal, shipping_country }
+    supabase --> captureRoute : savedOrder { id (UUID), ...}
+    captureRoute -> resend : sendOrderConfirmationEmail(savedOrder)\n[non-blocking — fires and forgets]
+    resend -> user : Confirmation email to shippingEmail\n(order summary + "Ver mi pedido" link)
+    captureRoute --> successPage : { ...capture, orderId: savedOrder.id }
+  end
+end
+
+' ─────────────────────────────────────────────
+group Success & Order Page
+  successPage -> session : Remove ""paypal_cart_backup""
+  successPage -> session : Remove ""paypal_shipping_backup""
+  successPage -> browser : clearCart()
+  successPage -> user : Show confirmation card\n(order ID, total, name, email)\n+ "Ver mi pedido" button
+
+  user -> successPage : Click "Ver mi pedido"
+  successPage -> supabase : SELECT * FROM orders WHERE id = UUID
+  supabase --> successPage : order row
+  successPage -> user : Show full order details\n(items, total, shipping address,\nphone, transaction ID, status)
+end
+
+@enduml

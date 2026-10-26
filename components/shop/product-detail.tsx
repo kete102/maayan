@@ -35,7 +35,7 @@ export function ProductDetail({ product }: { product: Product }) {
 					<p className="text-gold text-xs tracking-[0.3em] uppercase">
 						{getCollectionName(product.collection)}
 					</p>
-					<h1 className="mt-3 font-serif text-4xl leading-tight font-light text-balance md:text-5xl">
+					<h1 className="mt-3 font-serif text-4xl leading-tight text-balance md:text-5xl">
 						{product.name}
 					</h1>
 					<div className="mt-4">
@@ -45,7 +45,7 @@ export function ProductDetail({ product }: { product: Product }) {
 						/>
 					</div>
 					<p className="mt-6 font-serif text-3xl">${product.price}</p>
-					<p className="text-muted-foreground mt-4 leading-relaxed font-light text-pretty">
+					<p className="text-muted-foreground mt-4 leading-relaxed text-pretty">
 						{product.shortDescription}
 					</p>
 
@@ -99,7 +99,7 @@ export function ProductDetail({ product }: { product: Product }) {
 						Comprar Ahora
 					</button>
 
-					<ul className="text-muted-foreground mt-8 space-y-3 text-sm font-light">
+					<ul className="text-muted-foreground mt-8 space-y-3 text-sm">
 						<li className="flex items-center gap-3">
 							<Truck className="text-gold h-4 w-4" /> Envío gratuito en compras
 							superiores a $75
@@ -140,7 +140,7 @@ export function ProductDetail({ product }: { product: Product }) {
 				</div>
 				<div className="max-w-3xl py-8">
 					{activeTab === "description" && (
-						<p className="text-muted-foreground leading-relaxed font-light text-pretty">
+						<p className="text-muted-foreground leading-relaxed text-pretty">
 							{product.description}
 						</p>
 					)}
@@ -149,7 +149,7 @@ export function ProductDetail({ product }: { product: Product }) {
 							{product.features.map((f) => (
 								<li
 									key={f}
-									className="flex items-start gap-3 font-light"
+									className="flex items-start gap-3"
 								>
 									<span className="bg-gold mt-2 h-1.5 w-1.5 shrink-0" />
 									{f}

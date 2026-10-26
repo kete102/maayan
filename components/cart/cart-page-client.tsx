@@ -16,10 +16,8 @@ export function CartPageClient() {
 	if (items.length === 0) {
 		return (
 			<div className="mx-auto flex min-h-[50vh] max-w-7xl flex-col items-center justify-center gap-5 px-4 text-center md:px-8">
-				<h1 className="font-serif text-4xl font-light">
-					Tu carrito está vacío
-				</h1>
-				<p className="text-muted-foreground max-w-md font-light">
+				<h1 className="font-serif text-4xl">Tu carrito está vacío</h1>
+				<p className="text-muted-foreground max-w-md">
 					Aún no se han añadido Biblias. Cuando encuentres la edición para tu
 					camino, descansará aquí.
 				</p>
@@ -35,7 +33,7 @@ export function CartPageClient() {
 
 	return (
 		<div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
-			<h1 className="font-serif text-4xl font-light md:text-5xl">Tu Carrito</h1>
+			<h1 className="font-serif text-4xl md:text-5xl">Tu Carrito</h1>
 			<div className="mt-10 grid gap-12 lg:grid-cols-[1.6fr_1fr]">
 				<ul className="divide-border border-border divide-y border-y">
 					{items.map((item) => (
@@ -114,7 +112,7 @@ export function CartPageClient() {
 				</ul>
 
 				<aside className="border-border bg-card h-fit rounded-2xl border p-8">
-					<h2 className="font-serif text-2xl font-light">Resumen del Pedido</h2>
+					<h2 className="font-serif text-2xl">Resumen del Pedido</h2>
 					<dl className="mt-6 space-y-4 text-sm">
 						<div className="flex justify-between">
 							<dt className="text-muted-foreground">Subtotal</dt>

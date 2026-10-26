@@ -30,7 +30,7 @@ export function ProductReviews({ product }: { product: Product }) {
 		<section className="mx-auto max-w-7xl px-4 py-16 md:px-8">
 			<div className="grid gap-12 lg:grid-cols-[1fr_2fr]">
 				<div>
-					<h2 className="font-serif text-3xl font-light">Reseñas</h2>
+					<h2 className="font-serif text-3xl">Reseñas</h2>
 					<div className="mt-4 flex items-baseline gap-3">
 						<span className="font-serif text-5xl">
 							{product.rating.toFixed(1)}
@@ -51,7 +51,7 @@ export function ProductReviews({ product }: { product: Product }) {
 						>
 							<StarRating rating={review.rating} />
 							<h3 className="mt-3 font-serif text-xl">{review.title}</h3>
-							<p className="text-muted-foreground mt-2 leading-relaxed font-light">
+							<p className="text-muted-foreground mt-2 leading-relaxed">
 								{review.body}
 							</p>
 							<p className="text-muted-foreground mt-3 text-xs tracking-wide uppercase">

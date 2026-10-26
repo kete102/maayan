@@ -38,7 +38,7 @@ function FilterGroup({
 					const checked = selected.includes(option);
 					return (
 						<li key={option}>
-							<label className="flex cursor-pointer items-center gap-3 text-sm font-light">
+							<label className="flex cursor-pointer items-center gap-3 text-sm">
 								<span
 									className={cn(
 										"flex h-4 w-4 items-center justify-center border transition-colors",
@@ -178,7 +178,7 @@ export function ShopClient({
 	const filterPanel = (
 		<div>
 			<div className="border-border flex items-center justify-between border-b pb-4">
-				<h2 className="font-serif text-2xl font-light">Filtros</h2>
+				<h2 className="font-serif text-2xl">Filtros</h2>
 				{activeCount > 0 && (
 					<button
 						type="button"

@@ -57,7 +57,7 @@ export function ProductCard({ product }: { product: Product }) {
 						size="sm"
 					/>
 				</div>
-				<p className="text-muted-foreground mt-2 line-clamp-2 text-sm font-light">
+				<p className="text-muted-foreground mt-2 line-clamp-2 text-sm">
 					{product.shortDescription}
 				</p>
 				<p className="mt-3 font-serif text-xl">${product.price}</p>

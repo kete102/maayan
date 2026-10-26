@@ -30,7 +30,7 @@ export function Testimonials() {
 					<p className="text-gold text-xs tracking-[0.3em] uppercase">
 						Testimonios
 					</p>
-					<h2 className="mt-3 font-serif text-4xl font-light text-balance md:text-5xl">
+					<h2 className="mt-3 font-serif text-4xl text-balance md:text-5xl">
 						Amado por lectores en todo el mundo
 					</h2>
 				</div>
@@ -41,10 +41,10 @@ export function Testimonials() {
 							className="bg-card flex flex-col gap-6 p-8"
 						>
 							<StarRating rating={5} />
-							<blockquote className="flex-1 font-serif text-xl leading-relaxed font-light italic">
+							<blockquote className="flex-1 font-serif text-xl leading-relaxed italic">
 								&ldquo;{t.quote}&rdquo;
 							</blockquote>
-							<figcaption className="text-muted-foreground text-sm font-light">
+							<figcaption className="text-muted-foreground text-sm">
 								<span className="text-foreground">{t.name}</span> — {t.location}
 							</figcaption>
 						</figure>

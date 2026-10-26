@@ -7,7 +7,7 @@ export function SiteFooter() {
 			<div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-10 sm:flex-row sm:items-center sm:justify-between md:px-8">
 				<div className="max-w-sm">
 					<Logo textClassName="text-gold" />
-					<p className="text-muted-foreground mt-3 text-sm leading-relaxed font-light">
+					<p className="text-muted-foreground mt-3 text-sm leading-relaxed">
 						Una fuente de agua viva para acompañar tu camino de fe.
 					</p>
 				</div>

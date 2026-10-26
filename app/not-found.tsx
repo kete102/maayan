@@ -13,15 +13,15 @@ export default function NotFound() {
 					Página no encontrada
 				</h1>
 				<p className="text-muted-foreground mt-4 leading-relaxed">
-					La página que buscas no existe o ha sido movida. Vuelve a la tienda
-					para continuar explorando nuestra colección.
+					La página que buscas no existe o ha sido movida. Vuelve al inicio para
+					seguir explorando.
 				</p>
 				<div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
 					<Button
-						render={<Link href="/" />}
+						render={<Link href="/#biblia" />}
 						className="px-8"
 					>
-						Explorar la colección
+						Ver la Biblia
 					</Button>
 					<Button
 						render={<Link href="/" />}

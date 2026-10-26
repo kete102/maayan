@@ -30,7 +30,7 @@ export function StarRating({
 			{count !== undefined && (
 				<span
 					className={cn(
-						"text-muted-foreground font-light",
+						"text-muted-foreground",
 						size === "sm" ? "text-xs" : "text-sm"
 					)}
 				>

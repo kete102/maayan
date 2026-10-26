@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/site-shell";
 import { buttonVariants } from "@/components/ui/button";
@@ -37,33 +38,50 @@ export default function AboutPage() {
 	return (
 		<SiteShell>
 			{/* héroe */}
-			<div className="relative">
-				<section className="border-border bg-card relative flex min-h-[52vh] items-center overflow-hidden border-b">
-					<div className="text-primary-foreground mx-auto w-full max-w-3xl px-4 py-24 text-center md:px-8">
-						<p className="text-primary-foreground/80 text-xs tracking-[0.4em] uppercase">
-							Nuestra Historia
-						</p>
-						<h1 className="mt-5 font-serif text-5xl leading-tight font-light text-balance md:text-7xl">
-							Un manantial de agua viva
-						</h1>
-						<p className="text-primary-foreground/85 mx-auto mt-6 max-w-xl leading-relaxed font-light text-pretty">
-							El nombre que elegimos lleva el corazón de todo lo que hacemos.
-						</p>
-					</div>
-				</section>
-			</div>
+			<section
+				data-header-theme="dark"
+				className="dark-surface relative isolate -mt-20 flex min-h-[70dvh] items-center overflow-hidden pt-20 md:-mt-24 md:pt-24"
+			>
+				<Image
+					src="/images/canyon-story.webp"
+					alt=""
+					fill
+					priority
+					sizes="100vw"
+					className="-z-20 object-cover object-center"
+				/>
+				<div
+					className="from-canyon-950/80 via-canyon-950/60 to-canyon-950/40 absolute inset-0 -z-10 bg-gradient-to-b"
+					aria-hidden="true"
+				/>
+				<div
+					className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-b from-transparent via-[#d2b9a2]/60 to-[#d2b9a2] md:h-64"
+					aria-hidden="true"
+				/>
+				<div className="mx-auto w-full max-w-3xl px-4 pt-16 pb-44 text-center md:px-8 md:pb-56">
+					<p className="text-gold font-sans text-xs font-medium tracking-[0.3em] uppercase">
+						Nuestra Historia
+					</p>
+					<h1 className="mt-5 font-serif text-5xl leading-tight font-normal text-balance md:text-7xl">
+						Un manantial de agua viva
+					</h1>
+					<p className="text-muted-foreground mx-auto mt-6 max-w-xl text-base leading-relaxed text-pretty md:text-lg">
+						El nombre que elegimos lleva el corazón de todo lo que hacemos.
+					</p>
+				</div>
+			</section>
 
 			{/* significado */}
 			<Reveal className="mx-auto max-w-3xl px-4 py-20 text-center md:px-8 md:py-28">
 				<p className="text-gold text-xs tracking-[0.3em] uppercase">
 					El Significado de Maayan
 				</p>
-				<p className="mt-8 font-serif text-2xl leading-relaxed font-light text-pretty md:text-3xl">
+				<p className="mt-8 font-serif text-2xl leading-relaxed text-pretty md:text-3xl">
 					En hebreo, <span className="italic">Maayan</span> (מַעְיָן) significa{" "}
 					<span className="italic">manantial</span> — una fuente de agua que
 					brota constantemente y da vida.
 				</p>
-				<p className="text-muted-foreground mt-8 leading-relaxed font-light text-pretty">
+				<p className="text-muted-foreground mt-8 leading-relaxed text-pretty">
 					En la Biblia, los manantiales simbolizan{" "}
 					<span className="text-foreground italic">
 						la provisión de Dios, la renovación espiritual, la esperanza y la
@@ -71,13 +89,13 @@ export default function AboutPage() {
 					</span>{" "}
 					El profeta Isaías escribió:
 				</p>
-				<blockquote className="border-gold text-foreground mx-auto mt-6 max-w-xl border-l-2 pl-6 text-left font-serif text-xl leading-relaxed font-light italic md:text-2xl">
+				<blockquote className="border-gold text-foreground mx-auto mt-6 max-w-xl border-l-2 pl-6 text-left font-serif text-xl leading-relaxed italic md:text-2xl">
 					&ldquo;Sacaréis con gozo aguas de las fuentes de la salvación&rdquo;
 				</blockquote>
 				<p className="text-gold mt-2 pl-6 text-left text-xs tracking-[0.3em] uppercase">
 					Isaías 12:3
 				</p>
-				<p className="text-muted-foreground mt-8 leading-relaxed font-light text-pretty">
+				<p className="text-muted-foreground mt-8 leading-relaxed text-pretty">
 					Esa imagen inspiró profundamente nuestra visión. Creemos que{" "}
 					<span className="text-foreground italic">
 						la Palabra de Dios es un manantial inagotable
@@ -94,10 +112,10 @@ export default function AboutPage() {
 				<p className="text-gold text-xs tracking-[0.3em] uppercase">
 					Nuestros Comienzos
 				</p>
-				<h2 className="mt-3 font-serif text-4xl leading-tight font-light text-balance md:text-5xl">
+				<h2 className="mt-3 font-serif text-4xl leading-tight text-balance md:text-5xl">
 					Un regalo que se convirtió en vocación
 				</h2>
-				<p className="text-muted-foreground mt-8 leading-relaxed font-light text-pretty">
+				<p className="text-muted-foreground mt-8 leading-relaxed text-pretty">
 					Nuestra historia comenzó de una manera muy sencilla y personal.
 					Mientras preparábamos{" "}
 					<span className="text-foreground italic">nuestra boda</span>, surgió
@@ -114,7 +132,7 @@ export default function AboutPage() {
 					<span className="text-gold text-xs tracking-widest">✦</span>
 					<div className="bg-border h-px flex-1" />
 				</div>
-				<p className="text-muted-foreground leading-relaxed font-light text-pretty">
+				<p className="text-muted-foreground leading-relaxed text-pretty">
 					Así nacieron nuestras Biblias artesanales. Cada una es confeccionada{" "}
 					<span className="text-foreground italic">
 						a mano con telas cuidadosamente seleccionadas
@@ -131,10 +149,10 @@ export default function AboutPage() {
 				<p className="text-gold text-xs tracking-[0.3em] uppercase">
 					Nuestra Misión
 				</p>
-				<h2 className="mt-3 font-serif text-4xl leading-tight font-light text-balance md:text-5xl">
+				<h2 className="mt-3 font-serif text-4xl leading-tight text-balance md:text-5xl">
 					Belleza que abre el corazón
 				</h2>
-				<p className="text-muted-foreground mt-6 leading-relaxed font-light text-pretty">
+				<p className="text-muted-foreground mt-6 leading-relaxed text-pretty">
 					Creemos que la belleza tiene la capacidad de{" "}
 					<span className="text-foreground italic">
 						captar la atención y abrir el corazón.
@@ -144,7 +162,7 @@ export default function AboutPage() {
 					expresión de fe y reverencia, y una invitación a descubrir el mensaje
 					que transforma vidas.
 				</p>
-				<p className="text-muted-foreground mt-4 leading-relaxed font-light text-pretty">
+				<p className="text-muted-foreground mt-4 leading-relaxed text-pretty">
 					En Maayan unimos{" "}
 					<span className="text-foreground italic">
 						fe, artesanía y elegancia
@@ -172,7 +190,7 @@ export default function AboutPage() {
 				<p className="text-gold text-xs tracking-[0.3em] uppercase">
 					Lo que nos guía
 				</p>
-				<h2 className="mt-3 font-serif text-4xl leading-tight font-light text-balance md:text-5xl">
+				<h2 className="mt-3 font-serif text-4xl leading-tight text-balance md:text-5xl">
 					Nuestros pilares
 				</h2>
 				<div className="mt-12">
@@ -182,10 +200,10 @@ export default function AboutPage() {
 							className="border-border border-t py-8 last:border-b"
 						>
 							<div>
-								<h3 className="text-foreground font-serif text-xl font-light md:text-2xl">
+								<h3 className="text-foreground font-serif text-xl md:text-2xl">
 									{pilar.title}
 								</h3>
-								<p className="text-muted-foreground mt-3 leading-relaxed font-light">
+								<p className="text-muted-foreground mt-3 leading-relaxed">
 									{pilar.body}
 								</p>
 							</div>

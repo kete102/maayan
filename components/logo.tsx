@@ -1,35 +1,54 @@
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
+import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export function Logo({
-  className,
-  showTagline = false,
+	className,
+	textClassName,
+	showTagline = false,
+	hideText = false,
 }: {
-  className?: string
-  showTagline?: boolean
+	className?: string;
+	textClassName?: string;
+	showTagline?: boolean;
+	hideText?: boolean;
 }) {
-  return (
-    <Link href="/" className={cn('group inline-flex flex-col leading-none', className)}>
-      <span className="flex items-center gap-2">
-        <svg
-          viewBox="0 0 24 24"
-          className="h-5 w-5 text-gold"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          aria-hidden="true"
-        >
-          <path d="M12 2c2 4 5 6 5 10a5 5 0 0 1-10 0c0-4 3-6 5-10Z" />
-        </svg>
-        <span className="font-serif text-2xl font-medium tracking-wide">
-          Maayan
-        </span>
-      </span>
-      {showTagline && (
-        <span className="mt-1 pl-7 font-sans text-[0.6rem] uppercase tracking-[0.3em] text-muted-foreground">
-          Las Escrituras que Fluyen
-        </span>
-      )}
-    </Link>
-  )
+	return (
+		<Link
+			href="/"
+			className={cn("group inline-flex flex-col leading-none", className)}
+		>
+			<span className="flex items-center">
+				<Image
+					src="/logo-gold.webp"
+					alt="Maayan logo"
+					width={32}
+					height={32}
+					className={cn("size-9 object-contain", !hideText && "mr-0.5")}
+				/>
+				<span
+					className={cn(
+						"grid transition-[grid-template-columns,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+						hideText
+							? "grid-cols-[0fr] opacity-0"
+							: "grid-cols-[1fr] opacity-100"
+					)}
+				>
+					<span
+						className={cn(
+							"text-gold min-w-0 overflow-hidden font-serif text-2xl font-medium tracking-wide whitespace-nowrap",
+							textClassName
+						)}
+					>
+						Maayan
+					</span>
+				</span>
+			</span>
+			{showTagline && (
+				<span className="text-muted-foreground mt-1 pl-10 font-sans text-[0.6rem] tracking-[0.3em] uppercase">
+					Las Escrituras que Fluyen
+				</span>
+			)}
+		</Link>
+	);
 }

@@ -1,60 +1,60 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function BrandStory() {
-  return (
-    <section className="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
-      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <div>
-          <p className="text-sm uppercase tracking-[0.3em] text-gold">
-            Nuestro Significado
-          </p>
-          <h2 className="mt-3 text-balance font-serif text-4xl font-light leading-tight md:text-5xl">
-            Maayan — Fe hecha arte
-          </h2>
-          <p className="mt-6 text-pretty font-light leading-relaxed text-muted-foreground">
-            Maayan nace del deseo de llevar la Palabra de Dios como{" "}
-            <span className="italic text-foreground">
-              un manantial de vida, esperanza y salvación.
-            </span>
-          </p>
-          <p className="mt-4 text-pretty font-light leading-relaxed text-muted-foreground">
-            Creamos Biblias artesanales únicas,{" "}
-            <span className="italic text-foreground">
-              elaboradas a mano con excelencia, amor y atención a cada detalle.
-            </span>
-          </p>
-          <p className="mt-4 text-pretty font-light leading-relaxed text-muted-foreground">
-            Cada pieza une{" "}
-            <span className="italic text-foreground">
-              fe, belleza y elegancia
-            </span>{" "}
-            para honrar el mensaje más valioso que existe.
-          </p>
-          {/* <div className="my-6 flex items-center gap-4"> */}
-          {/*   <div className="h-px flex-1 bg-border" /> */}
-          {/*   <span className="text-xs uppercase tracking-[0.3em] text-gold"> */}
-          {/*     ✦ */}
-          {/*   </span> */}
-          {/*   <div className="h-px flex-1 bg-border" /> */}
-          {/* </div> */}
-          <Link
-            href="/about"
-            className="mt-6 inline-flex items-center border-b border-foreground pb-1 text-sm uppercase tracking-[0.2em] text-foreground"
-          >
-            Lee nuestra historia
-          </Link>
-        </div>
-        <div className="relative aspect-4/3 overflow-hidden rounded-sm">
-          <Image
-            src="/images/about-water.png"
-            alt="Un manantial de agua dulce fluyendo sobre piedras lisas"
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-        </div>
-      </div>
-    </section>
-  );
+	return (
+		<section className="relative isolate overflow-hidden py-20 md:py-32">
+			<div
+				className="absolute inset-0 -z-20 bg-cover bg-center"
+				style={{ backgroundImage: "url('/images/canyon-story.webp')" }}
+				aria-hidden="true"
+			/>
+			<div className="bg-canyon-950/80 absolute inset-0 -z-10" />
+			<div className="mx-auto grid max-w-7xl items-center gap-12 px-4 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+				<div className="glass order-last flex min-h-72 flex-col justify-between p-8 md:p-12 lg:order-first">
+					<p
+						className="text-gold font-serif text-6xl leading-none md:text-7xl"
+						aria-hidden="true"
+					>
+						מַעְיָן
+					</p>
+					<p className="text-canyon-50 max-w-sm font-serif text-2xl leading-snug md:text-3xl">
+						Una fuente de vida que vuelve a comenzar cada día.
+					</p>
+				</div>
+				<div>
+					<p
+						className="text-gold font-serif text-6xl leading-none font-normal md:text-7xl lg:text-8xl"
+						aria-hidden="true"
+					>
+						מַעְיָן
+					</p>
+					<p className="text-canyon-50-80 mt-1 font-sans text-[0.65rem] font-medium tracking-[0.3em] uppercase">
+						Manantial · Fuente de vida
+					</p>
+					<h2 className="text-canyon-50 mt-8 font-serif text-3xl leading-snug font-normal md:text-4xl">
+						Fe hecha arte, entregada para toda una vida
+					</h2>
+					<div className="text-canyon-50-85 mt-6 space-y-4 font-sans text-sm leading-relaxed font-light">
+						<p>
+							Maayan nace del deseo de llevar la Palabra de Dios como un
+							manantial de vida, esperanza y salvación.
+						</p>
+						<p>
+							Creamos Biblias artesanales encuadernadas a mano con excelencia,
+							amor y atención a cada detalle. Cada pieza une fe, belleza y
+							elegancia para honrar el mensaje más valioso que existe.
+						</p>
+					</div>
+					<Link
+						href="/about"
+						className="group text-gold hover:text-canyon-50 mt-8 inline-flex items-center gap-2 font-sans text-xs font-medium tracking-[0.2em] uppercase transition-colors"
+					>
+						Nuestra historia
+						<ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+					</Link>
+				</div>
+			</div>
+		</section>
+	);
 }

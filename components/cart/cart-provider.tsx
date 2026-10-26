@@ -1,141 +1,141 @@
-'use client'
+"use client";
 
 import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
-import type { Product } from '@/lib/products'
+	createContext,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+	type ReactNode,
+} from "react";
+import type { Product } from "@/lib/products";
 
 export type CartItem = {
-  product: Product
-  quantity: number
-}
+	product: Product;
+	quantity: number;
+};
 
 type CartContextValue = {
-  items: CartItem[]
-  addItem: (product: Product, quantity?: number) => void
-  removeItem: (id: string) => void
-  updateQuantity: (id: string, quantity: number) => void
-  clearCart: () => void
-  isOpen: boolean
-  setIsOpen: (open: boolean) => void
-  count: number
-  subtotal: number
-}
+	items: CartItem[];
+	addItem: (product: Product, quantity?: number) => void;
+	removeItem: (id: string) => void;
+	updateQuantity: (id: string, quantity: number) => void;
+	clearCart: () => void;
+	isOpen: boolean;
+	setIsOpen: (open: boolean) => void;
+	count: number;
+	subtotal: number;
+};
 
-const CartContext = createContext<CartContextValue | null>(null)
+const CartContext = createContext<CartContextValue | null>(null);
 
-const CART_STORAGE_KEY = 'maayan_cart'
+const CART_STORAGE_KEY = "maayan_cart";
 
 function loadCartFromStorage(): CartItem[] {
-  if (typeof window === 'undefined') return []
-  try {
-    const raw = localStorage.getItem(CART_STORAGE_KEY)
-    if (!raw) return []
-    const parsed = JSON.parse(raw)
-    if (!Array.isArray(parsed)) return []
-    return parsed
-  } catch {
-    return []
-  }
+	if (typeof window === "undefined") return [];
+	try {
+		const raw = localStorage.getItem(CART_STORAGE_KEY);
+		if (!raw) return [];
+		const parsed = JSON.parse(raw);
+		if (!Array.isArray(parsed)) return [];
+		return parsed;
+	} catch {
+		return [];
+	}
 }
 
 function saveCartToStorage(items: CartItem[]) {
-  try {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
-  } catch {
-    // localStorage unavailable (e.g. private browsing with storage blocked)
-  }
+	try {
+		localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+	} catch {
+		// localStorage unavailable (e.g. private browsing with storage blocked)
+	}
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([])
-  const [isOpen, setIsOpen] = useState(false)
-  const [hydrated, setHydrated] = useState(false)
+	const [items, setItems] = useState<CartItem[]>([]);
+	const [isOpen, setIsOpen] = useState(false);
+	const [hydrated, setHydrated] = useState(false);
 
-  // Load cart from localStorage on mount (client-only)
-  useEffect(() => {
-    setItems(loadCartFromStorage())
-    setHydrated(true)
-  }, [])
+	// Load cart from localStorage on mount (client-only)
+	useEffect(() => {
+		setItems(loadCartFromStorage());
+		setHydrated(true);
+	}, []);
 
-  // Persist cart to localStorage whenever it changes (skip before hydration)
-  useEffect(() => {
-    if (!hydrated) return
-    saveCartToStorage(items)
-  }, [items, hydrated])
+	// Persist cart to localStorage whenever it changes (skip before hydration)
+	useEffect(() => {
+		if (!hydrated) return;
+		saveCartToStorage(items);
+	}, [items, hydrated]);
 
-  function addItem(product: Product, quantity = 1) {
-    setItems((prev) => {
-      const existing = prev.find((i) => i.product.id === product.id)
-      if (existing) {
-        return prev.map((i) =>
-          i.product.id === product.id
-            ? { ...i, quantity: i.quantity + quantity }
-            : i,
-        )
-      }
-      return [...prev, { product, quantity }]
-    })
-    setIsOpen(true)
-  }
+	function addItem(product: Product, quantity = 1) {
+		setItems((prev) => {
+			const existing = prev.find((i) => i.product.id === product.id);
+			if (existing) {
+				return prev.map((i) =>
+					i.product.id === product.id
+						? { ...i, quantity: i.quantity + quantity }
+						: i
+				);
+			}
+			return [...prev, { product, quantity }];
+		});
+		setIsOpen(true);
+	}
 
-  function removeItem(id: string) {
-    setItems((prev) => prev.filter((i) => i.product.id !== id))
-  }
+	function removeItem(id: string) {
+		setItems((prev) => prev.filter((i) => i.product.id !== id));
+	}
 
-  function updateQuantity(id: string, quantity: number) {
-    if (quantity <= 0) {
-      removeItem(id)
-      return
-    }
-    setItems((prev) =>
-      prev.map((i) => (i.product.id === id ? { ...i, quantity } : i)),
-    )
-  }
+	function updateQuantity(id: string, quantity: number) {
+		if (quantity <= 0) {
+			removeItem(id);
+			return;
+		}
+		setItems((prev) =>
+			prev.map((i) => (i.product.id === id ? { ...i, quantity } : i))
+		);
+	}
 
-  function clearCart() {
-    setItems([])
-  }
+	function clearCart() {
+		setItems([]);
+	}
 
-  // lock scroll when drawer is open
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isOpen])
+	// lock scroll when drawer is open
+	useEffect(() => {
+		document.body.style.overflow = isOpen ? "hidden" : "";
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [isOpen]);
 
-  const count = items.reduce((sum, i) => sum + i.quantity, 0)
-  const subtotal = items.reduce(
-    (sum, i) => sum + i.product.price * i.quantity,
-    0,
-  )
+	const count = items.reduce((sum, i) => sum + i.quantity, 0);
+	const subtotal = items.reduce(
+		(sum, i) => sum + i.product.price * i.quantity,
+		0
+	);
 
-  const value = useMemo(
-    () => ({
-      items,
-      addItem,
-      removeItem,
-      updateQuantity,
-      clearCart,
-      isOpen,
-      setIsOpen,
-      count,
-      subtotal,
-    }),
-    [items, isOpen, count, subtotal],
-  )
+	const value = useMemo(
+		() => ({
+			items,
+			addItem,
+			removeItem,
+			updateQuantity,
+			clearCart,
+			isOpen,
+			setIsOpen,
+			count,
+			subtotal,
+		}),
+		[items, isOpen, count, subtotal]
+	);
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
+	return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {
-  const ctx = useContext(CartContext)
-  if (!ctx) throw new Error('useCart must be used within CartProvider')
-  return ctx
+	const ctx = useContext(CartContext);
+	if (!ctx) throw new Error("useCart must be used within CartProvider");
+	return ctx;
 }

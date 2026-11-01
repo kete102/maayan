@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  app:
+    name: ci-app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Install pnpm
+        uses: pnpm/action-setup@7088e561eb65bb68695d245aa206f005ef30921d # v4.1.0
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit
+      - name: Check formatting of changed files
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          git diff --name-only -z --diff-filter=ACMR "$BASE_SHA" HEAD -- '*.js' '*.jsx' '*.ts' '*.tsx' '*.json' '*.css' '*.md' '*.yaml' '*.yml' '*.mjs' '*.cjs' '*.html' '*.scss' '*.vue' '*.svelte' '*.graphql' | xargs -0 -r pnpm exec prettier --check --ignore-path .prettierignore
+      - name: Build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ci-placeholder-key
+        run: pnpm build
+
+  db:
+    name: ci-database
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Install pnpm
+        uses: pnpm/action-setup@7088e561eb65bb68695d245aa206f005ef30921d # v4.1.0
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Start local Supabase
+        run: pnpm exec supabase start -x gotrue,realtime,storage-api,imgproxy,kong,mailpit,postgrest,postgres-meta,studio,edge-runtime,logflare,vector,supavisor
+      - name: Reset local database
+        run: pnpm exec supabase db reset --local
+      - name: Test database
+        run: pnpm exec supabase test db --local
+      - name: Lint database schema
+        run: pnpm exec supabase db lint --local --schema public --level error
+      - name: Run database advisors
+        run: pnpm exec supabase db advisors --local --type all --level warn --fail-on warn

@@ -1,0 +1,6 @@
+package.json
+pnpm-lock.yaml
+.agents/
+.atl/
+skills-lock.json
+supabase/.temp/

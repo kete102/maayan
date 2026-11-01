@@ -4,14 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, X } from "lucide-react";
 import { useCart } from "@/components/cart/cart-provider";
-import { calcShipping, calcTax, calcTotal } from "@/lib/pricing";
-import { formatPrice } from "@/lib/products";
+import { formatPrice } from "@/lib/money";
 
 export function CartPageClient() {
 	const { items, updateQuantity, removeItem, subtotal } = useCart();
-	const shipping = calcShipping(subtotal);
-	const tax = calcTax(subtotal);
-	const total = calcTotal(subtotal);
 
 	if (items.length === 0) {
 		return (
@@ -42,11 +38,11 @@ export function CartPageClient() {
 							className="flex gap-5 py-6"
 						>
 							<Link
-								href={`/product/${item.product.slug}`}
+								href="/#biblia"
 								className="border-border bg-parchment relative h-32 w-24 shrink-0 overflow-hidden rounded-2xl border"
 							>
 								<Image
-									src={item.product.image || "/placeholder.svg"}
+									src={item.product.image_paths[0] || "/placeholder.svg"}
 									alt={item.product.name}
 									fill
 									className="object-contain p-1.5"
@@ -57,14 +53,13 @@ export function CartPageClient() {
 								<div className="flex items-start justify-between gap-3">
 									<div>
 										<Link
-											href={`/product/${item.product.slug}`}
+											href="/#biblia"
 											className="hover:text-gold font-serif text-xl leading-tight"
 										>
 											{item.product.name}
 										</Link>
-										<p className="text-muted-foreground mt-1 text-xs tracking-wide uppercase">
-											{item.product.translation} · {item.product.coverType} ·{" "}
-											{item.product.edition}
+										<p className="text-muted-foreground mt-1 text-xs">
+											{item.product.short_description}
 										</p>
 									</div>
 									<button
@@ -103,7 +98,7 @@ export function CartPageClient() {
 										</button>
 									</div>
 									<span className="font-serif text-xl">
-										{formatPrice(item.product.price * item.quantity)}
+										{formatPrice(item.product.price_cents * item.quantity)}
 									</span>
 								</div>
 							</div>
@@ -118,25 +113,17 @@ export function CartPageClient() {
 							<dt className="text-muted-foreground">Subtotal</dt>
 							<dd>{formatPrice(subtotal)}</dd>
 						</div>
-						<div className="flex justify-between">
-							<dt className="text-muted-foreground">Envío</dt>
-							<dd>{shipping === 0 ? "Gratuito" : formatPrice(shipping)}</dd>
-						</div>
-						<div className="flex justify-between">
-							<dt className="text-muted-foreground">Impuesto estimado</dt>
-							<dd>{formatPrice(tax)}</dd>
-						</div>
-						<div className="border-border flex justify-between border-t pt-4 font-serif text-xl">
-							<dt>Total</dt>
-							<dd>{formatPrice(total)}</dd>
-						</div>
 					</dl>
-					<Link
-						href="/checkout"
-						className="bg-primary text-primary-foreground mt-8 flex w-full items-center justify-center rounded-full py-4 font-sans text-sm font-medium transition-opacity hover:opacity-90"
+					<p className="text-muted-foreground mt-4 text-xs">
+						El envío y los impuestos se calcularán al preparar el pago.
+					</p>
+					<button
+						type="button"
+						disabled
+						className="bg-primary text-primary-foreground mt-8 flex w-full cursor-not-allowed items-center justify-center rounded-full py-4 font-sans text-sm font-medium opacity-60"
 					>
-						Pagar
-					</Link>
+						Pago próximamente
+					</button>
 					<Link
 						href="/"
 						className="text-muted-foreground hover:text-foreground mt-3 flex w-full items-center justify-center py-2 font-sans text-sm"

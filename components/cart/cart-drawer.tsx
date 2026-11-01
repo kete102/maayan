@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Minus, Plus, X } from "lucide-react";
 import { useCart } from "@/components/cart/cart-provider";
 import { cn } from "@/lib/utils";
+import { formatPrice } from "@/lib/money";
 
 export function CartDrawer() {
 	const {
@@ -96,7 +97,7 @@ export function CartDrawer() {
 								>
 									<div className="border-border bg-parchment relative h-24 w-20 shrink-0 overflow-hidden rounded-xl border">
 										<Image
-											src={item.product.image || "/placeholder.svg"}
+											src={item.product.image_paths[0] || "/placeholder.svg"}
 											alt={item.product.name}
 											fill
 											className="object-contain p-1"
@@ -106,7 +107,7 @@ export function CartDrawer() {
 									<div className="flex flex-1 flex-col">
 										<div className="flex justify-between gap-2">
 											<Link
-												href={`/product/${item.product.slug}`}
+												href="/#biblia"
 												onClick={() => setIsOpen(false)}
 												className="hover:text-gold font-serif text-lg leading-tight"
 											>
@@ -121,8 +122,8 @@ export function CartDrawer() {
 												<X className="h-4 w-4" />
 											</button>
 										</div>
-										<p className="text-muted-foreground text-xs tracking-wide uppercase">
-											{item.product.translation} · {item.product.coverType}
+										<p className="text-muted-foreground text-xs">
+											{item.product.short_description}
 										</p>
 										<div className="mt-auto flex items-center justify-between pt-2">
 											<div className="border-border flex items-center rounded-full border">
@@ -151,7 +152,7 @@ export function CartDrawer() {
 												</button>
 											</div>
 											<span className="font-serif text-lg">
-												${item.product.price * item.quantity}
+												{formatPrice(item.product.price_cents * item.quantity)}
 											</span>
 										</div>
 									</div>
@@ -163,18 +164,20 @@ export function CartDrawer() {
 								<span className="text-muted-foreground text-sm tracking-[0.2em] uppercase">
 									Subtotal
 								</span>
-								<span className="font-serif text-2xl">${subtotal}</span>
+								<span className="font-serif text-2xl">
+									{formatPrice(subtotal)}
+								</span>
 							</div>
 							<p className="text-muted-foreground mt-1 text-xs">
 								Envío e impuestos calculados al finalizar la compra.
 							</p>
-							<Link
-								href="/checkout"
-								onClick={() => setIsOpen(false)}
-								className="bg-primary text-primary-foreground mt-5 flex h-12 w-full items-center justify-center rounded-full font-sans text-sm font-medium transition-opacity hover:opacity-90"
+							<button
+								type="button"
+								disabled
+								className="bg-primary text-primary-foreground mt-5 flex h-12 w-full cursor-not-allowed items-center justify-center rounded-full font-sans text-sm font-medium opacity-60"
 							>
-								Proceder al Pago
-							</Link>
+								Pago próximamente
+							</button>
 							<Link
 								href="/cart"
 								onClick={() => setIsOpen(false)}

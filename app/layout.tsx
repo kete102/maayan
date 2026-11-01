@@ -22,8 +22,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
 	title: "Maayan -- Escrituras que Fluyen",
 	description:
-		"Maayan crea Biblias artesanales para acompañar toda una vida de fe. Conoce nuestra historia y descubre nuestra edición Agua Viva.",
-	generator: "v0.app",
+		"Maayan crea Biblias artesanales para acompañar toda una vida de fe. Conoce nuestra historia y descubre nuestra edición Origen.",
 	icons: {
 		icon: [
 			{ url: "/icon-dark-32x32.png" },

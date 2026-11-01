@@ -3,7 +3,7 @@
 ## Stack
 
 - **Next.js 16** App Router, React 19, TypeScript (strict)
-- **pnpm** (has `pnpm-lock.yaml`; `pnpm-workspace.yaml` only allows `msw`/`sharp` builds)
+- **pnpm** (has `pnpm-lock.yaml`; `pnpm-workspace.yaml` only allows `sharp` builds)
 - **Tailwind CSS 4** — uses `@import 'tailwindcss'` + `@theme inline` + `@custom-variant dark` (no old `@tailwind` directives)
 - **pnpm** for all package management
 - **Motion** for scroll-aware header behavior and reduced-motion-aware section reveals
@@ -22,13 +22,20 @@ No test runner or dedicated typecheck/format script. Prettier is installed; run 
 ## Architecture
 
 - Single-package Next.js app under `/app` (Spanish-language e-commerce for premium Bibles)
-- Static product data in `lib/products.ts`; Supabase stores captured orders
-- PayPal checkout is handled by route handlers under `app/api/paypal/`; `lib/paypal.ts` contains the API integration
-- Resend sends order confirmation email from `lib/email.tsx` after successful capture and order persistence
-- `CartProvider` (context) wraps the root layout; `useCart()` throws if used outside it
-- Server components by default; `'use client'` only on interactive components (cart, checkout)
+- Products live in the Supabase `products` table, read with the publishable key via `lib/db/public.ts` + `lib/products.ts` (server-only); prices are EUR cents, formatted with `lib/money.ts`
+- Cart is client-side: `CartProvider` (context) wraps the root layout, persists to localStorage key `maayan_cart_v2`, and holds the DB `Product` shape; `useCart()` throws if used outside it
+- Checkout/payment is intentionally disabled (Stripe planned, not implemented); cart buttons show "Pago próximamente". There is no payment, order, or email code
+- Server components by default; `'use client'` only on interactive components: `site-header`, `cart/cart-provider`, `cart/cart-drawer`, `cart/cart-page-client`, `cart/add-to-cart-button`, `home/product-showcase`, `motion/reveal`
 - Path alias `@/*` → project root
 - Vercel Analytics via `@vercel/analytics/next` (production only)
+
+## Supabase
+
+- Env vars: `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (legacy fallback `NEXT_PUBLIC_SUPABASE_ANON_KEY`). Never commit key values
+- Local stack: `pnpm exec supabase start`; migrations in `supabase/migrations`, seed in `supabase/seed.sql`
+- Regenerate DB types: `pnpm exec supabase gen types --local --schema public` (output is unformatted; `lib/database.types.ts` is the committed copy, run prettier on it after regenerating)
+- Local env override goes in gitignored `.env.development.local`; it is not loaded by `pnpm build` (the client is created lazily at request time)
+- The remote project is linked: never run `db reset --linked` or `db push` without explicit approval
 
 ## Key conventions
 
@@ -44,4 +51,3 @@ No test runner or dedicated typecheck/format script. Prettier is installed; run 
 - `typescript.ignoreBuildErrors: true` — build will not catch type errors; run `tsc --noEmit` manually if type-checking is needed
 - No test infrastructure exists; use lint and `pnpm exec tsc --noEmit` for available automated checks
 - Cart drawer scroll lock uses `document.body.style.overflow` directly
-- `generateStaticParams` in `app/product/[slug]/page.tsx` — static generation for all products

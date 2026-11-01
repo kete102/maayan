@@ -2,11 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { products } from "@/lib/products";
+import type { Product } from "@/lib/products";
 
-export function Hero() {
-	const product = products[0];
-
+export function Hero({ product }: { product?: Product }) {
 	return (
 		<section
 			data-header-theme="dark"
@@ -36,8 +34,8 @@ export function Hero() {
 					La Palabra, hecha para acompañarte.
 				</h1>
 				<p className="text-muted-foreground mx-auto mt-6 max-w-xl font-sans text-base leading-relaxed sm:text-lg">
-					{product.shortDescription} Encuentra un espacio de calma para volver a
-					las Escrituras cada día.
+					{product?.short_description ??
+						"Encuentra un espacio de calma para volver a las Escrituras cada día."}
 				</p>
 				<div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-6">
 					<Button

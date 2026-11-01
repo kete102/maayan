@@ -1,14 +1,12 @@
-"use client";
-
 import { ArrowRight, Gem } from "lucide-react";
-import { useCart } from "@/components/cart/cart-provider";
 import { ProductShowcase } from "@/components/home/product-showcase";
-import { Button } from "@/components/ui/button";
-import { products, formatPrice } from "@/lib/products";
+import { AddToCartButton } from "@/components/cart/add-to-cart-button";
+import { getProductSpecs, type Product } from "@/lib/products";
+import { formatPrice } from "@/lib/money";
 
-export function ProductFeature() {
-	const { addItem } = useCart();
-	const product = products[0];
+export function ProductFeature({ product }: { product: Product }) {
+	const specs = getProductSpecs(product);
+	const translation = specs.find((spec) => spec.label === "Traducción")?.value;
 
 	return (
 		<section
@@ -17,13 +15,15 @@ export function ProductFeature() {
 		>
 			<div className="grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-20">
 				<ProductShowcase
-					image={product.image}
+					image={product.image_paths[0] ?? "/images/hero-water.png"}
 					alt={product.name}
 				/>
 				<div className="max-w-xl">
-					<p className="text-gold font-sans text-xs font-medium tracking-[0.2em] uppercase">
-						{product.edition} · {product.translation}
-					</p>
+					{translation && (
+						<p className="text-gold font-sans text-xs font-medium tracking-[0.2em] uppercase">
+							{translation}
+						</p>
+					)}
 					<h2 className="mt-3 font-serif text-4xl leading-tight font-normal">
 						{product.name}
 					</h2>
@@ -45,28 +45,36 @@ export function ProductFeature() {
 							</li>
 						))}
 					</ul>
-					<dl className="border-border mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t pt-5 sm:grid-cols-3">
-						{product.specs.map((spec) => (
-							<div key={spec.label}>
-								<dt className="text-muted-foreground font-sans text-xs tracking-[0.15em] uppercase">
-									{spec.label}
-								</dt>
-								<dd className="mt-1 font-sans text-sm">{spec.value}</dd>
-							</div>
-						))}
-					</dl>
+					{product.contents.length > 0 && (
+						<div className="mt-6">
+							<h3 className="font-serif text-xl">Contenido</h3>
+							<ul className="text-muted-foreground mt-2 list-inside list-disc space-y-1 font-sans text-sm">
+								{product.contents.map((content) => (
+									<li key={content}>{content}</li>
+								))}
+							</ul>
+						</div>
+					)}
+					{specs.length > 0 && (
+						<dl className="border-border mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t pt-5 sm:grid-cols-3">
+							{specs.map((spec) => (
+								<div key={spec.label}>
+									<dt className="text-muted-foreground font-sans text-xs tracking-[0.15em] uppercase">
+										{spec.label}
+									</dt>
+									<dd className="mt-1 font-sans text-sm">{spec.value}</dd>
+								</div>
+							))}
+						</dl>
+					)}
 					<div className="border-border mt-6 flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
 						<p className="font-serif text-4xl font-medium">
-							{formatPrice(product.price)}
+							{formatPrice(product.price_cents)}
 						</p>
-						<Button
-							variant="solid"
-							size="hero"
-							onClick={() => addItem(product)}
-						>
+						<AddToCartButton product={product}>
 							Añadir a la cesta
 							<ArrowRight className="size-4" />
-						</Button>
+						</AddToCartButton>
 					</div>
 				</div>
 			</div>

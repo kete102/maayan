@@ -61,7 +61,12 @@ jobs:
       - name: Reset local database
         run: pnpm exec supabase db reset --local
       - name: Test database
-        run: pnpm exec supabase test db --local
+        run: |
+          if compgen -G 'supabase/tests/*.sql' > /dev/null; then
+            pnpm exec supabase test db --local
+          else
+            echo 'No pgTAP tests exist yet; database reset, lint, and advisors still run.'
+          fi
       - name: Lint database schema
         run: pnpm exec supabase db lint --local --schema public --level error
       - name: Run database advisors

@@ -1,0 +1,2 @@
+-- This version was already applied remotely as a no-op; the lockdown is in
+-- 20261101174410_revoke_legacy_orders_access.sql.

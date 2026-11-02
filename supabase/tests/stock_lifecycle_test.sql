@@ -1,5 +1,5 @@
 begin;
-select plan(29);
+select plan(37);
 
 select ok(
   not has_function_privilege('anon', 'public.consume_reservation(uuid)', 'execute')
@@ -16,11 +16,20 @@ select ok(
 );
 
 select ok(
+  not has_function_privilege('anon', 'public.reserve_stock(uuid,uuid,integer,interval)', 'execute')
+  and not has_function_privilege('authenticated', 'public.reserve_stock(uuid,uuid,integer,interval)', 'execute')
+  and has_function_privilege('service_role', 'public.reserve_stock(uuid,uuid,integer,interval)', 'execute'),
+  'only service_role can execute reserve_stock'
+);
+
+select ok(
   (select proconfig @> array['search_path=""']
    from pg_proc where oid = 'public.consume_reservation(uuid)'::regprocedure)
   and (select proconfig @> array['search_path=""']
-   from pg_proc where oid = 'public.release_reservation(uuid)'::regprocedure),
-  'both RPCs use an empty search_path'
+   from pg_proc where oid = 'public.release_reservation(uuid)'::regprocedure)
+  and (select proconfig @> array['search_path=""']
+   from pg_proc where oid = 'public.reserve_stock(uuid,uuid,integer,interval)'::regprocedure),
+  'stock RPCs use an empty search_path'
 );
 
 select ok(
@@ -30,11 +39,12 @@ select ok(
   'orders status check allows pending_refund'
 );
 
-insert into public.products (slug, name, short_description, description, price_cents, stock)
+insert into public.products (id, slug, name, short_description, description, price_cents, stock)
 values
-  ('lifecycle-a', 'Lifecycle A', 'Test product', 'Test product', 100, 5),
-  ('lifecycle-b', 'Lifecycle B', 'Test product', 'Test product', 100, 4),
-  ('lifecycle-empty', 'Lifecycle Empty', 'Test product', 'Test product', 100, 0);
+  ('30000000-0000-0000-0000-000000000000', 'lifecycle-c', 'Lifecycle C', 'Test product', 'Test product', 100, 5),
+  ('30000000-0000-0000-0000-000000000001', 'lifecycle-a', 'Lifecycle A', 'Test product', 'Test product', 100, 5),
+  ('30000000-0000-0000-0000-000000000002', 'lifecycle-b', 'Lifecycle B', 'Test product', 'Test product', 100, 4),
+  ('30000000-0000-0000-0000-000000000003', 'lifecycle-empty', 'Lifecycle Empty', 'Test product', 'Test product', 100, 0);
 
 insert into public.orders (
   id, access_token_hash, customer_email, subtotal_cents, total_cents,
@@ -43,7 +53,7 @@ insert into public.orders (
   ('20000000-0000-0000-0000-000000000001', 'lifecycle-1', 'lifecycle@example.com', 200, 200, 'Test', 'Street 1', 'Madrid', 'Madrid', '28001'),
   ('20000000-0000-0000-0000-000000000002', 'lifecycle-2', 'lifecycle@example.com', 100, 100, 'Test', 'Street 1', 'Madrid', 'Madrid', '28001'),
   ('20000000-0000-0000-0000-000000000003', 'lifecycle-3', 'lifecycle@example.com', 100, 100, 'Test', 'Street 1', 'Madrid', 'Madrid', '28001'),
-  ('20000000-0000-0000-0000-000000000004', 'lifecycle-4', 'lifecycle@example.com', 300, 300, 'Test', 'Street 1', 'Madrid', 'Madrid', '28001'),
+  ('20000000-0000-0000-0000-000000000004', 'lifecycle-4', 'lifecycle@example.com', 200, 200, 'Test', 'Street 1', 'Madrid', 'Madrid', '28001'),
   ('20000000-0000-0000-0000-000000000005', 'lifecycle-5', 'lifecycle@example.com', 100, 100, 'Test', 'Street 1', 'Madrid', 'Madrid', '28001'),
   ('20000000-0000-0000-0000-000000000006', 'lifecycle-6', 'lifecycle@example.com', 300, 300, 'Test', 'Street 1', 'Madrid', 'Madrid', '28001'),
   ('20000000-0000-0000-0000-000000000008', 'lifecycle-8', 'lifecycle@example.com', 100, 100, 'Test', 'Street 1', 'Madrid', 'Madrid', '28001');
@@ -63,9 +73,9 @@ select '20000000-0000-0000-0000-000000000002'::uuid, id, name, 100, 1 from publi
 union all
 select '20000000-0000-0000-0000-000000000003'::uuid, id, name, 100, 1 from public.products where slug = 'lifecycle-b'
 union all
-select '20000000-0000-0000-0000-000000000004'::uuid, id, name, 100, 2 from public.products where slug = 'lifecycle-a'
-union all
 select '20000000-0000-0000-0000-000000000004'::uuid, id, name, 100, 1 from public.products where slug = 'lifecycle-empty'
+union all
+select '20000000-0000-0000-0000-000000000004'::uuid, id, name, 100, 1 from public.products where slug = 'lifecycle-c'
 union all
 select '20000000-0000-0000-0000-000000000006'::uuid, id, name, 100, 1 from public.products where slug = 'lifecycle-a'
 union all
@@ -94,8 +104,8 @@ select '20000000-0000-0000-0000-000000000006', id, 1, now() + interval '15 minut
 from public.products where slug = 'lifecycle-a';
 
 insert into public.stock_reservations (order_id, product_id, quantity, status, expires_at)
-select '20000000-0000-0000-0000-000000000004', id, 2, 'released', now() - interval '1 minute'
-from public.products where slug = 'lifecycle-a';
+select '20000000-0000-0000-0000-000000000004', id, 1, 'released', now() - interval '1 minute'
+from public.products where slug = 'lifecycle-c';
 
 insert into public.stock_reservations (order_id, product_id, quantity, expires_at)
 select '20000000-0000-0000-0000-000000000007', id, 1, now() + interval '15 minutes'
@@ -223,15 +233,21 @@ select is(
   'insufficient stock marks the entire order pending_refund'
 );
 select is(
-  (select stock from public.products where slug = 'lifecycle-a'),
-  1,
+  (select stock from public.products where slug = 'lifecycle-c'),
+  5,
   'insufficient stock leaves stock for other order items unchanged'
 );
 select is(
   (select status from public.stock_reservations
    where order_id = '20000000-0000-0000-0000-000000000004'),
   'released',
-  'insufficient stock leaves an existing released reservation unchanged'
+  'insufficient stock leaves the fulfillable item reservation unchanged'
+);
+select is(
+  (select count(*)::integer from public.stock_reservations
+   where order_id = '20000000-0000-0000-0000-000000000004'),
+  1,
+  'insufficient stock does not create reservations for any order item'
 );
 
 set local role service_role;
@@ -252,18 +268,68 @@ select is(
   'release does not overwrite pending_refund'
 );
 
+select is(
+  (select status from public.orders where id = '20000000-0000-0000-0000-000000000007'),
+  'payment_failed',
+  'payment failure alone does not change order state'
+);
+select is(
+  (select status from public.stock_reservations where order_id = '20000000-0000-0000-0000-000000000007'),
+  'active',
+  'payment failure alone does not release its reservation'
+);
+
+select is(
+  (select status from public.orders where id = '20000000-0000-0000-0000-000000000007'),
+  'payment_failed',
+  'a retryable payment failure leaves the order retryable until explicit cancellation'
+);
+select is(
+  (select status from public.stock_reservations where order_id = '20000000-0000-0000-0000-000000000007'),
+  'active',
+  'a retryable payment failure leaves its reservation active until explicit cancellation'
+);
+
 set local role service_role;
 select public.release_reservation('20000000-0000-0000-0000-000000000007');
 reset role;
 select is(
   (select status from public.orders where id = '20000000-0000-0000-0000-000000000007'),
-  'payment_failed',
-  'release does not cancel an order after a retryable payment failure'
+  'cancelled',
+  'explicit cancellation after payment failure cancels the order'
 );
 select is(
   (select status from public.stock_reservations where order_id = '20000000-0000-0000-0000-000000000007'),
-  'active',
-  'retryable payment failure keeps its stock reservation active'
+  'released',
+  'explicit cancellation after payment failure releases its reservation'
+);
+
+insert into public.orders (
+  id, access_token_hash, customer_email, subtotal_cents, total_cents,
+  shipping_name, shipping_address_line1, shipping_city, shipping_region, shipping_postal_code
+) values (
+  '20000000-0000-0000-0000-000000000009', 'lifecycle-9', 'lifecycle@example.com', 100, 100,
+  'Test', 'Street 1', 'Madrid', 'Madrid', '28001'
+);
+insert into public.order_items (order_id, product_id, product_name, unit_price_cents, quantity)
+select '20000000-0000-0000-0000-000000000009', id, name, 100, 1
+from public.products where slug = 'lifecycle-a';
+insert into public.stock_reservations (order_id, product_id, quantity, expires_at)
+select '20000000-0000-0000-0000-000000000009', id, 1, now() + interval '1 minute'
+from public.products where slug = 'lifecycle-a';
+
+set local role service_role;
+select public.reserve_stock(
+  '20000000-0000-0000-0000-000000000009',
+  (select id from public.products where slug = 'lifecycle-a'),
+  1,
+  interval '20 minutes'
+);
+reset role;
+select ok(
+  (select expires_at > now() + interval '19 minutes'
+   from public.stock_reservations where order_id = '20000000-0000-0000-0000-000000000009'),
+  'renewing an active reservation extends its expiry'
 );
 
 set local role service_role;
@@ -278,6 +344,15 @@ select is(
   (select status from public.stock_reservations where order_id = '20000000-0000-0000-0000-000000000008'),
   'active',
   'failed consumption leaves an expired reservation unchanged'
+);
+
+set local role service_role;
+select public.consume_reservation('20000000-0000-0000-0000-000000000004');
+reset role;
+select is(
+  (select stock from public.products where slug = 'lifecycle-c'),
+  5,
+  'retrying insufficient consumption still leaves the earlier available item unchanged'
 );
 
 select throws_ok(

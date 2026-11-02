@@ -8,7 +8,7 @@ Already merged in PR #13:
 
 - `products.stock` has a `CHECK (stock >= 0)` constraint.
 - `stock_reservations` tracks `active`, `consumed`, and `released` reservations with an `expires_at` timestamp.
-- `reserve_stock` is a server-only RPC. It locks rows with `FOR UPDATE`, checks available stock as physical stock minus unexpired active reservations, and defaults to a 15-minute TTL. Checkout should pass a 20-minute TTL explicitly.
+- `reserve_stock` is a server-only RPC. It checks available stock as physical stock minus unexpired active reservations and defaults to a 15-minute TTL. Checkout should pass a 20-minute TTL explicitly; calling it again renews an existing active reservation.
 - Expired reservations stop counting toward available stock even if their status is still `active`.
 - `stripe_events.id` is a primary key, ready to deduplicate Stripe webhook events.
 
@@ -69,7 +69,7 @@ Implemented in `20261102124719_consume_release_reservations.sql` on `feat/stock-
 
 - Transition active reservations to `released`; never change a consumed reservation.
 - Be safe to retry.
-- Update the order only when it is still `pending_payment`, so a late failure/cancellation event cannot overwrite `paid` or `pending_refund`.
+- Update the order only when it is `pending_payment` or `payment_failed`, so explicit cancellation can release a reservation after a retryable card failure without overwriting `paid` or `pending_refund`.
 - Release is for explicit cancellation, not `payment_intent.payment_failed`, which can represent a retryable card attempt.
 - Only a `pending_payment` order is changed to `cancelled`; other states are returned unchanged. Active reservations are released, while consumed reservations are never changed.
 

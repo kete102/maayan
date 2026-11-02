@@ -11,7 +11,9 @@
 
 Checkout is intentionally disabled (cart buttons show "Pago próximamente"). It will be rebuilt from scratch on Stripe + Supabase.
 
-- [ ] Supabase tables: `orders`, `order_items`, `stock_reservations`, `stripe_events`
+- [x] Supabase tables: `orders`, `order_items`, `stock_reservations`, `stripe_events`
+- [ ] On successful payment, atomically decrement product stock and consume its reservation
+- [ ] Release reservations when payment fails or expires
 - [ ] Server-side repricing: never trust prices coming from the client
 - [ ] Stripe PaymentIntent + Payment Element
 - [ ] Stripe webhook as the source of truth for payment state

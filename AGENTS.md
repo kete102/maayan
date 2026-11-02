@@ -17,7 +17,7 @@
 | `pnpm start` | Production server                                                             |
 | `pnpm lint`  | ESLint                                                                        |
 
-No test runner or dedicated typecheck/format script. Prettier is installed; run `pnpm exec prettier` directly if needed.
+No JavaScript test runner or dedicated typecheck script. Prettier is installed; run `pnpm exec prettier` directly if needed.
 
 ## Architecture
 
@@ -33,7 +33,9 @@ No test runner or dedicated typecheck/format script. Prettier is installed; run 
 
 - Env vars: `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (legacy fallback `NEXT_PUBLIC_SUPABASE_ANON_KEY`). Never commit key values
 - Local stack: `pnpm exec supabase start`; migrations in `supabase/migrations`, seed in `supabase/seed.sql`
-- Regenerate DB types: `pnpm exec supabase gen types --local --schema public` (output is unformatted; `lib/database.types.ts` is the committed copy, run prettier on it after regenerating)
+- Regenerate DB types: `pnpm db:types` (always generate from local migrations; do not hand-edit `lib/database.types.ts`)
+- Database integration tests use pgTAP in `supabase/tests`; run with `pnpm exec supabase test db --local`
+- Order and stock-reservation statuses are runtime constants/types in `lib/order-status.ts`, mirrored by PostgreSQL CHECK constraints; update both when statuses change, and verify database behavior with pgTAP
 - Local env override goes in gitignored `.env.development.local`; it is not loaded by `pnpm build` (the client is created lazily at request time)
 - The remote project is linked: never run `db reset --linked` or `db push` without explicit approval
 

@@ -5,6 +5,7 @@ export const ORDER_STATUS = {
 	CANCELLED: "cancelled",
 	FULFILLED: "fulfilled",
 	REFUNDED: "refunded",
+	PENDING_REFUND: "pending_refund",
 } as const;
 
 export type OrderStatus = (typeof ORDER_STATUS)[keyof typeof ORDER_STATUS];

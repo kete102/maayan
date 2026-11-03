@@ -253,6 +253,8 @@ export type Database = {
 			[_ in never]: never;
 		};
 		Functions: {
+			consume_reservation: { Args: { p_order_id: string }; Returns: string };
+			release_reservation: { Args: { p_order_id: string }; Returns: string };
 			reserve_stock: {
 				Args: {
 					p_order_id: string;

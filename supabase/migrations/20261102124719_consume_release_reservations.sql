@@ -60,6 +60,17 @@ begin
     raise exception 'Reservation quantity must match the order item';
   end if;
 
+  select p.stock
+  into v_stock
+  from public.products as p
+  where p.id = p_product_id
+    and p.active
+  for update;
+
+  if not found then
+    raise exception 'Product is unavailable';
+  end if;
+
   select r.*
   into v_existing
   from public.stock_reservations as r
@@ -85,19 +96,6 @@ begin
       raise exception 'This order already consumed its reservation';
     end if;
   end if;
-
-  select p.stock
-  into v_stock
-  from public.products as p
-  where p.id = p_product_id
-    and p.active
-  for update;
-
-  if not found then
-    raise exception 'Product is unavailable';
-  end if;
-
-  v_now := pg_catalog.clock_timestamp();
 
   select coalesce(sum(r.quantity), 0)::integer
   into v_reserved

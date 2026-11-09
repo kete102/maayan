@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Tenor_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart/cart-provider";
+import { SiteShell } from "@/components/site-shell";
 
 const tenor = Tenor_Sans({
 	variable: "--font-tenor",
@@ -42,7 +43,9 @@ export default function RootLayout({
 			className={`${tenor.variable} ${inter.variable} bg-background`}
 		>
 			<body className="font-sans antialiased">
-				<CartProvider>{children}</CartProvider>
+				<CartProvider>
+					<SiteShell>{children}</SiteShell>
+				</CartProvider>
 				{process.env.NODE_ENV === "production" && <Analytics />}
 			</body>
 		</html>

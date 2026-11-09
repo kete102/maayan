@@ -41,10 +41,10 @@ No JavaScript test runner or dedicated typecheck script. Prettier is installed; 
 
 ## Key conventions
 
-- **CSS**: Tailwind 4 theme tokens in `globals.css`; canyon palette and `glass` utility; `cn()` from `lib/utils.ts` for class merging
+- **CSS**: Tailwind 4 theme tokens in `globals.css`; parchment, haze, mist, truffle, and ink palette with semantic tokens; `dark-surface` and `glass` utilities; `cn()` from `lib/utils.ts` for class merging
 - **Fonts**: Cormorant Garamond (serif/heading), Jost (sans), Geist Mono (mono) via CSS variables
 - **Language**: Spanish (`es`) in `<html lang="es">`; prices formatted with `es-ES` locale
-- **Theme**: fixed dark canyon palette; no light/dark toggle
+- **Theme**: parchment-based light default with scoped `dark-surface` sections; no theme toggle
 - **Icons**: `lucide-react`
 - **Button variants**: local `Button` component with `default`, `outline`, `solid`, and `glass` variants
 

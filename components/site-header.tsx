@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { ShoppingBagIcon } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { useCart } from "@/components/cart/cart-provider";
+import { usePathname } from "next/navigation";
+import { motion, MotionConfig } from "motion/react";
 
 const navLinks = [
 	{ href: "/", label: "Biblias" },
@@ -12,148 +13,56 @@ const navLinks = [
 ];
 
 export function SiteHeader() {
-	const { count, setIsOpen } = useCart();
-	const [menuOpen, setMenuOpen] = useState(false);
-	const [scrolled, setScrolled] = useState(false);
-	const [engaged, setEngaged] = useState(false);
-	const [overDark, setOverDark] = useState(true);
+	const { count, setIsOpen, isOpen } = useCart();
+	const pathname = usePathname();
 
 	return (
-		<header className="flex h-24 items-center justify-between px-14">
-			<Logo />
-			<nav className="flex items-center">
-				<ol className="flex items-center gap-8">
-					{navLinks.map((navItem) => (
-						<Link
-							key={navItem.href}
-							href={navItem}
-							className="text-[0.875rem] leading-5 font-normal text-[#302C26]"
-						>
-							{navItem.label}
-						</Link>
-					))}
-				</ol>
-			</nav>
-			<button>
-				<ShoppingBagIcon />
+		<header className="grid h-24 w-full grid-cols-[1fr_auto_1fr] items-center px-14">
+			<Logo className="justify-self-start" />
+			<MotionConfig reducedMotion="user">
+				<nav aria-label="Principal">
+					<ul className="flex items-center gap-8">
+						{navLinks.map(({ href, label }) => {
+							const active =
+								href === "/" ? pathname === "/" : pathname.startsWith(href);
+							return (
+								<li key={href}>
+									<Link
+										href={href}
+										aria-current={active ? "page" : undefined}
+										className="text-foreground relative inline-block pb-1 text-[0.875rem] leading-5 font-normal"
+									>
+										{label}
+										{active && (
+											<motion.span
+												layoutId="nav-underline"
+												className="bg-accent absolute inset-x-0 bottom-0 h-0.5 rounded-full"
+												transition={{
+													type: "spring",
+													stiffness: 400,
+													damping: 35,
+												}}
+											/>
+										)}
+									</Link>
+								</li>
+							);
+						})}
+					</ul>
+				</nav>
+			</MotionConfig>
+			<button
+				className="relative cursor-pointer justify-self-end"
+				onClick={() => setIsOpen(!isOpen)}
+				aria-label={`Abrir carrito${count > 0 ? `, ${count} artículos` : ""}`}
+			>
+				<ShoppingBagIcon className="size-5" />
+				{count > 0 && (
+					<span className="bg-foreground text-primary-foreground absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-xs leading-none">
+						{count}
+					</span>
+				)}
 			</button>
 		</header>
-		// <header
-		// 	className={cn(
-		// 		"fixed inset-x-0 top-3 z-40 flex justify-center sm:top-5",
-		// 		overDark && "dark-surface"
-		// 	)}
-		// 	onMouseEnter={() => setEngaged(true)}
-		// 	onMouseLeave={() => setEngaged(false)}
-		// 	onFocus={() => setEngaged(true)}
-		// 	onBlur={(event) => {
-		// 		if (!event.currentTarget.contains(event.relatedTarget)) {
-		// 			setEngaged(false);
-		// 		}
-		// 	}}
-		// >
-		// 	<div className="flex max-w-[calc(100vw-1.5rem)] flex-col">
-		// 		<div
-		// 			className={cn(
-		// 				"flex items-center gap-1 rounded-full border border-white/25 bg-white/10 px-2 shadow-[inset_0_1px_0_rgb(255_255_255/25%)] backdrop-blur-lg backdrop-saturate-150 transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-		// 				expanded ? "h-14" : "h-12"
-		// 			)}
-		// 		>
-		// 			<Logo
-		// 				className={cn(
-		// 					itemClass,
-		// 					"shrink-0 flex-row px-2",
-		// 					!overDark && "[&_img]:brightness-[0.45]"
-		// 				)}
-		// 				hideText={!expanded}
-		// 			/>
-		// 			<nav
-		// 				aria-label="Navegación principal"
-		// 				className="hidden h-full items-center gap-1 sm:flex"
-		// 			>
-		// 				{navLinks.map((link) => (
-		// 					<Link
-		// 						key={link.label}
-		// 						href={link.href}
-		// 						aria-label={link.label}
-		// 						title={link.label}
-		// 						className={cn(
-		// 							itemClass,
-		// 							"after:bg-gold px-3 text-sm font-medium after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-center after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100 focus-visible:after:scale-x-100"
-		// 						)}
-		// 					>
-		// 						<link.icon
-		// 							className="size-5 shrink-0"
-		// 							strokeWidth={1.6}
-		// 							aria-hidden="true"
-		// 						/>
-		// 						<Collapsible open={expanded}>
-		// 							<span className="pl-2">{link.label}</span>
-		// 						</Collapsible>
-		// 					</Link>
-		// 				))}
-		// 			</nav>
-		// 			<button
-		// 				type="button"
-		// 				onClick={() => setIsOpen(true)}
-		// 				aria-label={`Abrir cesta${count > 0 ? `, ${count} artículos` : ""}`}
-		// 				className={cn(itemClass, "relative w-11 shrink-0 justify-center")}
-		// 			>
-		// 				<ShoppingBag
-		// 					className="size-5 transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
-		// 					strokeWidth={1.6}
-		// 				/>
-		// 				{count > 0 && (
-		// 					<span className="bg-gold text-canyon-950 absolute top-2 right-1.5 grid size-4 place-items-center rounded-full font-sans text-[0.6rem] font-medium">
-		// 						{count}
-		// 					</span>
-		// 				)}
-		// 			</button>
-		// 			<button
-		// 				type="button"
-		// 				onClick={() => setMenuOpen((open) => !open)}
-		// 				aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-		// 				aria-expanded={menuOpen}
-		// 				aria-controls="mobile-menu"
-		// 				className={cn(itemClass, "w-11 shrink-0 justify-center sm:hidden")}
-		// 			>
-		// 				{menuOpen ? (
-		// 					<X
-		// 						className="size-5"
-		// 						strokeWidth={1.6}
-		// 					/>
-		// 				) : (
-		// 					<Menu
-		// 						className="size-5"
-		// 						strokeWidth={1.6}
-		// 					/>
-		// 				)}
-		// 			</button>
-		// 		</div>
-		// 		{menuOpen && (
-		// 			<nav
-		// 				id="mobile-menu"
-		// 				aria-label="Menú móvil"
-		// 				className="dark-surface glass mt-2 flex min-w-64 flex-col rounded-3xl p-2 sm:hidden"
-		// 			>
-		// 				{navLinks.map((link) => (
-		// 					<Link
-		// 						key={link.label}
-		// 						href={link.href}
-		// 						onClick={() => setMenuOpen(false)}
-		// 						className="text-canyon-50-85 hover:text-gold flex items-center gap-3 rounded-2xl px-4 py-3 font-sans text-base font-medium transition-colors"
-		// 					>
-		// 						<link.icon
-		// 							className="size-5"
-		// 							strokeWidth={1.6}
-		// 							aria-hidden="true"
-		// 						/>
-		// 						{link.label}
-		// 					</Link>
-		// 				))}
-		// 			</nav>
-		// 		)}
-		// 	</div>
-		// </header>
 	);
 }

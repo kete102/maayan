@@ -6,10 +6,7 @@ import type { Product } from "@/lib/products";
 
 export function Hero({ product }: { product?: Product }) {
 	return (
-		<section
-			data-header-theme="dark"
-			className="dark-surface relative isolate -mt-20 flex min-h-dvh items-center overflow-hidden pt-20 md:-mt-24 md:pt-24"
-		>
+		<section className="dark-surface relative isolate flex min-h-dvh items-center overflow-hidden">
 			<Image
 				src="/images/canyon-hero.webp"
 				alt=""

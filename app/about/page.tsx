@@ -51,21 +51,19 @@ export default function AboutPage() {
 					className="-z-20 object-cover object-center"
 				/>
 				<div
-					className="from-canyon-950/80 via-canyon-950/60 to-canyon-950/40 absolute inset-0 -z-10 bg-gradient-to-b"
+					className="from-ink/80 via-ink/60 to-ink/40 absolute inset-0 -z-10 bg-gradient-to-b"
 					aria-hidden="true"
 				/>
 				<div
-					className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-b from-transparent via-[#d2b9a2]/60 to-[#d2b9a2] md:h-64"
+					className="via-parchment/60 to-parchment absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-b from-transparent md:h-64"
 					aria-hidden="true"
 				/>
 				<div className="mx-auto w-full max-w-3xl px-4 pt-16 pb-44 text-center md:px-8 md:pb-56">
-					<p className="text-gold font-sans text-xs font-medium tracking-[0.3em] uppercase">
-						Nuestra Historia
-					</p>
-					<h1 className="mt-5 font-serif text-5xl leading-tight font-normal text-balance md:text-7xl">
+					<p className="type-overline text-foreground">Nuestra Historia</p>
+					<h1 className="type-display mt-5 text-balance">
 						Un manantial de agua viva
 					</h1>
-					<p className="text-muted-foreground mx-auto mt-6 max-w-xl text-base leading-relaxed text-pretty md:text-lg">
+					<p className="type-body-lg text-foreground/90 mx-auto mt-6 max-w-xl text-pretty">
 						El nombre que elegimos lleva el corazón de todo lo que hacemos.
 					</p>
 				</div>
@@ -73,13 +71,13 @@ export default function AboutPage() {
 
 			{/* significado */}
 			<Reveal className="mx-auto max-w-3xl px-4 py-20 text-center md:px-8 md:py-28">
-				<p className="text-gold text-xs tracking-[0.3em] uppercase">
+				<p className="type-overline text-muted-foreground">
 					El Significado de Maayan
 				</p>
 				<p className="mt-8 font-serif text-2xl leading-relaxed text-pretty md:text-3xl">
-					En hebreo, <span className="text-gold">Maayan</span> (מַעְיָן)
-					significa <span className="text-gold">manantial</span> — una fuente de
-					agua que brota constantemente y da vida.
+					En hebreo, <span className="text-accent">Maayan</span> (מַעְיָן)
+					significa <span className="text-accent">manantial</span> — una fuente
+					de agua que brota constantemente y da vida.
 				</p>
 				<p className="text-muted-foreground mt-8 leading-relaxed text-pretty">
 					En la Biblia, los manantiales simbolizan{" "}
@@ -89,10 +87,10 @@ export default function AboutPage() {
 					</span>{" "}
 					El profeta Isaías escribió:
 				</p>
-				<blockquote className="border-gold text-foreground mx-auto mt-6 max-w-xl border-l-2 pl-6 text-left font-serif text-xl leading-relaxed md:text-2xl">
+				<blockquote className="border-accent text-foreground mx-auto mt-6 max-w-xl border-l-2 pl-6 text-left font-serif text-xl leading-relaxed md:text-2xl">
 					&ldquo;Sacaréis con gozo aguas de las fuentes de la salvación&rdquo;
 				</blockquote>
-				<p className="text-gold mt-2 pl-6 text-left text-xs tracking-[0.3em] uppercase">
+				<p className="type-overline text-muted-foreground mt-2 pl-6 text-left">
 					Isaías 12:3
 				</p>
 				<p className="text-muted-foreground mt-8 leading-relaxed text-pretty">
@@ -109,10 +107,10 @@ export default function AboutPage() {
 
 			{/* comienzos */}
 			<Reveal className="mx-auto max-w-3xl px-4 py-20 md:px-8 md:py-28">
-				<p className="text-gold text-xs tracking-[0.3em] uppercase">
+				<p className="type-overline text-muted-foreground">
 					Nuestros Comienzos
 				</p>
-				<h2 className="mt-3 font-serif text-4xl leading-tight text-balance md:text-5xl">
+				<h2 className="type-h2 mt-3 text-balance">
 					Un regalo que se convirtió en vocación
 				</h2>
 				<p className="text-muted-foreground mt-8 leading-relaxed text-pretty">
@@ -129,7 +127,7 @@ export default function AboutPage() {
 				</p>
 				<div className="my-8 flex items-center gap-4">
 					<div className="bg-border h-px flex-1" />
-					<span className="text-gold text-xs tracking-widest">✦</span>
+					<span className="text-accent text-xs tracking-widest">✦</span>
 					<div className="bg-border h-px flex-1" />
 				</div>
 				<p className="text-muted-foreground leading-relaxed text-pretty">
@@ -146,10 +144,8 @@ export default function AboutPage() {
 
 			{/* misión */}
 			<Reveal className="mx-auto max-w-3xl px-4 py-20 md:px-8 md:py-28">
-				<p className="text-gold text-xs tracking-[0.3em] uppercase">
-					Nuestra Misión
-				</p>
-				<h2 className="mt-3 font-serif text-4xl leading-tight text-balance md:text-5xl">
+				<p className="type-overline text-muted-foreground">Nuestra Misión</p>
+				<h2 className="type-h2 mt-3 text-balance">
 					Belleza que abre el corazón
 				</h2>
 				<p className="text-muted-foreground mt-6 leading-relaxed text-pretty">
@@ -187,12 +183,8 @@ export default function AboutPage() {
 
 			{/* pilares */}
 			<Reveal className="mx-auto max-w-3xl px-4 py-20 md:px-8 md:py-28">
-				<p className="text-gold text-xs tracking-[0.3em] uppercase">
-					Lo que nos guía
-				</p>
-				<h2 className="mt-3 font-serif text-4xl leading-tight text-balance md:text-5xl">
-					Nuestros pilares
-				</h2>
+				<p className="type-overline text-muted-foreground">Lo que nos guía</p>
+				<h2 className="type-h2 mt-3 text-balance">Nuestros pilares</h2>
 				<div className="mt-12">
 					{pillars.map((pilar) => (
 						<div
@@ -200,9 +192,7 @@ export default function AboutPage() {
 							className="border-border border-t py-8 last:border-b"
 						>
 							<div>
-								<h3 className="text-foreground font-serif text-xl md:text-2xl">
-									{pilar.title}
-								</h3>
+								<h3 className="type-h3 text-foreground">{pilar.title}</h3>
 								<p className="text-muted-foreground mt-3 leading-relaxed">
 									{pilar.body}
 								</p>

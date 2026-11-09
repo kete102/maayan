@@ -36,7 +36,7 @@ export function Logo({
 				>
 					<span
 						className={cn(
-							"text-gold min-w-0 overflow-hidden font-serif text-2xl font-medium tracking-wide whitespace-nowrap",
+							"type-wordmark text-foreground min-w-0 overflow-hidden whitespace-nowrap",
 							textClassName
 						)}
 					>
@@ -45,7 +45,7 @@ export function Logo({
 				</span>
 			</span>
 			{showTagline && (
-				<span className="text-muted-foreground mt-1 pl-10 font-sans text-[0.6rem] tracking-[0.3em] uppercase">
+				<span className="text-muted-foreground type-overline mt-1 pl-10">
 					Las Escrituras que Fluyen
 				</span>
 			)}

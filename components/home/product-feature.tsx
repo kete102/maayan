@@ -20,24 +20,20 @@ export function ProductFeature({ product }: { product: Product }) {
 				/>
 				<div className="max-w-xl">
 					{translation && (
-						<p className="text-gold font-sans text-xs font-medium tracking-[0.2em] uppercase">
-							{translation}
-						</p>
+						<p className="type-overline text-muted-foreground">{translation}</p>
 					)}
-					<h2 className="mt-3 font-serif text-4xl leading-tight font-normal">
-						{product.name}
-					</h2>
-					<p className="text-muted-foreground mt-4 font-sans text-sm leading-relaxed">
+					<h2 className="type-h2 mt-3">{product.name}</h2>
+					<p className="type-body-sm text-muted-foreground mt-4">
 						{product.description}
 					</p>
 					<ul className="mt-5 space-y-2">
 						{product.features.map((feature) => (
 							<li
 								key={feature}
-								className="text-muted-foreground flex items-center gap-3 font-sans text-sm"
+								className="type-body-sm text-muted-foreground flex items-center gap-3"
 							>
 								<Gem
-									className="text-gold size-4 shrink-0"
+									className="text-accent size-4 shrink-0"
 									strokeWidth={1.6}
 									aria-hidden="true"
 								/>
@@ -47,8 +43,8 @@ export function ProductFeature({ product }: { product: Product }) {
 					</ul>
 					{product.contents.length > 0 && (
 						<div className="mt-6">
-							<h3 className="font-serif text-xl">Contenido</h3>
-							<ul className="text-muted-foreground mt-2 list-inside list-disc space-y-1 font-sans text-sm">
+							<h3 className="type-h3">Contenido</h3>
+							<ul className="type-body-sm text-muted-foreground mt-2 list-inside list-disc space-y-1">
 								{product.contents.map((content) => (
 									<li key={content}>{content}</li>
 								))}
@@ -59,18 +55,16 @@ export function ProductFeature({ product }: { product: Product }) {
 						<dl className="border-border mt-6 grid grid-cols-2 gap-x-6 gap-y-3 border-t pt-5 sm:grid-cols-3">
 							{specs.map((spec) => (
 								<div key={spec.label}>
-									<dt className="text-muted-foreground font-sans text-xs tracking-[0.15em] uppercase">
+									<dt className="type-overline text-muted-foreground">
 										{spec.label}
 									</dt>
-									<dd className="mt-1 font-sans text-sm">{spec.value}</dd>
+									<dd className="type-body-sm mt-1">{spec.value}</dd>
 								</div>
 							))}
 						</dl>
 					)}
 					<div className="border-border mt-6 flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
-						<p className="text-3xl font-medium tabular-nums">
-							{formatPrice(product.price_cents)}
-						</p>
+						<p className="type-price">{formatPrice(product.price_cents)}</p>
 						<AddToCartButton product={product}>
 							Añadir a la cesta
 							<ArrowRight className="size-4" />

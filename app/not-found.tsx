@@ -1,33 +1,30 @@
-import { SiteShell } from "@/components/site-shell";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function NotFound() {
 	return (
-		<SiteShell>
-			<div className="mx-auto max-w-xl px-4 py-32 text-center">
-				<p className="type-display text-muted-foreground/30">404</p>
-				<h1 className="type-h2 text-foreground mt-6">Página no encontrada</h1>
-				<p className="text-muted-foreground mt-4 leading-relaxed">
-					La página que buscas no existe o ha sido movida. Vuelve al inicio para
-					seguir explorando.
-				</p>
-				<div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-					<Button
-						render={<Link href="/#biblia" />}
-						className="px-8"
-					>
-						Ver la Biblia
-					</Button>
-					<Button
-						render={<Link href="/" />}
-						variant="outline"
-						className="px-8"
-					>
-						Ir al inicio
-					</Button>
-				</div>
+		<div className="mx-auto max-w-xl px-4 py-32 text-center">
+			<p className="type-display text-muted-foreground/30">404</p>
+			<h1 className="type-h2 text-foreground mt-6">Página no encontrada</h1>
+			<p className="text-muted-foreground mt-4 leading-relaxed">
+				La página que buscas no existe o ha sido movida. Vuelve al inicio para
+				seguir explorando.
+			</p>
+			<div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+				<Button
+					render={<Link href="/#biblia" />}
+					className="px-8"
+				>
+					Ver la Biblia
+				</Button>
+				<Button
+					render={<Link href="/" />}
+					variant="outline"
+					className="px-8"
+				>
+					Ir al inicio
+				</Button>
 			</div>
-		</SiteShell>
+		</div>
 	);
 }

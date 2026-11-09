@@ -1,6 +1,5 @@
 import { Hero } from "@/components/home/hero";
 import { ProductFeature } from "@/components/home/product-feature";
-import { SiteShell } from "@/components/site-shell";
 import { getFeaturedProduct } from "@/lib/products";
 import { connection } from "next/server";
 
@@ -10,7 +9,7 @@ export default async function HomePage() {
 	const product = await getFeaturedProduct();
 
 	return (
-		<SiteShell>
+		<>
 			<Hero product={product ?? undefined} />
 			{product ? (
 				<ProductFeature product={product} />
@@ -25,6 +24,6 @@ export default async function HomePage() {
 					</p>
 				</section>
 			)}
-		</SiteShell>
+		</>
 	);
 }

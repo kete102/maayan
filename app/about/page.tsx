@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SiteShell } from "@/components/site-shell";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/motion/reveal";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: "Nuestra Historia — Maayan",
 	description:
 		"El significado de Maayan como fuente de agua viva, y nuestra misión de ayudar a las personas a conectarse con la Palabra de Dios.",
@@ -36,12 +36,9 @@ const pillars = [
 
 export default function AboutPage() {
 	return (
-		<SiteShell>
+		<>
 			{/* héroe */}
-			<section
-				data-header-theme="dark"
-				className="dark-surface relative isolate -mt-20 flex min-h-[70dvh] items-center overflow-hidden pt-20 md:-mt-24 md:pt-24"
-			>
+			<section className="dark-surface relative isolate flex min-h-[70dvh] items-center overflow-hidden">
 				<Image
 					src="/images/canyon-story.webp"
 					alt=""
@@ -51,11 +48,11 @@ export default function AboutPage() {
 					className="-z-20 object-cover object-center"
 				/>
 				<div
-					className="from-ink/80 via-ink/60 to-ink/40 absolute inset-0 -z-10 bg-gradient-to-b"
+					className="from-ink/80 via-ink/60 to-ink/40 absolute inset-0 -z-10 bg-linear-to-b"
 					aria-hidden="true"
 				/>
 				<div
-					className="via-parchment/60 to-parchment absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-b from-transparent md:h-64"
+					className="via-parchment/60 to-parchment absolute inset-x-0 bottom-0 -z-10 h-48 bg-linear-to-b from-transparent md:h-64"
 					aria-hidden="true"
 				/>
 				<div className="mx-auto w-full max-w-3xl px-4 pt-16 pb-44 text-center md:px-8 md:pb-56">
@@ -201,6 +198,6 @@ export default function AboutPage() {
 					))}
 				</div>
 			</Reveal>
-		</SiteShell>
+		</>
 	);
 }

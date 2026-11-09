@@ -1,193 +1,68 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
-import { BookOpen, Home, Menu, ShoppingBag, X } from "lucide-react";
+import { ShoppingBagIcon } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { useCart } from "@/components/cart/cart-provider";
-import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import { motion, MotionConfig } from "motion/react";
 
 const navLinks = [
-	{ href: "/", label: "Inicio", icon: Home },
-	{ href: "/about", label: "Nuestra Historia", icon: BookOpen },
+	{ href: "/", label: "Biblias" },
+	{ href: "/about", label: "Nuestra Historia" },
 ];
 
-const itemClass =
-	"text-foreground/75 hover:text-foreground group relative flex h-full items-center rounded-pill transition-colors duration-300";
-
-// Anima el ancho real del texto sin fijar un max-width
-function Collapsible({
-	open,
-	children,
-}: {
-	open: boolean;
-	children: ReactNode;
-}) {
-	return (
-		<span
-			className={cn(
-				"grid transition-[grid-template-columns,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-				open ? "grid-cols-[1fr] opacity-100" : "grid-cols-[0fr] opacity-0"
-			)}
-		>
-			<span className="min-w-0 overflow-hidden whitespace-nowrap">
-				{children}
-			</span>
-		</span>
-	);
-}
-
 export function SiteHeader() {
-	const { count, setIsOpen } = useCart();
-	const [menuOpen, setMenuOpen] = useState(false);
-	const [scrolled, setScrolled] = useState(false);
-	const [engaged, setEngaged] = useState(false);
-	const [overDark, setOverDark] = useState(true);
-
-	useEffect(() => {
-		// El header usa texto claro solo sobre secciones marcadas con data-header-theme="dark"
-		const update = () => {
-			setScrolled(window.scrollY > 48);
-			const y = 48;
-			const dark = [
-				...document.querySelectorAll<HTMLElement>('[data-header-theme="dark"]'),
-			].some((el) => {
-				const rect = el.getBoundingClientRect();
-				return rect.top <= y && rect.bottom >= y;
-			});
-			setOverDark(dark);
-		};
-		update();
-		window.addEventListener("scroll", update, { passive: true });
-		window.addEventListener("resize", update);
-		return () => {
-			window.removeEventListener("scroll", update);
-			window.removeEventListener("resize", update);
-		};
-	}, []);
-
-	const expanded = !scrolled || engaged || menuOpen;
+	const { count, setIsOpen, isOpen } = useCart();
+	const pathname = usePathname();
 
 	return (
-		<header
-			className={cn(
-				"fixed inset-x-0 top-3 z-40 flex justify-center sm:top-5",
-				overDark && "dark-surface"
-			)}
-			onMouseEnter={() => setEngaged(true)}
-			onMouseLeave={() => setEngaged(false)}
-			onFocus={() => setEngaged(true)}
-			onBlur={(event) => {
-				if (!event.currentTarget.contains(event.relatedTarget)) {
-					setEngaged(false);
-				}
-			}}
-		>
-			<div className="flex max-w-[calc(100vw-1.5rem)] flex-col">
-				<div
-					className={cn(
-						"rounded-pill flex items-center gap-1 border px-2 backdrop-blur-lg backdrop-saturate-150 transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-						overDark
-							? "border-parchment/25 bg-parchment/10 shadow-[inset_0_1px_0_rgb(237_229_221/25%)]"
-							: "border-ink/10 bg-parchment/60",
-						expanded ? "h-14" : "h-12"
-					)}
-				>
-					<Logo
-						className={cn(
-							itemClass,
-							"shrink-0 flex-row px-2",
-							!overDark && "[&_img]:brightness-[0.45]"
-						)}
-						hideText={!expanded}
-					/>
-					<nav
-						aria-label="Navegación principal"
-						className="hidden h-full items-center gap-1 sm:flex"
-					>
-						{navLinks.map((link) => (
-							<Link
-								key={link.label}
-								href={link.href}
-								aria-label={link.label}
-								title={link.label}
-								className={cn(
-									itemClass,
-									"after:bg-accent type-button px-3 after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-center after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100 focus-visible:after:scale-x-100"
-								)}
-							>
-								<link.icon
-									className="size-5 shrink-0"
-									strokeWidth={1.6}
-									aria-hidden="true"
-								/>
-								<Collapsible open={expanded}>
-									<span className="pl-2">{link.label}</span>
-								</Collapsible>
-							</Link>
-						))}
-					</nav>
-					<button
-						type="button"
-						onClick={() => setIsOpen(true)}
-						aria-label={`Abrir cesta${count > 0 ? `, ${count} artículos` : ""}`}
-						className={cn(itemClass, "relative w-11 shrink-0 justify-center")}
-					>
-						<ShoppingBag
-							className="size-5 transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
-							strokeWidth={1.6}
-						/>
-						{count > 0 && (
-							<span className="bg-primary text-primary-foreground rounded-pill absolute top-2 right-1.5 grid size-4 place-items-center font-sans text-[0.6rem] font-medium">
-								{count}
-							</span>
-						)}
-					</button>
-					<button
-						type="button"
-						onClick={() => setMenuOpen((open) => !open)}
-						aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-						aria-expanded={menuOpen}
-						aria-controls="mobile-menu"
-						className={cn(itemClass, "w-11 shrink-0 justify-center sm:hidden")}
-					>
-						{menuOpen ? (
-							<X
-								className="size-5"
-								strokeWidth={1.6}
-							/>
-						) : (
-							<Menu
-								className="size-5"
-								strokeWidth={1.6}
-							/>
-						)}
-					</button>
-				</div>
-				{menuOpen && (
-					<nav
-						id="mobile-menu"
-						aria-label="Menú móvil"
-						className="dark-surface bg-ink/95 border-border rounded-surface mt-2 flex min-w-64 flex-col border p-2 backdrop-blur-xl sm:hidden"
-					>
-						{navLinks.map((link) => (
-							<Link
-								key={link.label}
-								href={link.href}
-								onClick={() => setMenuOpen(false)}
-								className="type-button text-foreground/85 hover:bg-secondary hover:text-foreground rounded-control flex items-center gap-3 px-4 py-3 transition-colors"
-							>
-								<link.icon
-									className="size-5"
-									strokeWidth={1.6}
-									aria-hidden="true"
-								/>
-								{link.label}
-							</Link>
-						))}
-					</nav>
+		<header className="grid h-24 w-full grid-cols-[1fr_auto_1fr] items-center px-14">
+			<Logo className="justify-self-start" />
+			<MotionConfig reducedMotion="user">
+				<nav aria-label="Principal">
+					<ul className="flex items-center gap-8">
+						{navLinks.map(({ href, label }) => {
+							const active =
+								href === "/" ? pathname === "/" : pathname.startsWith(href);
+							return (
+								<li key={href}>
+									<Link
+										href={href}
+										aria-current={active ? "page" : undefined}
+										className="text-foreground relative inline-block pb-1 text-[0.875rem] leading-5 font-normal"
+									>
+										{label}
+										{active && (
+											<motion.span
+												layoutId="nav-underline"
+												className="bg-accent absolute inset-x-0 bottom-0 h-0.5 rounded-full"
+												transition={{
+													type: "spring",
+													stiffness: 400,
+													damping: 35,
+												}}
+											/>
+										)}
+									</Link>
+								</li>
+							);
+						})}
+					</ul>
+				</nav>
+			</MotionConfig>
+			<button
+				className="relative cursor-pointer justify-self-end"
+				onClick={() => setIsOpen(!isOpen)}
+				aria-label={`Abrir carrito${count > 0 ? `, ${count} artículos` : ""}`}
+			>
+				<ShoppingBagIcon className="size-5" />
+				{count > 0 && (
+					<span className="bg-foreground text-primary-foreground absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-xs leading-none">
+						{count}
+					</span>
 				)}
-			</div>
+			</button>
 		</header>
 	);
 }

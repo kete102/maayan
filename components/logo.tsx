@@ -4,12 +4,10 @@ import { cn } from "@/lib/utils";
 
 export function Logo({
 	className,
-	textClassName,
 	showTagline = false,
 	hideText = false,
 }: {
 	className?: string;
-	textClassName?: string;
 	showTagline?: boolean;
 	hideText?: boolean;
 }) {
@@ -20,11 +18,11 @@ export function Logo({
 		>
 			<span className="flex items-center">
 				<Image
-					src="/logo-gold.webp"
+					src="/logo.svg"
 					alt="Maayan logo"
 					width={32}
 					height={32}
-					className={cn("size-9 object-contain", !hideText && "mr-0.5")}
+					className={cn("size-20 object-contain", !hideText && "mr-0.5")}
 				/>
 				<span
 					className={cn(
@@ -34,14 +32,7 @@ export function Logo({
 							: "grid-cols-[1fr] opacity-100"
 					)}
 				>
-					<span
-						className={cn(
-							"type-wordmark text-foreground min-w-0 overflow-hidden whitespace-nowrap",
-							textClassName
-						)}
-					>
-						Maayan
-					</span>
+					<h1 className="text-[1.625rem] tracking-[8px]">MAAYAN</h1>
 				</span>
 			</span>
 			{showTagline && (

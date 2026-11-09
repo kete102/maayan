@@ -77,9 +77,9 @@ export default function AboutPage() {
 					El Significado de Maayan
 				</p>
 				<p className="mt-8 font-serif text-2xl leading-relaxed text-pretty md:text-3xl">
-					En hebreo, <span className="italic">Maayan</span> (מַעְיָן) significa{" "}
-					<span className="italic">manantial</span> — una fuente de agua que
-					brota constantemente y da vida.
+					En hebreo, <span className="text-gold">Maayan</span> (מַעְיָן)
+					significa <span className="text-gold">manantial</span> — una fuente de
+					agua que brota constantemente y da vida.
 				</p>
 				<p className="text-muted-foreground mt-8 leading-relaxed text-pretty">
 					En la Biblia, los manantiales simbolizan{" "}
@@ -89,7 +89,7 @@ export default function AboutPage() {
 					</span>{" "}
 					El profeta Isaías escribió:
 				</p>
-				<blockquote className="border-gold text-foreground mx-auto mt-6 max-w-xl border-l-2 pl-6 text-left font-serif text-xl leading-relaxed italic md:text-2xl">
+				<blockquote className="border-gold text-foreground mx-auto mt-6 max-w-xl border-l-2 pl-6 text-left font-serif text-xl leading-relaxed md:text-2xl">
 					&ldquo;Sacaréis con gozo aguas de las fuentes de la salvación&rdquo;
 				</blockquote>
 				<p className="text-gold mt-2 pl-6 text-left text-xs tracking-[0.3em] uppercase">

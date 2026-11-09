@@ -97,7 +97,7 @@ export function CartPageClient() {
 											<Plus className="h-3.5 w-3.5" />
 										</button>
 									</div>
-									<span className="font-serif text-xl">
+									<span className="text-lg font-medium tabular-nums">
 										{formatPrice(item.product.price_cents * item.quantity)}
 									</span>
 								</div>

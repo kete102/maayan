@@ -57,7 +57,7 @@ export function CartDrawer() {
 				aria-hidden={!isOpen}
 			>
 				<div className="border-border flex items-center justify-between border-b px-6 py-5">
-					<h2 className="font-serif text-2xl font-medium">
+					<h2 className="font-serif text-2xl">
 						Tu Carrito
 						{count > 0 && (
 							<span className="text-muted-foreground"> ({count})</span>
@@ -151,7 +151,7 @@ export function CartDrawer() {
 													<Plus className="h-3.5 w-3.5" />
 												</button>
 											</div>
-											<span className="font-serif text-lg">
+											<span className="text-base font-medium tabular-nums">
 												{formatPrice(item.product.price_cents * item.quantity)}
 											</span>
 										</div>
@@ -164,7 +164,7 @@ export function CartDrawer() {
 								<span className="text-muted-foreground text-sm tracking-[0.2em] uppercase">
 									Subtotal
 								</span>
-								<span className="font-serif text-2xl">
+								<span className="text-xl font-medium tabular-nums">
 									{formatPrice(subtotal)}
 								</span>
 							</div>

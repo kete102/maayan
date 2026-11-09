@@ -1,12 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { Product } from "@/lib/products";
 
-export function Hero({ product }: { product?: Product }) {
+export function Hero() {
 	return (
-		<section className="dark-surface relative isolate flex min-h-dvh items-center overflow-hidden">
+		<section className="dark-surface relative isolate flex h-280 items-center overflow-hidden">
 			<Image
 				src="/images/canyon-hero.webp"
 				alt=""
@@ -16,23 +14,17 @@ export function Hero({ product }: { product?: Product }) {
 				className="-z-20 object-cover object-center"
 			/>
 			<div
-				className="from-ink/80 via-ink/60 to-ink/40 absolute inset-0 -z-10 bg-gradient-to-b"
+				className="from-ink/10 via-ink/30 to-ink/40 absolute inset-0 -z-10 bg-linear-to-b"
 				aria-hidden="true"
 			/>
-			<div
-				className="via-parchment/60 to-parchment absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-b from-transparent md:h-64"
-				aria-hidden="true"
-			/>
-			<div className="mx-auto max-w-4xl px-4 pt-16 pb-44 text-center sm:px-8 md:pb-56">
-				<p className="type-overline text-foreground">
-					Una edición para atesorar
+			<div className="mx-auto max-w-7xl px-4 pt-16 pb-44 text-center sm:px-8 md:pb-56">
+				<p className="type-body-sm font-semibold tracking-[0.075rem] text-[#EFD998]">
+					Maayan · Escrituras que fluyen
 				</p>
-				<h1 className="type-display mt-4">
-					La Palabra, hecha para acompañarte.
-				</h1>
-				<p className="type-body-lg text-foreground/90 mx-auto mt-6 max-w-xl">
-					{product?.short_description ??
-						"Encuentra un espacio de calma para volver a las Escrituras cada día."}
+				<h1 className="type-display mt-4">La Palabra, fuente de agua viva.</h1>
+				<p className="type-body-lg text-foreground/90 mx-auto mt-6 max-w-5xl">
+					Biblias artesanales creadas para honrar la belleza de la Palabra de
+					Dios.
 				</p>
 				<div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-6">
 					<Button
@@ -41,14 +33,8 @@ export function Hero({ product }: { product?: Product }) {
 						render={<a href="#biblia" />}
 					>
 						Descubrir la edición
-						<ArrowDown className="size-4" />
+						<ArrowRight className="size-4" />
 					</Button>
-					<Link
-						href="/about"
-						className="type-button text-muted-foreground hover:text-foreground py-2 transition-colors"
-					>
-						Conoce nuestra historia
-					</Link>
 				</div>
 			</div>
 		</section>

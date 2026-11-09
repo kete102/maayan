@@ -13,7 +13,7 @@ const navLinks = [
 ];
 
 const itemClass =
-	"text-foreground/85 hover:text-gold group relative flex h-full items-center rounded-full transition-colors duration-300";
+	"text-foreground/75 hover:text-foreground group relative flex h-full items-center rounded-pill transition-colors duration-300";
 
 // Anima el ancho real del texto sin fijar un max-width
 function Collapsible({
@@ -86,7 +86,10 @@ export function SiteHeader() {
 			<div className="flex max-w-[calc(100vw-1.5rem)] flex-col">
 				<div
 					className={cn(
-						"flex items-center gap-1 rounded-full border border-white/25 bg-white/10 px-2 shadow-[inset_0_1px_0_rgb(255_255_255/25%)] backdrop-blur-lg backdrop-saturate-150 transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+						"rounded-pill flex items-center gap-1 border px-2 backdrop-blur-lg backdrop-saturate-150 transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+						overDark
+							? "border-parchment/25 bg-parchment/10 shadow-[inset_0_1px_0_rgb(237_229_221/25%)]"
+							: "border-ink/10 bg-parchment/60",
 						expanded ? "h-14" : "h-12"
 					)}
 				>
@@ -110,7 +113,7 @@ export function SiteHeader() {
 								title={link.label}
 								className={cn(
 									itemClass,
-									"after:bg-gold px-3 text-sm font-medium after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-center after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100 focus-visible:after:scale-x-100"
+									"after:bg-accent type-button px-3 after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-center after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100 focus-visible:after:scale-x-100"
 								)}
 							>
 								<link.icon
@@ -135,7 +138,7 @@ export function SiteHeader() {
 							strokeWidth={1.6}
 						/>
 						{count > 0 && (
-							<span className="bg-gold text-canyon-950 absolute top-2 right-1.5 grid size-4 place-items-center rounded-full font-sans text-[0.6rem] font-medium">
+							<span className="bg-primary text-primary-foreground rounded-pill absolute top-2 right-1.5 grid size-4 place-items-center font-sans text-[0.6rem] font-medium">
 								{count}
 							</span>
 						)}
@@ -165,14 +168,14 @@ export function SiteHeader() {
 					<nav
 						id="mobile-menu"
 						aria-label="Menú móvil"
-						className="dark-surface glass mt-2 flex min-w-64 flex-col rounded-3xl p-2 sm:hidden"
+						className="dark-surface glass rounded-surface mt-2 flex min-w-64 flex-col p-2 sm:hidden"
 					>
 						{navLinks.map((link) => (
 							<Link
 								key={link.label}
 								href={link.href}
 								onClick={() => setMenuOpen(false)}
-								className="text-canyon-50-85 hover:text-gold flex items-center gap-3 rounded-2xl px-4 py-3 font-sans text-base font-medium transition-colors"
+								className="type-button text-foreground/85 hover:bg-secondary hover:text-foreground rounded-control flex items-center gap-3 px-4 py-3 transition-colors"
 							>
 								<link.icon
 									className="size-5"

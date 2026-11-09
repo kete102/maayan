@@ -19,7 +19,7 @@ export default async function HomePage() {
 					id="biblia"
 					className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-8"
 				>
-					<h2 className="font-serif text-3xl">Producto no disponible</h2>
+					<h2 className="type-h2">Producto no disponible</h2>
 					<p className="text-muted-foreground mt-3">
 						Estamos preparando nuestra próxima edición.
 					</p>

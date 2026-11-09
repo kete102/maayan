@@ -12,14 +12,14 @@ export function CartPageClient() {
 	if (items.length === 0) {
 		return (
 			<div className="mx-auto flex min-h-[50vh] max-w-7xl flex-col items-center justify-center gap-5 px-4 text-center md:px-8">
-				<h1 className="font-serif text-4xl">Tu carrito está vacío</h1>
+				<h1 className="type-h2">Tu carrito está vacío</h1>
 				<p className="text-muted-foreground max-w-md">
 					Aún no se han añadido Biblias. Cuando encuentres la edición para tu
 					camino, descansará aquí.
 				</p>
 				<Link
 					href="/"
-					className="bg-primary text-primary-foreground rounded-full px-8 py-4 font-sans text-sm font-medium transition-opacity hover:opacity-90"
+					className="type-button bg-primary text-primary-foreground rounded-pill px-8 py-4 transition-opacity hover:opacity-90"
 				>
 					Explorar Biblias
 				</Link>
@@ -29,7 +29,7 @@ export function CartPageClient() {
 
 	return (
 		<div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
-			<h1 className="font-serif text-4xl md:text-5xl">Tu Carrito</h1>
+			<h1 className="type-h2">Tu Carrito</h1>
 			<div className="mt-10 grid gap-12 lg:grid-cols-[1.6fr_1fr]">
 				<ul className="divide-border border-border divide-y border-y">
 					{items.map((item) => (
@@ -39,7 +39,7 @@ export function CartPageClient() {
 						>
 							<Link
 								href="/#biblia"
-								className="border-border bg-parchment relative h-32 w-24 shrink-0 overflow-hidden rounded-2xl border"
+								className="border-border bg-parchment rounded-control relative h-32 w-24 shrink-0 overflow-hidden border"
 							>
 								<Image
 									src={item.product.image_paths[0] || "/placeholder.svg"}
@@ -54,7 +54,7 @@ export function CartPageClient() {
 									<div>
 										<Link
 											href="/#biblia"
-											className="hover:text-gold font-serif text-xl leading-tight"
+											className="type-h3 hover:text-muted-foreground"
 										>
 											{item.product.name}
 										</Link>
@@ -72,7 +72,7 @@ export function CartPageClient() {
 									</button>
 								</div>
 								<div className="mt-auto flex items-center justify-between pt-4">
-									<div className="border-border flex items-center rounded-full border">
+									<div className="border-border rounded-pill flex items-center border">
 										<button
 											type="button"
 											onClick={() =>
@@ -106,8 +106,8 @@ export function CartPageClient() {
 					))}
 				</ul>
 
-				<aside className="border-border bg-card h-fit rounded-2xl border p-8">
-					<h2 className="font-serif text-2xl">Resumen del Pedido</h2>
+				<aside className="border-border bg-card rounded-surface h-fit border p-8">
+					<h2 className="type-h3">Resumen del Pedido</h2>
 					<dl className="mt-6 space-y-4 text-sm">
 						<div className="flex justify-between">
 							<dt className="text-muted-foreground">Subtotal</dt>
@@ -120,7 +120,7 @@ export function CartPageClient() {
 					<button
 						type="button"
 						disabled
-						className="bg-primary text-primary-foreground mt-8 flex w-full cursor-not-allowed items-center justify-center rounded-full py-4 font-sans text-sm font-medium opacity-60"
+						className="type-button bg-primary text-primary-foreground rounded-pill mt-8 flex w-full cursor-not-allowed items-center justify-center py-4 opacity-60"
 					>
 						Pago próximamente
 					</button>

@@ -110,11 +110,11 @@ export function CartPageClient() {
 					<h2 className="type-h3">Resumen del Pedido</h2>
 					<dl className="mt-6 space-y-4 text-sm">
 						<div className="flex justify-between">
-							<dt className="text-muted-foreground">Subtotal</dt>
+							<dt>Subtotal</dt>
 							<dd>{formatPrice(subtotal)}</dd>
 						</div>
 					</dl>
-					<p className="text-muted-foreground mt-4 text-xs">
+					<p className="text-foreground mt-4 text-xs">
 						El envío y los impuestos se calcularán al preparar el pago.
 					</p>
 					<button
@@ -126,7 +126,7 @@ export function CartPageClient() {
 					</button>
 					<Link
 						href="/"
-						className="text-muted-foreground hover:text-foreground mt-3 flex w-full items-center justify-center py-2 font-sans text-sm"
+						className="text-foreground mt-3 flex w-full items-center justify-center py-2 font-sans text-sm underline-offset-4 hover:underline"
 					>
 						Seguir Comprando
 					</Link>

@@ -168,7 +168,7 @@ export function SiteHeader() {
 					<nav
 						id="mobile-menu"
 						aria-label="Menú móvil"
-						className="dark-surface glass rounded-surface mt-2 flex min-w-64 flex-col p-2 sm:hidden"
+						className="dark-surface bg-ink/95 border-border rounded-surface mt-2 flex min-w-64 flex-col border p-2 backdrop-blur-xl sm:hidden"
 					>
 						{navLinks.map((link) => (
 							<Link

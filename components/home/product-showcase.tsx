@@ -10,7 +10,7 @@ export function ProductShowcase({
 	alt: string;
 }) {
 	return (
-		<div className="border-canyon-50-20 relative mx-auto aspect-square w-full max-w-[min(30rem,55dvh)] overflow-hidden rounded-3xl border bg-[radial-gradient(circle_at_30%_20%,#f7f1e6,#e4d6bd)] shadow-2xl shadow-black/40 lg:max-w-[min(30rem,70dvh)]">
+		<div className="border-border rounded-surface relative mx-auto aspect-square w-full max-w-[min(30rem,55dvh)] overflow-hidden border bg-[radial-gradient(circle_at_30%_20%,var(--parchment),var(--haze))] shadow-2xl shadow-black/40 lg:max-w-[min(30rem,70dvh)]">
 			<Image
 				src={image}
 				alt={alt}

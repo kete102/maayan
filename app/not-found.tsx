@@ -6,10 +6,8 @@ export default function NotFound() {
 	return (
 		<SiteShell>
 			<div className="mx-auto max-w-xl px-4 py-32 text-center">
-				<p className="text-muted-foreground/30 font-serif text-8xl">404</p>
-				<h1 className="text-foreground mt-6 font-serif text-4xl">
-					Página no encontrada
-				</h1>
+				<p className="type-display text-muted-foreground/30">404</p>
+				<h1 className="type-h2 text-foreground mt-6">Página no encontrada</h1>
 				<p className="text-muted-foreground mt-4 leading-relaxed">
 					La página que buscas no existe o ha sido movida. Vuelve al inicio para
 					seguir explorando.

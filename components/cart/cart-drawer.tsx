@@ -39,7 +39,7 @@ export function CartDrawer() {
 		<>
 			<div
 				className={cn(
-					"bg-canyon-950/75 fixed inset-0 z-50 backdrop-blur-sm transition-opacity duration-300",
+					"bg-ink/75 fixed inset-0 z-50 backdrop-blur-sm transition-opacity duration-300",
 					isOpen ? "opacity-100" : "pointer-events-none opacity-0"
 				)}
 				onClick={() => setIsOpen(false)}
@@ -50,14 +50,14 @@ export function CartDrawer() {
 				aria-modal="true"
 				inert={!isOpen}
 				className={cn(
-					"dark-surface glass bg-canyon-950-95 fixed top-0 right-0 z-50 flex h-dvh w-full max-w-md flex-col border-y-0 border-r-0 shadow-2xl transition-transform duration-300",
+					"dark-surface bg-ink/95 border-border fixed top-0 right-0 z-50 flex h-dvh w-full max-w-md flex-col border-l shadow-2xl backdrop-blur-xl transition-transform duration-300",
 					isOpen ? "translate-x-0" : "translate-x-full"
 				)}
 				aria-label="Carrito de compras"
 				aria-hidden={!isOpen}
 			>
 				<div className="border-border flex items-center justify-between border-b px-6 py-5">
-					<h2 className="font-serif text-2xl">
+					<h2 className="type-h3">
 						Tu Carrito
 						{count > 0 && (
 							<span className="text-muted-foreground"> ({count})</span>
@@ -68,7 +68,7 @@ export function CartDrawer() {
 						type="button"
 						onClick={() => setIsOpen(false)}
 						aria-label="Cerrar carrito"
-						className="hover:text-gold grid size-11 place-items-center"
+						className="hover:text-muted-foreground size-touch-target grid place-items-center"
 					>
 						<X className="h-5 w-5" />
 					</button>
@@ -82,7 +82,7 @@ export function CartDrawer() {
 						<Link
 							href="/"
 							onClick={() => setIsOpen(false)}
-							className="text-gold font-sans text-sm underline-offset-4 hover:underline"
+							className="type-button text-foreground underline-offset-4 hover:underline"
 						>
 							Explorar Biblias
 						</Link>
@@ -95,7 +95,7 @@ export function CartDrawer() {
 									key={item.product.id}
 									className="flex gap-4 py-5"
 								>
-									<div className="border-border bg-parchment relative h-24 w-20 shrink-0 overflow-hidden rounded-xl border">
+									<div className="border-border bg-parchment rounded-control relative h-24 w-20 shrink-0 overflow-hidden border">
 										<Image
 											src={item.product.image_paths[0] || "/placeholder.svg"}
 											alt={item.product.name}
@@ -109,7 +109,7 @@ export function CartDrawer() {
 											<Link
 												href="/#biblia"
 												onClick={() => setIsOpen(false)}
-												className="hover:text-gold font-serif text-lg leading-tight"
+												className="hover:text-muted-foreground font-serif text-lg leading-tight"
 											>
 												{item.product.name}
 											</Link>
@@ -126,14 +126,14 @@ export function CartDrawer() {
 											{item.product.short_description}
 										</p>
 										<div className="mt-auto flex items-center justify-between pt-2">
-											<div className="border-border flex items-center rounded-full border">
+											<div className="border-border rounded-pill flex items-center border">
 												<button
 													type="button"
 													onClick={() =>
 														updateQuantity(item.product.id, item.quantity - 1)
 													}
 													aria-label="Disminuir cantidad"
-													className="hover:bg-secondary grid size-10 place-items-center rounded-full"
+													className="hover:bg-secondary rounded-pill grid size-10 place-items-center"
 												>
 													<Minus className="h-3.5 w-3.5" />
 												</button>
@@ -146,7 +146,7 @@ export function CartDrawer() {
 														updateQuantity(item.product.id, item.quantity + 1)
 													}
 													aria-label="Aumentar cantidad"
-													className="hover:bg-secondary grid size-10 place-items-center rounded-full"
+													className="hover:bg-secondary rounded-pill grid size-10 place-items-center"
 												>
 													<Plus className="h-3.5 w-3.5" />
 												</button>
@@ -161,7 +161,7 @@ export function CartDrawer() {
 						</ul>
 						<div className="border-border border-t px-6 py-6">
 							<div className="flex items-center justify-between">
-								<span className="text-muted-foreground text-sm tracking-[0.2em] uppercase">
+								<span className="type-overline text-muted-foreground">
 									Subtotal
 								</span>
 								<span className="text-xl font-medium tabular-nums">
@@ -174,14 +174,14 @@ export function CartDrawer() {
 							<button
 								type="button"
 								disabled
-								className="bg-primary text-primary-foreground mt-5 flex h-12 w-full cursor-not-allowed items-center justify-center rounded-full font-sans text-sm font-medium opacity-60"
+								className="type-button bg-primary text-primary-foreground rounded-pill h-control mt-5 flex w-full cursor-not-allowed items-center justify-center opacity-60"
 							>
 								Pago próximamente
 							</button>
 							<Link
 								href="/cart"
 								onClick={() => setIsOpen(false)}
-								className="border-border hover:bg-secondary text-foreground mt-3 flex h-12 w-full items-center justify-center rounded-full border text-sm font-medium"
+								className="type-button border-border hover:bg-secondary text-foreground rounded-pill h-control mt-3 flex w-full items-center justify-center border"
 							>
 								Ver Carrito
 							</Link>

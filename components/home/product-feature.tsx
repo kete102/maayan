@@ -68,7 +68,7 @@ export function ProductFeature({ product }: { product: Product }) {
 						</dl>
 					)}
 					<div className="border-border mt-6 flex flex-col gap-4 border-t pt-5 sm:flex-row sm:items-center sm:justify-between">
-						<p className="font-serif text-4xl font-medium">
+						<p className="text-3xl font-medium tabular-nums">
 							{formatPrice(product.price_cents)}
 						</p>
 						<AddToCartButton product={product}>

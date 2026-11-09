@@ -30,7 +30,7 @@ export function Hero({ product }: { product?: Product }) {
 				<p className="text-gold font-sans text-xs font-medium tracking-[0.2em] uppercase">
 					Una edición para atesorar
 				</p>
-				<h1 className="mt-4 font-serif text-5xl leading-[1.02] font-normal tracking-tight sm:text-6xl lg:text-8xl">
+				<h1 className="mt-4 font-serif text-5xl leading-[1.05] font-normal sm:text-6xl lg:text-8xl">
 					La Palabra, hecha para acompañarte.
 				</h1>
 				<p className="text-muted-foreground mx-auto mt-6 max-w-xl font-sans text-base leading-relaxed sm:text-lg">

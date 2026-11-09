@@ -1,22 +1,21 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost, Geist_Mono } from "next/font/google";
+import { Tenor_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart/cart-provider";
 
-const cormorant = Cormorant_Garamond({
-	variable: "--font-cormorant",
+const tenor = Tenor_Sans({
+	variable: "--font-tenor",
 	subsets: ["latin"],
-	weight: ["300", "400", "500", "600"],
+	weight: "400",
+	display: "swap",
 });
-const jost = Jost({
-	variable: "--font-jost",
+const inter = Inter({
+	variable: "--font-inter",
 	subsets: ["latin"],
-	weight: ["300", "400", "500"],
-});
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
+	weight: ["400", "500", "600"],
+	style: ["normal", "italic"],
+	display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -40,7 +39,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang="es"
-			className={`${cormorant.variable} ${jost.variable} ${geistMono.variable} bg-background`}
+			className={`${tenor.variable} ${inter.variable} bg-background`}
 		>
 			<body className="font-sans antialiased">
 				<CartProvider>{children}</CartProvider>

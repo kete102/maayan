@@ -1,10 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-	--font-heading: var(--font-cormorant), "Cormorant Garamond Fallback", serif;
-	--font-sans: var(--font-jost), "Jost Fallback", sans-serif;
-	--font-serif: var(--font-cormorant), "Cormorant Garamond Fallback", serif;
-	--font-mono: var(--font-geist-mono), "Geist Mono Fallback";
+	--font-sans: var(--font-inter), "Inter Fallback", sans-serif;
+	--font-serif: var(--font-tenor), "Tenor Sans Fallback", sans-serif;
 	--color-ring: var(--ring);
 	--color-input: var(--input);
 	--color-border: var(--border);
@@ -162,7 +160,7 @@
 	h5,
 	h6 {
 		@apply text-foreground font-serif font-normal;
-		letter-spacing: -0.02em;
+		letter-spacing: 0;
 		text-wrap: balance;
 	}
 

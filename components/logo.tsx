@@ -6,10 +6,12 @@ export function Logo({
 	className,
 	showTagline = false,
 	hideText = false,
+	compactOnMobile = false,
 }: {
 	className?: string;
 	showTagline?: boolean;
 	hideText?: boolean;
+	compactOnMobile?: boolean;
 }) {
 	return (
 		<Link
@@ -22,7 +24,11 @@ export function Logo({
 					alt="Maayan logo"
 					width={32}
 					height={32}
-					className={cn("size-20 object-contain", !hideText && "mr-0.5")}
+					className={cn(
+						"size-20 object-contain",
+						!hideText && "mr-0.5",
+						compactOnMobile && "max-sm:size-14"
+					)}
 				/>
 				<span
 					className={cn(
@@ -32,7 +38,14 @@ export function Logo({
 							: "grid-cols-[1fr] opacity-100"
 					)}
 				>
-					<h1 className="text-[1.625rem] tracking-[8px]">MAAYAN</h1>
+					<h1
+						className={cn(
+							"text-[1.625rem] tracking-[8px]",
+							compactOnMobile && "max-sm:text-[1.375rem] max-sm:tracking-[6px]"
+						)}
+					>
+						MAAYAN
+					</h1>
 				</span>
 			</span>
 			{showTagline && (

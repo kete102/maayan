@@ -78,10 +78,10 @@ export function SiteFooter() {
 
 			<div
 				aria-hidden="true"
-				className="relative aspect-[11/5] max-h-[480px] w-full overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_30%)] sm:aspect-[19/5]"
+				className="relative aspect-[11/5] w-full overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_30%)] sm:aspect-[19/5]"
 			>
 				<Image
-					src="/footer2.png"
+					src="/footer2.webp"
 					alt=""
 					fill
 					sizes="100vw"

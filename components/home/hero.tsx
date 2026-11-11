@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
 	return (
-		<section className="dark-surface relative isolate flex h-280 items-center overflow-hidden">
+		<section className="dark-surface relative isolate flex h-280 items-start overflow-hidden">
 			<Image
 				src="/images/canyon-hero.webp"
 				alt=""
@@ -17,7 +17,7 @@ export function Hero() {
 				className="from-ink/10 via-ink/30 to-ink/40 absolute inset-0 -z-10 bg-linear-to-b"
 				aria-hidden="true"
 			/>
-			<div className="mx-auto max-w-7xl px-4 pt-16 pb-44 text-center sm:px-8 md:pb-56">
+			<div className="mx-auto max-w-7xl px-4 pt-[26dvh] pb-16 text-center sm:px-8">
 				<p className="type-body-sm font-semibold tracking-[0.075rem] text-[#EFD998]">
 					Maayan · Escrituras que fluyen
 				</p>

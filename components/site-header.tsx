@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { MenuIcon, ShoppingBagIcon, XIcon } from "lucide-react";
 import { Logo } from "@/components/logo";
@@ -24,14 +24,40 @@ export function SiteHeader() {
 		setMenuPath(null);
 	}
 	const menuOpen = menuPath === pathname;
+	const menuToggleRef = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		setMenuPath(null);
+	}, [pathname]);
 
 	useEffect(() => {
 		if (!menuOpen) return;
 		const onKeyDown = (event: KeyboardEvent) => {
-			if (event.key === "Escape") setMenuPath(null);
+			if (event.key === "Escape") {
+				setMenuPath(null);
+				menuToggleRef.current?.focus();
+			}
 		};
 		document.addEventListener("keydown", onKeyDown);
 		return () => document.removeEventListener("keydown", onKeyDown);
+	}, [menuOpen]);
+
+	useEffect(() => {
+		if (!menuOpen) return;
+
+		const originalOverflow = document.body.style.overflow;
+		const desktopQuery = window.matchMedia("(min-width: 64rem)");
+		const closeMenuOnDesktop = () => {
+			if (desktopQuery.matches) setMenuPath(null);
+		};
+
+		document.body.style.overflow = "hidden";
+		desktopQuery.addEventListener("change", closeMenuOnDesktop);
+
+		return () => {
+			document.body.style.overflow = originalOverflow;
+			desktopQuery.removeEventListener("change", closeMenuOnDesktop);
+		};
 	}, [menuOpen]);
 
 	const isActive = (href: string) =>
@@ -95,6 +121,7 @@ export function SiteHeader() {
 						)}
 					</button>
 					<button
+						ref={menuToggleRef}
 						className="size-touch-target grid cursor-pointer place-items-center lg:hidden"
 						onClick={() => setMenuPath(menuOpen ? null : pathname)}
 						aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}

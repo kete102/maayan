@@ -20,6 +20,9 @@ export function SiteHeader() {
 	const pathname = usePathname();
 	// The menu is tied to the path it was opened on, so navigating closes it.
 	const [menuPath, setMenuPath] = useState<string | null>(null);
+	if (menuPath !== null && menuPath !== pathname) {
+		setMenuPath(null);
+	}
 	const menuOpen = menuPath === pathname;
 
 	useEffect(() => {

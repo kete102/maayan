@@ -7,15 +7,18 @@ export function Logo({
 	showTagline = false,
 	hideText = false,
 	compactOnMobile = false,
+	inert = false,
 }: {
 	className?: string;
 	showTagline?: boolean;
 	hideText?: boolean;
 	compactOnMobile?: boolean;
+	inert?: boolean;
 }) {
 	return (
 		<Link
 			href="/"
+			inert={inert}
 			className={cn("group inline-flex flex-col leading-none", className)}
 		>
 			<span className="flex items-center">

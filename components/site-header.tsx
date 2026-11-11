@@ -24,7 +24,9 @@ export function SiteHeader() {
 		setMenuPath(null);
 	}
 	const menuOpen = menuPath === pathname;
+	const headerRef = useRef<HTMLElement>(null);
 	const menuToggleRef = useRef<HTMLButtonElement>(null);
+	const mobileMenuRef = useRef<HTMLElement>(null);
 
 	useEffect(() => {
 		setMenuPath(null);
@@ -32,14 +34,56 @@ export function SiteHeader() {
 
 	useEffect(() => {
 		if (!menuOpen) return;
+
+		const header = headerRef.current;
+		const background = Array.from(header?.parentElement?.children ?? [])
+			.filter((element): element is HTMLElement => element !== header)
+			.map((element) => ({ element, wasInert: element.inert }));
+
+		for (const { element } of background) element.inert = true;
+		mobileMenuRef.current?.querySelector<HTMLAnchorElement>("a[href]")?.focus();
+
 		const onKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
 				setMenuPath(null);
 				menuToggleRef.current?.focus();
+				return;
+			}
+
+			if (event.key !== "Tab") return;
+
+			const toggle = menuToggleRef.current;
+			const links = Array.from(
+				mobileMenuRef.current?.querySelectorAll<HTMLAnchorElement>("a[href]") ??
+					[]
+			);
+			const focusable = toggle ? [toggle, ...links] : links;
+			const first = focusable[0];
+			const last = focusable[focusable.length - 1];
+
+			if (!first || !last) return;
+
+			if (event.shiftKey && document.activeElement === first) {
+				event.preventDefault();
+				last.focus();
+			} else if (!event.shiftKey && document.activeElement === last) {
+				event.preventDefault();
+				first.focus();
+			} else if (
+				!focusable.some((element) => element === document.activeElement)
+			) {
+				event.preventDefault();
+				first.focus();
 			}
 		};
+
 		document.addEventListener("keydown", onKeyDown);
-		return () => document.removeEventListener("keydown", onKeyDown);
+		return () => {
+			document.removeEventListener("keydown", onKeyDown);
+			for (const { element, wasInert } of background) {
+				element.inert = wasInert;
+			}
+		};
 	}, [menuOpen]);
 
 	useEffect(() => {
@@ -65,15 +109,23 @@ export function SiteHeader() {
 
 	return (
 		<MotionConfig reducedMotion="user">
-			<header className="relative z-40 flex h-24 w-full items-center justify-between px-4 sm:px-8 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-14">
+			<header
+				ref={headerRef}
+				role={menuOpen ? "dialog" : undefined}
+				aria-modal={menuOpen || undefined}
+				aria-label={menuOpen ? "Menú principal" : undefined}
+				className="relative z-40 flex h-24 w-full items-center justify-between px-4 sm:px-8 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-14"
+			>
 				<Logo
 					className="justify-self-start"
 					compactOnMobile
+					inert={menuOpen}
 				/>
 
 				<nav
 					aria-label="Principal"
 					className="max-lg:hidden"
+					inert={menuOpen}
 				>
 					<ul className="flex items-center gap-8">
 						{navLinks.map(({ href, label }) => {
@@ -107,6 +159,7 @@ export function SiteHeader() {
 				<div className="flex items-center justify-self-end">
 					<button
 						className="size-touch-target relative grid cursor-pointer place-items-center"
+						inert={menuOpen}
 						onClick={() => {
 							setMenuPath(null);
 							setIsOpen(!isOpen);
@@ -151,6 +204,7 @@ export function SiteHeader() {
 								onClick={() => setMenuPath(null)}
 							/>
 							<motion.nav
+								ref={mobileMenuRef}
 								id={MOBILE_MENU_ID}
 								aria-label="Menú móvil"
 								className="bg-background/95 supports-[backdrop-filter]:bg-background/80 border-border absolute inset-x-0 top-full border-y backdrop-blur-xl backdrop-saturate-150 lg:hidden"

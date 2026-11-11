@@ -10,7 +10,7 @@ export default async function HomePage() {
 
 	return (
 		<>
-			<Hero product={product ?? undefined} />
+			<Hero />
 			{product ? (
 				<ProductFeature product={product} />
 			) : (

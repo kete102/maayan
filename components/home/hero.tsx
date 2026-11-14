@@ -1,20 +1,11 @@
 import { ScrollCue } from "@/components/home/scroll-cue";
 import { Countdown } from "@/components/home/countdown";
+import { HeroVideo } from "@/components/home/hero-video";
 
 export function Hero() {
 	return (
 		<section className="relative isolate flex min-h-dvh w-full items-center justify-center overflow-hidden">
-			<video
-				src="/hero-video.mp4"
-				poster="/hero-poster.jpg"
-				autoPlay
-				loop
-				muted
-				playsInline
-				preload="metadata"
-				aria-hidden="true"
-				className="absolute inset-0 -z-20 size-full object-cover brightness-100 contrast-[.95] saturate-90 motion-reduce:hidden"
-			/>
+			<HeroVideo />
 			{/* Static fallback when the user prefers reduced motion. */}
 			<div
 				className="absolute inset-0 -z-20 hidden bg-[url(/hero-poster.jpg)] bg-cover bg-center brightness-130 contrast-[.55] saturate-50 motion-reduce:block"

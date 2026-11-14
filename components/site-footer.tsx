@@ -10,10 +10,10 @@ const socials = [
 
 export function SiteFooter() {
 	return (
-		<footer className="px-6 pt-4 pb-10 sm:px-10">
+		<footer className="bg-white px-6 pt-4 pb-10 sm:px-10">
 			<div className="mx-auto max-w-6xl">
 				<div
-					className="via-accent/60 mb-12 h-px bg-linear-to-r from-transparent to-transparent"
+					className="mb-12 h-px bg-white"
 					aria-hidden="true"
 				/>
 
@@ -30,7 +30,7 @@ export function SiteFooter() {
 							<p className="font-serif text-2xl tracking-[0.3em]">MAAYAN</p>
 						</div>
 						<p className="text-muted-foreground font-serif text-lg italic">
-							Las Escrituras que Fluyen
+							Escrituras que Fluyen
 						</p>
 					</div>
 
@@ -46,7 +46,10 @@ export function SiteFooter() {
 										aria-label={`Maayan en ${label}`}
 										className="border-border text-foreground/80 hover:border-accent hover:text-accent inline-flex size-10 items-center justify-center rounded-full border transition-colors"
 									>
-										<Icon className="size-4" aria-hidden="true" />
+										<Icon
+											className="size-4"
+											aria-hidden="true"
+										/>
 									</a>
 								</li>
 							))}

@@ -58,7 +58,7 @@ export function Countdown({ className }: { className?: string }) {
 			aria-label="Cuenta atrás hasta el 1 de diciembre a las 9:00"
 		>
 			<p className="type-overline text-foreground/80">
-				El comienzo · 1 de diciembre
+				Origen · 1 de diciembre
 			</p>
 			<dl className="flex items-start justify-center gap-3 sm:gap-10">
 				{units.map(({ key, label }, index) => (

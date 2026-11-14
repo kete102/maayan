@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CartPageClient } from "@/components/cart/cart-page-client";
+import { CartProvider } from "@/components/cart/cart-provider";
 import { requireLaunched } from "@/lib/require-launched";
 
 export const metadata: Metadata = {
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default async function CartPage() {
-	// CartProvider is not mounted during the pre-launch landing.
 	await requireLaunched();
-	return <CartPageClient />;
+	// The root layout mounts no CartProvider during the pre-launch landing.
+	return (
+		<CartProvider>
+			<CartPageClient />
+		</CartProvider>
+	);
 }

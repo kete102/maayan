@@ -15,7 +15,7 @@ export function ScrollCue({ href, label }: { href: string; label: string }) {
 			<motion.span
 				aria-hidden="true"
 				animate={reduceMotion ? undefined : { y: [0, 6, 0] }}
-				transition={{ duration: 2.4, ease: "easeInOut", repeat: Infinity }}
+				transition={{ duration: 2.4, ease: "easeInOut", repeat: 1 }}
 			>
 				<ChevronDown
 					className="size-5"

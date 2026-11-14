@@ -31,7 +31,7 @@ export function HeroVideo() {
 				playsInline
 				preload="metadata"
 				aria-hidden="true"
-				className="absolute inset-0 -z-20 size-full object-cover brightness-100 contrast-[.95] saturate-90 motion-reduce:hidden"
+				className="absolute inset-0 -z-20 size-full scale-105 object-cover blur-[1px] motion-reduce:hidden"
 			/>
 			{/* WCAG 2.2.2: moving content longer than 5s must be pausable. */}
 			<button

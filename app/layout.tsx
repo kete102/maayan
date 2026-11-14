@@ -22,11 +22,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
 	title: "MAAYAN",
 	description:
-		"Hay bellezas que despiertan algo en nosotros. Creemos que lo que vemos puede ser el comienzo de algo mucho más grande.",
+		"La belleza despierta algo en nosotros. Creemos que lo que vemos puede ser el comienzo de algo mucho más grande.",
 	openGraph: {
 		title: "MAAYAN",
 		description:
-			"Hay bellezas que despiertan algo en nosotros. Muy pronto, el 1 de diciembre.",
+			"La belleza despierta algo en nosotros. Muy pronto, el 1 de diciembre.",
 		images: ["/hero-poster.jpg"],
 		locale: "es_ES",
 		type: "website",

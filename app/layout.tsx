@@ -1,17 +1,18 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Tenor_Sans, Inter } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
 
-const tenor = Tenor_Sans({
-	variable: "--font-tenor",
+const cormorant = Cormorant_Garamond({
+	variable: "--font-cormorant",
 	subsets: ["latin"],
-	weight: "400",
+	weight: ["300", "400", "500"],
+	style: ["normal", "italic"],
 	display: "swap",
 });
-const inter = Inter({
-	variable: "--font-inter",
+const dmSans = DM_Sans({
+	variable: "--font-dm-sans",
 	subsets: ["latin"],
 	weight: ["400", "500", "600"],
 	style: ["normal", "italic"],
@@ -40,7 +41,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang="es"
-			className={`${tenor.variable} ${inter.variable} bg-background`}
+			className={`${cormorant.variable} ${dmSans.variable} bg-background`}
 		>
 			<body className="font-sans antialiased">
 				<SiteShell>{children}</SiteShell>

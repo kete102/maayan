@@ -1,92 +1,68 @@
-import Link from "next/link";
 import Image from "next/image";
-import { Logo } from "@/components/logo";
+import { InstagramIcon } from "@/components/icons/instagram-icon";
+import { TikTokIcon } from "@/components/icons/tiktok-icon";
+import { INSTAGRAM_URL, TIKTOK_URL } from "@/lib/launch";
 
-const footerGroups = [
-	{
-		title: "Explora",
-		links: [
-			{ label: "Biblias", href: "/" },
-			{ label: "Nuestra historia", href: "/about" },
-		],
-	},
-	{
-		title: "Contacto",
-		links: [
-			{ label: "Escríbenos", href: null },
-			{ label: "Preguntas frecuentes", href: null },
-		],
-	},
-	{
-		title: "Síguenos",
-		links: [
-			{ label: "Instagram", href: null },
-			{ label: "Facebook", href: null },
-			{ label: "TikTok", href: null },
-		],
-	},
+const socials = [
+	{ label: "Instagram", href: INSTAGRAM_URL, Icon: InstagramIcon },
+	{ label: "TikTok", href: TIKTOK_URL, Icon: TikTokIcon },
 ];
 
 export function SiteFooter() {
 	return (
-		<footer className="border-border bg-background text-foreground overflow-hidden border-t">
-			<div className="mx-auto grid max-w-7xl gap-12 px-6 pt-14 pb-10 sm:px-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16 lg:pt-20">
-				<div className="flex max-w-md flex-col items-start">
-					<Logo />
-					<p className="text-muted-foreground mt-3 max-w-xs text-sm leading-relaxed">
-						Una fuente de agua viva para acompañar tu camino de fe.
-					</p>
-					<p className="text-muted-foreground mt-9 text-xs">
-						© {new Date().getFullYear()} Maayan. Las Escrituras que Fluyen.
-					</p>
+		<footer
+			role="contentinfo"
+			className="bg-white px-6 pt-4 pb-10 sm:px-10"
+		>
+			<div className="mx-auto max-w-6xl">
+				<div
+					className="mb-12 h-px bg-white"
+					aria-hidden="true"
+				/>
+
+				<div className="flex flex-col items-center gap-10 text-center md:flex-row md:items-center md:justify-between md:text-left">
+					<div className="flex flex-col items-center gap-3 md:items-start">
+						<div className="flex items-center gap-3">
+							<Image
+								src="/emblem.png"
+								alt=""
+								width={240}
+								height={24}
+								className="size-8 w-auto object-contain"
+							/>
+							<p className="font-serif text-2xl tracking-[0.3em]">MAAYAN</p>
+						</div>
+						<p className="text-muted-foreground font-serif text-lg italic">
+							Escrituras que Fluyen
+						</p>
+					</div>
+
+					<div className="flex flex-col items-center gap-4 md:items-end">
+						<p className="type-overline text-muted-foreground">Síguenos</p>
+						<ul className="flex items-center gap-3">
+							{socials.map(({ label, href, Icon }) => (
+								<li key={label}>
+									<a
+										href={href}
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label={`Maayan en ${label}`}
+										className="border-border text-foreground/80 hover:border-accent hover:text-accent inline-flex size-10 items-center justify-center rounded-full border transition-colors"
+									>
+										<Icon
+											className="size-4"
+											aria-hidden="true"
+										/>
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
 				</div>
 
-				<nav
-					aria-label="Enlaces del pie de página"
-					className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3"
-				>
-					{footerGroups.map(({ title, links }) => (
-						<div key={title}>
-							<h2 className="type-overline text-muted-foreground mb-4">
-								{title}
-							</h2>
-							<ul className="flex flex-col items-start gap-3">
-								{links.map(({ label, href }) => (
-									<li key={label}>
-										{href ? (
-											<Link
-												href={href}
-												className="text-foreground/80 hover:text-foreground text-sm transition-colors"
-											>
-												{label}
-											</Link>
-										) : (
-											<span
-												aria-disabled="true"
-												className="text-muted-foreground/70 text-sm"
-											>
-												{label}
-											</span>
-										)}
-									</li>
-								))}
-							</ul>
-						</div>
-					))}
-				</nav>
-			</div>
-
-			<div
-				aria-hidden="true"
-				className="relative aspect-[11/5] w-full overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_30%)] sm:aspect-[19/5]"
-			>
-				<Image
-					src="/footer2.webp"
-					alt=""
-					fill
-					sizes="100vw"
-					className="object-cover object-bottom sm:object-[center_74%]"
-				/>
+				<p className="text-muted-foreground border-border/60 mt-12 border-t pt-6 text-center text-xs md:text-left">
+					© {new Date().getFullYear()} Maayan. Todos los derechos reservados.
+				</p>
 			</div>
 		</footer>
 	);

@@ -1,42 +1,40 @@
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ScrollCue } from "@/components/home/scroll-cue";
+import { Countdown } from "@/components/home/countdown";
+import { HeroVideo } from "@/components/home/hero-video";
 
 export function Hero() {
 	return (
-		<section className="dark-surface relative isolate flex h-280 items-start overflow-hidden">
-			<Image
-				src="/images/canyon-hero.webp"
-				alt=""
-				fill
-				priority
-				sizes="100vw"
-				className="-z-20 object-cover object-center"
-			/>
+		<section className="relative isolate flex min-h-dvh w-full items-center justify-center overflow-hidden">
+			<HeroVideo />
+			{/* Static fallback when the user prefers reduced motion. */}
 			<div
-				className="from-ink/10 via-ink/30 to-ink/40 absolute inset-0 -z-10 bg-linear-to-b"
+				className="absolute inset-0 -z-20 hidden scale-105 bg-[url(/hero-poster.jpg)] bg-cover bg-center blur-[3px] motion-reduce:block"
 				aria-hidden="true"
 			/>
-			<div className="mx-auto max-w-7xl px-4 pt-[26dvh] pb-16 text-center sm:px-8">
-				<p className="type-body-sm font-semibold tracking-[0.075rem] text-[#EFD998]">
-					Maayan · Escrituras que fluyen
+			{/*
+			 * A soft blur (scaled up to hide the blurred edges) keeps the footage
+			 * from competing with the text; a light veil warms it to parchment.
+			 */}
+			<div
+				className="from-parchment/35 via-parchment/35 absolute inset-0 -z-10 bg-linear-to-b via-90% to-white"
+				aria-hidden="true"
+			/>
+
+			<div className="flex w-full flex-col items-center px-4 py-24 text-center">
+				<h1 className="pl-[0.32em] font-serif text-[clamp(2.75rem,10vw,8.5rem)] leading-none font-light tracking-[0.32em] text-black uppercase">
+					Maayan
+				</h1>
+				<p className="type-body text-foreground mx-auto mt-8 max-w-xl font-serif text-[1.375rem] leading-relaxed text-pretty italic sm:text-[1.75rem]">
+					&ldquo;La belleza despierta algo en nosotros. Creemos que lo que vemos
+					puede ser el comienzo de algo mucho más grande.&rdquo;
 				</p>
-				<h1 className="type-display mt-4">La Palabra, fuente de agua viva.</h1>
-				<p className="type-body-lg text-foreground/90 mx-auto mt-6 max-w-5xl">
-					Biblias artesanales creadas para honrar la belleza de la Palabra de
-					Dios.
-				</p>
-				<div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-6">
-					<Button
-						variant="solid"
-						size="hero"
-						render={<a href="#biblia" />}
-					>
-						Descubrir la edición
-						<ArrowRight className="size-4" />
-					</Button>
-				</div>
+				<Countdown className="mt-14" />
 			</div>
+
+			<ScrollCue
+				href="#about"
+				label="Conócenos"
+			/>
 		</section>
 	);
 }

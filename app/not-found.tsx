@@ -12,14 +12,7 @@ export default function NotFound() {
 			</p>
 			<div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
 				<Button
-					render={<Link href="/#biblia" />}
-					className="px-8"
-				>
-					Ver la Biblia
-				</Button>
-				<Button
 					render={<Link href="/" />}
-					variant="outline"
 					className="px-8"
 				>
 					Ir al inicio

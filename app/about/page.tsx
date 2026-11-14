@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/motion/reveal";
 import type { Metadata } from "next";
+import { requireLaunched } from "@/lib/require-launched";
 
 export const metadata: Metadata = {
 	title: "Nuestra Historia — Maayan",
@@ -34,7 +35,8 @@ const pillars = [
 	},
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+	await requireLaunched();
 	return (
 		<>
 			{/* héroe */}

@@ -1,42 +1,49 @@
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ScrollCue } from "@/components/home/scroll-cue";
+import { Countdown } from "@/components/home/countdown";
 
 export function Hero() {
 	return (
-		<section className="dark-surface relative isolate flex h-280 items-start overflow-hidden">
-			<Image
-				src="/images/canyon-hero.webp"
-				alt=""
-				fill
-				priority
-				sizes="100vw"
-				className="-z-20 object-cover object-center"
+		<section className="relative isolate flex min-h-dvh w-full items-center justify-center overflow-hidden">
+			<video
+				src="/hero-video.mp4"
+				poster="/hero-poster.jpg"
+				autoPlay
+				loop
+				muted
+				playsInline
+				preload="metadata"
+				aria-hidden="true"
+				className="absolute inset-0 -z-20 size-full object-cover brightness-100 contrast-[.95] saturate-90 motion-reduce:hidden"
 			/>
+			{/* Static fallback when the user prefers reduced motion. */}
 			<div
-				className="from-ink/10 via-ink/30 to-ink/40 absolute inset-0 -z-10 bg-linear-to-b"
+				className="absolute inset-0 -z-20 hidden bg-[url(/hero-poster.jpg)] bg-cover bg-center brightness-130 contrast-[.55] saturate-50 motion-reduce:block"
 				aria-hidden="true"
 			/>
-			<div className="mx-auto max-w-7xl px-4 pt-[26dvh] pb-16 text-center sm:px-8">
-				<p className="type-body-sm font-semibold tracking-[0.075rem] text-[#EFD998]">
-					Maayan · Escrituras que fluyen
+			{/*
+			 * The footage is lightened and desaturated (filters above) so dark text
+			 * reads without a heavy overlay; a light uniform veil warms it to parchment.
+			 */}
+			<div
+				className="from-parchment/35 via-parchment/35 to-parchment absolute inset-0 -z-10 bg-linear-to-b via-90%"
+				aria-hidden="true"
+			/>
+
+			<div className="flex w-full flex-col items-center px-4 py-24 text-center">
+				<h1 className="pl-[0.32em] font-serif text-[clamp(2.75rem,10vw,8.5rem)] leading-none font-light tracking-[0.32em] text-black uppercase">
+					Maayan
+				</h1>
+				<p className="type-body text-foreground mx-auto mt-8 max-w-xl font-serif text-[1.375rem] leading-relaxed text-pretty italic sm:text-[1.75rem]">
+					&ldquo;Hay bellezas que despiertan algo en nosotros. Creemos que lo
+					que vemos puede ser el comienzo de algo mucho más grande.&rdquo;
 				</p>
-				<h1 className="type-display mt-4">La Palabra, fuente de agua viva.</h1>
-				<p className="type-body-lg text-foreground/90 mx-auto mt-6 max-w-5xl">
-					Biblias artesanales creadas para honrar la belleza de la Palabra de
-					Dios.
-				</p>
-				<div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-6">
-					<Button
-						variant="solid"
-						size="hero"
-						render={<a href="#biblia" />}
-					>
-						Descubrir la edición
-						<ArrowRight className="size-4" />
-					</Button>
-				</div>
+				<Countdown className="mt-14" />
 			</div>
+
+			<ScrollCue
+				href="#about"
+				label="Conócenos"
+			/>
 		</section>
 	);
 }

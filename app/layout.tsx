@@ -2,7 +2,6 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Tenor_Sans, Inter } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/components/cart/cart-provider";
 import { SiteShell } from "@/components/site-shell";
 
 const tenor = Tenor_Sans({
@@ -20,15 +19,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-	title: "Maayan -- Escrituras que Fluyen",
+	title: "MAAYAN",
 	description:
-		"Maayan crea Biblias artesanales para acompañar toda una vida de fe. Conoce nuestra historia y descubre nuestra edición Origen.",
-	icons: {
-		icon: [
-			{ url: "/icon-dark-32x32.png" },
-			{ url: "/icon.svg", type: "image/svg+xml" },
-		],
-		apple: "/apple-icon.png",
+		"Hay bellezas que despiertan algo en nosotros. Creemos que lo que vemos puede ser el comienzo de algo mucho más grande.",
+	openGraph: {
+		title: "MAAYAN",
+		description:
+			"Hay bellezas que despiertan algo en nosotros. Muy pronto, el 1 de diciembre.",
+		images: ["/hero-poster.jpg"],
+		locale: "es_ES",
+		type: "website",
 	},
 };
 
@@ -43,9 +43,7 @@ export default function RootLayout({
 			className={`${tenor.variable} ${inter.variable} bg-background`}
 		>
 			<body className="font-sans antialiased">
-				<CartProvider>
-					<SiteShell>{children}</SiteShell>
-				</CartProvider>
+				<SiteShell>{children}</SiteShell>
 				{process.env.NODE_ENV === "production" && <Analytics />}
 			</body>
 		</html>

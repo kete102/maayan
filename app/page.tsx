@@ -1,29 +1,13 @@
+import { AboutIntro } from "@/components/home/about-intro";
 import { Hero } from "@/components/home/hero";
-import { ProductFeature } from "@/components/home/product-feature";
-import { getFeaturedProduct } from "@/lib/products";
-import { connection } from "next/server";
+import { LandingFooter } from "@/components/home/landing-footer";
 
-export default async function HomePage() {
-	// Opt out of static prerendering: the product is read from Supabase at request time.
-	await connection();
-	const product = await getFeaturedProduct();
-
+export default function HomePage() {
 	return (
 		<>
 			<Hero />
-			{product ? (
-				<ProductFeature product={product} />
-			) : (
-				<section
-					id="biblia"
-					className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-8"
-				>
-					<h2 className="type-h2">Producto no disponible</h2>
-					<p className="text-muted-foreground mt-3">
-						Estamos preparando nuestra próxima edición.
-					</p>
-				</section>
-			)}
+			<AboutIntro />
+			<LandingFooter />
 		</>
 	);
 }

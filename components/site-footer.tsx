@@ -10,7 +10,10 @@ const socials = [
 
 export function SiteFooter() {
 	return (
-		<footer className="bg-white px-6 pt-4 pb-10 sm:px-10">
+		<footer
+			role="contentinfo"
+			className="bg-white px-6 pt-4 pb-10 sm:px-10"
+		>
 			<div className="mx-auto max-w-6xl">
 				<div
 					className="mb-12 h-px bg-white"

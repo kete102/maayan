@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { LAUNCH_AT } from "@/lib/launch";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 type TimeLeft = {
 	days: number;
@@ -57,9 +59,18 @@ export function Countdown({ className }: { className?: string }) {
 			role="timer"
 			aria-label="Cuenta atrás hasta el 1 de diciembre a las 9:00"
 		>
-			<p className="type-overline text-foreground/80">
-				Origen · 1 de diciembre
-			</p>
+			<section className="flex w-full flex-row items-center justify-center gap-4">
+				<p className="type-body text-foreground/80">ORIGEN · 1 de diciembre</p>
+				<div className="flex flex-row items-center">
+					<Link
+						href={"/waitlist"}
+						className="type-overline"
+					>
+						Únete a lista de espera
+					</Link>
+					<ArrowRight className="size-4" />
+				</div>
+			</section>
 			<dl className="flex items-start justify-center gap-3 sm:gap-10">
 				{units.map(({ key, label }, index) => (
 					<div

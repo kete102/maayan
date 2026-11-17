@@ -1,10 +1,14 @@
+"use client";
 import { ScrollCue } from "@/components/home/scroll-cue";
 import { Countdown } from "@/components/home/countdown";
 import { HeroVideo } from "@/components/home/hero-video";
+import Link from "next/link";
+import { ArrowRight, MailIcon } from "lucide-react";
+import { motion } from "motion/react";
 
 export function Hero() {
 	return (
-		<section className="relative isolate flex min-h-dvh w-full items-center justify-center overflow-hidden">
+		<section className="relative isolate flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden">
 			<HeroVideo />
 			{/* Static fallback when the user prefers reduced motion. */}
 			<div
@@ -29,6 +33,35 @@ export function Hero() {
 					puede ser el comienzo de algo mucho más grande.&rdquo;
 				</p>
 				<Countdown className="mt-14" />
+
+				<div className="mt-16 flex flex-row items-center">
+					<motion.div
+						initial={{ opacity: 0, y: 4 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{
+							duration: 0.5,
+							delay: 0.5,
+							ease: "easeOut",
+						}}
+					>
+						<Link
+							href="/waitlist"
+							className="type-button border-ink group hover:bg-ink relative inline-flex items-center gap-3 overflow-hidden rounded-full border px-8 py-3 backdrop-blur-sm transition-colors duration-350 ease-in-out hover:text-white"
+						>
+							<MailIcon
+								strokeWidth={1.25}
+								className="size-4"
+							/>
+
+							<span>Únete a la lista de espera</span>
+
+							<ArrowRight
+								strokeWidth={1.5}
+								className="size-5 transition-transform duration-300 ease-out group-hover:translate-x-1"
+							/>
+						</Link>
+					</motion.div>
+				</div>
 			</div>
 
 			<ScrollCue

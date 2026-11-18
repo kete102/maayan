@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/server";
+import { getSupabase } from "@/lib/supabase/server";
 import {
 	type WaitlistInsert,
 	waitlistSchema,
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 		} satisfies WaitlistInsert;
 
 		// 5. Insert into Supabase
-		const { error } = await supabase.from("waitlist").insert(insertData);
+		const { error } = await getSupabase().from("waitlist").insert(insertData);
 
 		if (error && error.code !== "23505") {
 			console.error("Waitlist insertion error:", {

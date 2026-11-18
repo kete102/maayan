@@ -1,20 +1,9 @@
 import "server-only";
 
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/database.types";
 
 const REQUEST_TIMEOUT_MS = 5000;
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
-
-if (!supabaseUrl) {
-	throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL");
-}
-
-if (!supabaseSecretKey) {
-	throw new Error("Missing SUPABASE_SECRET_KEY");
-}
 
 function fetchWithTimeout(
 	input: RequestInfo | URL,
@@ -32,13 +21,34 @@ function fetchWithTimeout(
 	});
 }
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseSecretKey, {
-	auth: {
-		autoRefreshToken: false,
-		persistSession: false,
-		detectSessionInUrl: false,
-	},
-	global: {
-		fetch: fetchWithTimeout,
-	},
-});
+let client: SupabaseClient<Database> | undefined;
+
+export function getSupabase(): SupabaseClient<Database> {
+	if (client) {
+		return client;
+	}
+
+	const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+	const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
+
+	if (!supabaseUrl) {
+		throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL");
+	}
+
+	if (!supabaseSecretKey) {
+		throw new Error("Missing SUPABASE_SECRET_KEY");
+	}
+
+	client = createClient<Database>(supabaseUrl, supabaseSecretKey, {
+		auth: {
+			autoRefreshToken: false,
+			persistSession: false,
+			detectSessionInUrl: false,
+		},
+		global: {
+			fetch: fetchWithTimeout,
+		},
+	});
+
+	return client;
+}

@@ -39,6 +39,15 @@ export function getSupabase(): SupabaseClient<Database> {
 		throw new Error("Missing SUPABASE_SECRET_KEY");
 	}
 
+	console.log("Supabase debug:", {
+		url: supabaseUrl,
+		keyType: supabaseSecretKey.startsWith("sb_secret_")
+			? "secret"
+			: supabaseSecretKey.startsWith("eyJ")
+				? "legacy-jwt"
+				: "unknown",
+	});
+
 	client = createClient<Database>(supabaseUrl, supabaseSecretKey, {
 		auth: {
 			autoRefreshToken: false,

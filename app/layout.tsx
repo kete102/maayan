@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 	title: "MAAYAN",
 	description:
 		"La belleza despierta algo en nosotros. Creemos que lo que vemos puede ser el comienzo de algo mucho más grande.",
+	metadataBase: new URL("https://maayan.shop"),
 	openGraph: {
 		title: "MAAYAN",
 		description:

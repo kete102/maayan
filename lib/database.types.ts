@@ -248,6 +248,31 @@ export type Database = {
 				};
 				Relationships: [];
 			};
+			waitlist: {
+				Row: {
+					id: number;
+					privacy_accepted_at: string;
+					user_email: string;
+					user_last_name: string;
+					user_name: string;
+				};
+				ComputedFields: never;
+				Insert: {
+					id?: number;
+					privacy_accepted_at: string;
+					user_email: string;
+					user_last_name: string;
+					user_name: string;
+				};
+				Update: {
+					id?: number;
+					privacy_accepted_at?: string;
+					user_email?: string;
+					user_last_name?: string;
+					user_name?: string;
+				};
+				Relationships: [];
+			};
 		};
 		Views: {
 			[_ in never]: never;

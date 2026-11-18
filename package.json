@@ -2,7 +2,7 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@11.9.0",
+  "packageManager": "pnpm@12.21.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,7 +12,10 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",
+    "@upstash/ratelimit": "^2.2.1",
+    "@upstash/redis": "^1.41.0",
     "@vercel/analytics": "2.0.1",
+    "@vercel/functions": "^3.11.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.65.0",
@@ -20,7 +23,8 @@
     "next": "16.4.3",
     "react": "^19",
     "react-dom": "^19",
-    "tailwind-merge": "^3.7.0"
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

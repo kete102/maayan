@@ -299,7 +299,12 @@ export type Database = {
 			[_ in never]: never;
 		};
 		Functions: {
+			claim_waitlist_email: { Args: { p_email?: string }; Returns: Json };
 			consume_reservation: { Args: { p_order_id: string }; Returns: string };
+			finish_waitlist_email: {
+				Args: { p_email: string; p_success: boolean; p_token: string };
+				Returns: boolean;
+			};
 			register_waitlist: {
 				Args: { p_email: string; p_last_name: string; p_name: string };
 				Returns: Json;

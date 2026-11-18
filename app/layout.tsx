@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
+import { SiteFooter } from "@/components/site-footer";
 
 const cormorant = Cormorant_Garamond({
 	variable: "--font-cormorant",
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
 	title: "MAAYAN",
 	description:
 		"La belleza despierta algo en nosotros. Creemos que lo que vemos puede ser el comienzo de algo mucho más grande.",
+	metadataBase: new URL("https://maayan.shop"),
 	openGraph: {
 		title: "MAAYAN",
 		description:
@@ -46,6 +48,7 @@ export default function RootLayout({
 			<body className="font-sans antialiased">
 				<SiteShell>{children}</SiteShell>
 				{process.env.NODE_ENV === "production" && <Analytics />}
+				<SiteFooter />
 			</body>
 		</html>
 	);

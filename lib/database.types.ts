@@ -248,12 +248,67 @@ export type Database = {
 				};
 				Relationships: [];
 			};
+			waitlist: {
+				Row: {
+					confirmation_email_attempts: number;
+					confirmation_email_claim_token: string | null;
+					confirmation_email_locked_until: string | null;
+					confirmation_email_next_retry_at: string;
+					confirmation_email_sent_at: string | null;
+					confirmation_email_status: string;
+					discount_code: string | null;
+					id: number;
+					privacy_accepted_at: string;
+					user_email: string;
+					user_last_name: string;
+					user_name: string;
+				};
+				ComputedFields: never;
+				Insert: {
+					confirmation_email_attempts?: number;
+					confirmation_email_claim_token?: string | null;
+					confirmation_email_locked_until?: string | null;
+					confirmation_email_next_retry_at?: string;
+					confirmation_email_sent_at?: string | null;
+					confirmation_email_status?: string;
+					discount_code?: string | null;
+					id?: number;
+					privacy_accepted_at: string;
+					user_email: string;
+					user_last_name: string;
+					user_name: string;
+				};
+				Update: {
+					confirmation_email_attempts?: number;
+					confirmation_email_claim_token?: string | null;
+					confirmation_email_locked_until?: string | null;
+					confirmation_email_next_retry_at?: string;
+					confirmation_email_sent_at?: string | null;
+					confirmation_email_status?: string;
+					discount_code?: string | null;
+					id?: number;
+					privacy_accepted_at?: string;
+					user_email?: string;
+					user_last_name?: string;
+					user_name?: string;
+				};
+				Relationships: [];
+			};
 		};
 		Views: {
 			[_ in never]: never;
 		};
 		Functions: {
+			claim_waitlist_email: { Args: { p_email?: string }; Returns: Json };
 			consume_reservation: { Args: { p_order_id: string }; Returns: string };
+			finish_waitlist_email: {
+				Args: { p_email: string; p_success: boolean; p_token: string };
+				Returns: boolean;
+			};
+			register_waitlist: {
+				Args: { p_email: string; p_last_name: string; p_name: string };
+				Returns: Json;
+			};
 			release_reservation: { Args: { p_order_id: string }; Returns: string };
 			reserve_stock: {
 				Args: {

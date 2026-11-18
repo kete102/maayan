@@ -57,6 +57,9 @@ export async function POST(request: Request) {
 		if (error && error.code !== "23505") {
 			console.error("Waitlist insertion error:", {
 				code: error.code,
+				message: error.message,
+				details: error.details,
+				hint: error.hint,
 			});
 
 			return errorResponse(

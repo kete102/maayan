@@ -1,7 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import type { Database, Json } from "@/lib/database.types";
-import { createPublicSupabaseClient } from "@/lib/db/public";
+import { supabase } from "@/lib/supabase/server";
 
 export type Product = Database["public"]["Tables"]["products"]["Row"];
 
@@ -23,7 +23,7 @@ function isProductSpec(value: Json): value is ProductSpec {
 
 // Featured product rule: first active product by created_at (id breaks ties).
 export const getFeaturedProduct = cache(async (): Promise<Product | null> => {
-	const { data, error } = await createPublicSupabaseClient()
+	const { data, error } = await supabase
 		.from("products")
 		.select("*")
 		.eq("active", true)

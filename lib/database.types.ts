@@ -250,6 +250,10 @@ export type Database = {
 			};
 			waitlist: {
 				Row: {
+					confirmation_email_attempts: number;
+					confirmation_email_claim_token: string | null;
+					confirmation_email_locked_until: string | null;
+					confirmation_email_next_retry_at: string;
 					confirmation_email_sent_at: string | null;
 					confirmation_email_status: string;
 					discount_code: string | null;
@@ -261,6 +265,10 @@ export type Database = {
 				};
 				ComputedFields: never;
 				Insert: {
+					confirmation_email_attempts?: number;
+					confirmation_email_claim_token?: string | null;
+					confirmation_email_locked_until?: string | null;
+					confirmation_email_next_retry_at?: string;
 					confirmation_email_sent_at?: string | null;
 					confirmation_email_status?: string;
 					discount_code?: string | null;
@@ -271,6 +279,10 @@ export type Database = {
 					user_name: string;
 				};
 				Update: {
+					confirmation_email_attempts?: number;
+					confirmation_email_claim_token?: string | null;
+					confirmation_email_locked_until?: string | null;
+					confirmation_email_next_retry_at?: string;
 					confirmation_email_sent_at?: string | null;
 					confirmation_email_status?: string;
 					discount_code?: string | null;
@@ -288,7 +300,6 @@ export type Database = {
 		};
 		Functions: {
 			consume_reservation: { Args: { p_order_id: string }; Returns: string };
-			debug_request_role: { Args: Record<PropertyKey, never>; Returns: Json };
 			register_waitlist: {
 				Args: { p_email: string; p_last_name: string; p_name: string };
 				Returns: Json;

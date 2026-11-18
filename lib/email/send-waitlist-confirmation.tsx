@@ -23,17 +23,22 @@ export async function sendWaitlistConfirmation({
 
 	const resend = new Resend(apiKey);
 
-	const { data, error } = await resend.emails.send({
-		from,
-		to: email,
-		subject: "Ya formas parte del comienzo · MAAYAN",
-		react: (
-			<WaitlistConfirmationEmail
-				name={name}
-				discountCode={discountCode}
-			/>
-		),
-	});
+	const { data, error } = await resend.emails.send(
+		{
+			from,
+			to: email,
+			subject: "Ya formas parte del comienzo · MAAYAN",
+			react: (
+				<WaitlistConfirmationEmail
+					name={name}
+					discountCode={discountCode}
+				/>
+			),
+		},
+		{
+			idempotencyKey: `waitlist/${discountCode}`,
+		}
+	);
 
 	if (error) {
 		throw new Error(`Resend error: ${error.name}`);

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase/server";
 import { waitlistSchema } from "@/lib/validations/waitlist";
 import { checkRateLimit } from "@/lib/check-rate-limit";
-import { sendWaitlistConfirmation } from "@/lib/email/send-waitlist-confirmation";
+import { processWaitlistEmail } from "@/lib/email/process-waitlist-email";
 
 export const runtime = "nodejs";
 
@@ -32,7 +32,8 @@ function isRegistrationResult(value: unknown): value is RegistrationResult {
 	return (
 		value.status === "created" &&
 		"code" in value &&
-		typeof value.code === "string"
+		typeof value.code === "string" &&
+		value.code.length > 0
 	);
 }
 
@@ -68,14 +69,6 @@ export async function POST(request: Request) {
 		const { user_name, user_last_name, user_email } = parsed.data;
 
 		const supabase = getSupabase();
-
-		const { data: roleData, error: roleError } =
-			await supabase.rpc("debug_request_role");
-
-		console.log("Effective Supabase role:", {
-			data: roleData,
-			error: roleError?.message,
-		});
 
 		// 4. Register user and generate discount code
 		const { data, error } = await supabase.rpc("register_waitlist", {
@@ -114,49 +107,30 @@ export async function POST(request: Request) {
 		}
 
 		// 6. Already registered
+		// Don't generate another code or send another email.
 		if (data.status === "existing") {
 			return NextResponse.json({ success: true }, { status: 200 });
 		}
 
-		// 7. New registration: send confirmation email
+		// 7. New registration: process confirmation email
+		// The registration is already saved in Supabase.
+		// If email processing fails, the cron can retry later.
 		try {
-			await sendWaitlistConfirmation({
-				name: user_name,
-				email: user_email,
-				discountCode: data.code,
-			});
+			const emailResult = await processWaitlistEmail(user_email);
 
-			const { error: updateError } = await supabase
-				.from("waitlist")
-				.update({
-					confirmation_email_status: "sent",
-					confirmation_email_sent_at: new Date().toISOString(),
-				})
-				.eq("user_email", user_email);
+			if (emailResult === "failed") {
+				console.warn("Waitlist confirmation email queued for retry");
+			}
 
-			if (updateError) {
-				console.error("Email status update error:", {
-					code: updateError.code,
-				});
+			if (emailResult === "none") {
+				console.warn("Waitlist confirmation email was not claimed");
 			}
 		} catch (emailError) {
-			console.error("Waitlist confirmation email failed:", emailError);
-
-			const { error: updateError } = await supabase
-				.from("waitlist")
-				.update({
-					confirmation_email_status: "failed",
-				})
-				.eq("user_email", user_email);
-
-			if (updateError) {
-				console.error("Email failure status update error:", {
-					code: updateError.code,
-				});
-			}
+			console.error("Initial waitlist email processing failed:", emailError);
 		}
 
 		// 8. Success
+		// Registration succeeded regardless of email delivery.
 		return NextResponse.json({ success: true }, { status: 200 });
 	} catch (error) {
 		console.error("Waitlist API error:", error);

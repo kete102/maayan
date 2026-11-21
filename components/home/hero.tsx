@@ -20,7 +20,7 @@ export function Hero() {
 			 * from competing with the text; a light veil warms it to parchment.
 			 */}
 			<div
-				className="from-parchment/35 via-parchment/35 to-background absolute inset-0 -z-10 bg-linear-to-b via-90%"
+				className="from-parchment/60 via-parchment/50 to-background/90 absolute inset-0 -z-10 bg-linear-to-b via-90%"
 				aria-hidden="true"
 			/>
 
@@ -28,7 +28,7 @@ export function Hero() {
 				<h1 className="pl-[0.32em] font-serif text-[clamp(2.75rem,10vw,8.5rem)] leading-none font-light tracking-[0.32em] text-black uppercase">
 					Maayan
 				</h1>
-				<p className="type-body text-foreground mx-auto mt-8 max-w-xl font-serif text-[1.375rem] leading-relaxed text-pretty italic sm:text-[1.75rem]">
+				<p className="type-body text-foreground mx-auto mt-8 max-w-xl font-serif text-[1.375rem] leading-[1.45] font-medium text-pretty italic sm:text-[1.75rem] sm:leading-relaxed">
 					&ldquo;La belleza despierta algo en nosotros. Creemos que lo que vemos
 					puede ser el comienzo de algo mucho más grande.&rdquo;
 				</p>
@@ -46,6 +46,7 @@ export function Hero() {
 					>
 						<Link
 							href="/waitlist"
+							transitionTypes={["nav-forward"]}
 							className="type-button border-ink group hover:bg-ink relative inline-flex items-center gap-3 overflow-hidden rounded-full border px-8 py-3 backdrop-blur-sm transition-colors duration-350 ease-in-out hover:text-white"
 						>
 							<MailIcon

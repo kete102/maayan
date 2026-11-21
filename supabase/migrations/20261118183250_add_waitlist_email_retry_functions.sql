@@ -124,4 +124,3 @@ FROM PUBLIC, anon, authenticated;
 
 GRANT EXECUTE ON FUNCTION public.finish_waitlist_email(text, uuid, boolean)
 TO service_role;
-

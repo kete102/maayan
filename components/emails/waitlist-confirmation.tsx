@@ -11,10 +11,15 @@ import {
 
 type Props = {
 	name: string;
-	discountCode: string;
+	discountCode: string | null;
+	discountExpiresAt: string | null;
 };
 
-function WaitlistConfirmationEmail({ name, discountCode }: Props) {
+function WaitlistConfirmationEmail({
+	name,
+	discountCode,
+	discountExpiresAt,
+}: Props) {
 	return (
 		<Html lang="es">
 			<Head />
@@ -65,40 +70,52 @@ function WaitlistConfirmationEmail({ name, discountCode }: Props) {
 							completado.
 						</Text>
 
-						<Text>
-							Como agradecimiento, queremos compartir contigo un descuento
-							exclusivo de 5 € para nuestra primera edición.
-						</Text>
+						{discountCode && discountExpiresAt ? (
+							<>
+								<Text>
+									Como agradecimiento, queremos compartir contigo un descuento
+									exclusivo de 5 € para nuestra primera edición.
+								</Text>
 
-						<Section
-							style={{
-								textAlign: "center",
-								border: "1px solid #d2c5b3",
-								padding: "24px 12px",
-								marginTop: 28,
-								marginBottom: 28,
-							}}
-						>
-							<Text style={{ fontSize: 12 }}>TU CÓDIGO PERSONAL</Text>
+								<Section
+									style={{
+										textAlign: "center",
+										border: "1px solid #d2c5b3",
+										padding: "24px 12px",
+										marginTop: 28,
+										marginBottom: 28,
+									}}
+								>
+									<Text style={{ fontSize: 12 }}>TU CÓDIGO PERSONAL</Text>
 
-							<Text
-								style={{
-									fontSize: 22,
-									fontWeight: 600,
-									letterSpacing: "0.08em",
-								}}
-							>
-								{discountCode}
+									<Text
+										style={{
+											fontSize: 22,
+											fontWeight: 600,
+											letterSpacing: "0.08em",
+										}}
+									>
+										{discountCode}
+									</Text>
+
+									<Text style={{ fontSize: 13 }}>
+										5 € de descuento · Un solo uso · Válido hasta el{" "}
+										{discountExpiresAt}
+									</Text>
+								</Section>
+							</>
+						) : (
+							<Text>
+								Tu inscripción se ha registrado correctamente. Gracias por
+								acompañarnos en este comienzo.
 							</Text>
-
-							<Text style={{ fontSize: 13 }}>
-								5 € de descuento · Un solo uso
-							</Text>
-						</Section>
+						)}
 
 						<Text>
-							Las ventas comenzarán el 1 de diciembre de 2026. Podrás utilizar
-							tu código durante la compra, sujeto a disponibilidad.
+							Las ventas comenzarán el 1 de diciembre de 2026.
+							{discountCode
+								? " Podrás utilizar tu código durante la compra, sujeto a disponibilidad."
+								: " Te avisaremos cuando comience el lanzamiento."}
 						</Text>
 
 						<Text style={{ fontSize: 13 }}>

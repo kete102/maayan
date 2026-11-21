@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowRightIcon, ArrowUpRightIcon } from "lucide-react";
-import { useRef, useState } from "react";
+import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
+import { ViewTransition, useRef, useState } from "react";
 import type { SubmitEvent } from "react";
 
 import { WaitlistSuccess } from "@/components/waitlist/waitlist-success";
@@ -30,6 +30,8 @@ export function WaitlistFormPage() {
 				.trim()
 				.toLowerCase(),
 			privacy_accepted_at: formData.get("privacy_accepted_at") === "on",
+			commercial_communications_accepted:
+				formData.get("commercial_communications_accepted") === "on",
 		};
 
 		submittingRef.current = true;
@@ -49,7 +51,7 @@ export function WaitlistFormPage() {
 
 			if (response.status === 429) {
 				throw new Error(
-					"Has realizado demesiados intentos. Vuelve a intentarlo más tarde."
+					"Has realizado demasiados intentos. Vuelve a intentarlo más tarde."
 				);
 			}
 
@@ -86,31 +88,12 @@ export function WaitlistFormPage() {
 		"focus-visible:ring-0 focus-visible:outline-none";
 
 	return (
-		<main className="text-foreground flex min-h-screen flex-col">
-			{/* Header */}
-			<header className="flex items-center justify-between px-5 py-8 md:px-12">
-				<Link
-					href="/"
-					aria-label="MAAYAN - Ir al inicio"
-					className="type-wordmark tracking-[0.25em]"
-				>
-					MAAYAN
-				</Link>
-
-				<Link
-					href="/"
-					className="type-overline group inline-flex items-center gap-2 opacity-70 transition-opacity duration-300 ease-in-out hover:opacity-100"
-				>
-					Volver
-					<ArrowUpRightIcon
-						className="size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-						strokeWidth={1.25}
-					/>
-				</Link>
-			</header>
-
-			{/* Main content */}
-			<section className="flex flex-1 items-center justify-center px-6 py-20">
+		<ViewTransition
+			enter={{ "nav-forward": "nav-forward", default: "none" }}
+			exit={{ "nav-back": "nav-back", default: "none" }}
+			default="none"
+		>
+			<section className="text-foreground flex flex-1 items-center justify-center px-6 py-20">
 				<AnimatePresence
 					mode="wait"
 					initial={false}
@@ -150,21 +133,21 @@ export function WaitlistFormPage() {
 						>
 							{/* Introduction */}
 							<div className="mb-14 text-center">
-								<motion.p
+								<motion.div
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
 									transition={{
 										delay: 0.2,
 										duration: 0.7,
 									}}
-									className="type-overline text-muted-foreground mb-6"
+									className="mb-6"
 								>
 									<div className="flex w-full flex-row items-center justify-center gap-4">
 										<p className="type-body text-foreground/80">
 											ORIGEN · 1 de diciembre
 										</p>
 									</div>
-								</motion.p>
+								</motion.div>
 
 								<h1 className="type-h2 md:text-5xl">
 									Forma parte del
@@ -270,6 +253,20 @@ export function WaitlistFormPage() {
 									</span>
 								</label>
 
+								{/* Commercial communications */}
+								<label className="flex cursor-pointer items-start gap-3">
+									<input
+										type="checkbox"
+										name="commercial_communications_accepted"
+										className="border-border accent-ink mt-1 size-4 shrink-0 rounded-none"
+									/>
+
+									<span className="type-body-sm text-muted-foreground">
+										Quiero recibir comunicaciones comerciales de MAAYAN por
+										correo electrónico.
+									</span>
+								</label>
+
 								{/* Submit */}
 								<motion.button
 									type="submit"
@@ -329,7 +326,7 @@ export function WaitlistFormPage() {
 					)}
 				</AnimatePresence>
 			</section>
-		</main>
+		</ViewTransition>
 	);
 }
 

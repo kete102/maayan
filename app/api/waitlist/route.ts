@@ -8,9 +8,7 @@ import { processWaitlistEmail } from "@/lib/email/process-waitlist-email";
 export const runtime = "nodejs";
 
 type RegistrationResult =
-	| { status: "created"; code: string }
-	| { status: "existing" }
-	| { status: "full" };
+	{ status: "created"; code: string | null } | { status: "existing" };
 
 function errorResponse(message: string, status: number) {
 	return NextResponse.json({ success: false, error: message }, { status });
@@ -25,15 +23,15 @@ function isRegistrationResult(value: unknown): value is RegistrationResult {
 		return false;
 	}
 
-	if (value.status === "existing" || value.status === "full") {
+	if (value.status === "existing") {
 		return true;
 	}
 
 	return (
 		value.status === "created" &&
 		"code" in value &&
-		typeof value.code === "string" &&
-		value.code.length > 0
+		(value.code === null ||
+			(typeof value.code === "string" && value.code.length > 0))
 	);
 }
 
@@ -66,7 +64,12 @@ export async function POST(request: Request) {
 			);
 		}
 
-		const { user_name, user_last_name, user_email } = parsed.data;
+		const {
+			user_name,
+			user_last_name,
+			user_email,
+			commercial_communications_accepted,
+		} = parsed.data;
 
 		const supabase = getSupabase();
 
@@ -75,6 +78,7 @@ export async function POST(request: Request) {
 			p_name: user_name,
 			p_last_name: user_last_name,
 			p_email: user_email,
+			p_commercial_communications_accepted: commercial_communications_accepted,
 		});
 
 		if (error) {
@@ -98,21 +102,13 @@ export async function POST(request: Request) {
 			);
 		}
 
-		// 5. Waitlist full
-		if (data.status === "full") {
-			return errorResponse(
-				"Nuestra primera lista de espera ya está completa.",
-				409
-			);
-		}
-
-		// 6. Already registered
+		// 5. Already registered
 		// Don't generate another code or send another email.
 		if (data.status === "existing") {
 			return NextResponse.json({ success: true }, { status: 200 });
 		}
 
-		// 7. New registration: process confirmation email
+		// 6. New registration: process confirmation email
 		// The registration is already saved in Supabase.
 		// If email processing fails, the cron can retry later.
 		try {
@@ -129,7 +125,7 @@ export async function POST(request: Request) {
 			console.error("Initial waitlist email processing failed:", emailError);
 		}
 
-		// 8. Success
+		// 7. Success
 		// Registration succeeded regardless of email delivery.
 		return NextResponse.json({ success: true }, { status: 200 });
 	} catch (error) {

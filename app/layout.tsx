@@ -2,8 +2,8 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { SiteShell } from "@/components/site-shell";
 import { SiteFooter } from "@/components/site-footer";
+import { SiteShell } from "@/components/site-shell";
 
 const cormorant = Cormorant_Garamond({
 	variable: "--font-cormorant",
@@ -46,9 +46,11 @@ export default function RootLayout({
 			className={`${cormorant.variable} ${dmSans.variable} bg-background`}
 		>
 			<body className="font-sans antialiased">
-				<SiteShell>{children}</SiteShell>
+				<SiteShell>
+					{children}
+					<SiteFooter />
+				</SiteShell>
 				{process.env.NODE_ENV === "production" && <Analytics />}
-				<SiteFooter />
 			</body>
 		</html>
 	);

@@ -9,7 +9,7 @@ export default async function LegalNoticePage() {
 	const content = await readFile(filePath, "utf8");
 
 	return (
-		<main className="mx-auto max-w-3xl px-6 py-24 md:py-32">
+		<main className="mx-auto max-w-full px-7 py-24 md:py-32">
 			<LegalDocument content={content} />
 		</main>
 	);

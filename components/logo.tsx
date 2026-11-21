@@ -24,7 +24,7 @@ export function Logo({
 			<span className="flex items-center">
 				<Image
 					src="/logo.svg"
-					alt="Maayan logo"
+					alt=""
 					width={32}
 					height={32}
 					className={cn(
@@ -41,14 +41,14 @@ export function Logo({
 							: "grid-cols-[1fr] opacity-100"
 					)}
 				>
-					<h1
+					<span
 						className={cn(
 							"text-[1.625rem] tracking-[8px]",
 							compactOnMobile && "max-sm:text-[1.375rem] max-sm:tracking-[6px]"
 						)}
 					>
 						MAAYAN
-					</h1>
+					</span>
 				</span>
 			</span>
 			{showTagline && (

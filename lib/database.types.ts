@@ -250,6 +250,7 @@ export type Database = {
 			};
 			waitlist: {
 				Row: {
+					commercial_communications_accepted_at: string | null;
 					confirmation_email_attempts: number;
 					confirmation_email_claim_token: string | null;
 					confirmation_email_locked_until: string | null;
@@ -257,6 +258,7 @@ export type Database = {
 					confirmation_email_sent_at: string | null;
 					confirmation_email_status: string;
 					discount_code: string | null;
+					discount_code_expires_at: string | null;
 					id: number;
 					privacy_accepted_at: string;
 					user_email: string;
@@ -265,6 +267,7 @@ export type Database = {
 				};
 				ComputedFields: never;
 				Insert: {
+					commercial_communications_accepted_at?: string | null;
 					confirmation_email_attempts?: number;
 					confirmation_email_claim_token?: string | null;
 					confirmation_email_locked_until?: string | null;
@@ -272,6 +275,7 @@ export type Database = {
 					confirmation_email_sent_at?: string | null;
 					confirmation_email_status?: string;
 					discount_code?: string | null;
+					discount_code_expires_at?: string | null;
 					id?: number;
 					privacy_accepted_at: string;
 					user_email: string;
@@ -279,6 +283,7 @@ export type Database = {
 					user_name: string;
 				};
 				Update: {
+					commercial_communications_accepted_at?: string | null;
 					confirmation_email_attempts?: number;
 					confirmation_email_claim_token?: string | null;
 					confirmation_email_locked_until?: string | null;
@@ -286,6 +291,7 @@ export type Database = {
 					confirmation_email_sent_at?: string | null;
 					confirmation_email_status?: string;
 					discount_code?: string | null;
+					discount_code_expires_at?: string | null;
 					id?: number;
 					privacy_accepted_at?: string;
 					user_email?: string;
@@ -306,7 +312,12 @@ export type Database = {
 				Returns: boolean;
 			};
 			register_waitlist: {
-				Args: { p_email: string; p_last_name: string; p_name: string };
+				Args: {
+					p_commercial_communications_accepted: boolean;
+					p_email: string;
+					p_last_name: string;
+					p_name: string;
+				};
 				Returns: Json;
 			};
 			release_reservation: { Args: { p_order_id: string }; Returns: string };

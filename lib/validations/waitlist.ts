@@ -12,6 +12,7 @@ export const waitlistSchema = z.object({
 		.toLowerCase()
 		.pipe(z.email("Introduce un correo electrónico válido.").max(254)),
 	privacy_accepted_at: z.literal(true),
+	commercial_communications_accepted: z.boolean(),
 });
 
 export type WaitlistInput = z.infer<typeof waitlistSchema>;

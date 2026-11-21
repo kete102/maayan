@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { LAUNCH_AT } from "@/lib/launch";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 type TimeLeft = {
 	days: number;

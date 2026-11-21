@@ -277,11 +277,13 @@
 
 	html {
 		@apply scroll-smooth;
+		overflow-x: hidden;
 		scrollbar-gutter: stable;
 	}
 
 	body {
 		@apply bg-background text-foreground font-sans;
+		overflow-x: hidden;
 	}
 
 	h1,
@@ -332,5 +334,68 @@
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
+	}
+}
+
+@keyframes view-transition-fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes view-transition-slide {
+	from {
+		translate: var(--view-transition-offset);
+	}
+	to {
+		translate: 0;
+	}
+}
+
+::view-transition-old(.nav-forward),
+::view-transition-new(.nav-forward),
+::view-transition-old(.nav-back),
+::view-transition-new(.nav-back) {
+	animation-duration: 400ms;
+	animation-timing-function: ease-in-out;
+}
+
+::view-transition-old(.nav-forward) {
+	--view-transition-offset: -60px;
+	animation:
+		150ms ease-in both view-transition-fade reverse,
+		400ms ease-in-out both view-transition-slide reverse;
+}
+
+::view-transition-new(.nav-forward) {
+	--view-transition-offset: 60px;
+	animation:
+		210ms ease-out 150ms both view-transition-fade,
+		400ms ease-in-out both view-transition-slide;
+}
+
+::view-transition-old(.nav-back) {
+	--view-transition-offset: 60px;
+	animation:
+		150ms ease-in both view-transition-fade reverse,
+		400ms ease-in-out both view-transition-slide reverse;
+}
+
+::view-transition-new(.nav-back) {
+	--view-transition-offset: -60px;
+	animation:
+		210ms ease-out 150ms both view-transition-fade,
+		400ms ease-in-out both view-transition-slide;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(.nav-forward),
+	::view-transition-new(.nav-forward),
+	::view-transition-old(.nav-back),
+	::view-transition-new(.nav-back) {
+		animation: none !important;
 	}
 }

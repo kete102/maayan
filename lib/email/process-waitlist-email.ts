@@ -6,7 +6,8 @@ import { sendWaitlistConfirmation } from "./send-waitlist-confirmation";
 type ClaimedEmail = {
 	email: string;
 	name: string;
-	code: string;
+	code: string | null;
+	expiresAt: string | null;
 	token: string;
 };
 
@@ -20,7 +21,8 @@ function isClaimedEmail(value: unknown): value is ClaimedEmail {
 	return (
 		typeof record.email === "string" &&
 		typeof record.name === "string" &&
-		typeof record.code === "string" &&
+		(record.code === null || typeof record.code === "string") &&
+		(record.expiresAt === null || typeof record.expiresAt === "string") &&
 		typeof record.token === "string"
 	);
 }
@@ -53,6 +55,7 @@ export async function processWaitlistEmail(
 			name: data.name,
 			email: data.email,
 			discountCode: data.code,
+			discountExpiresAt: data.expiresAt,
 		});
 
 		success = true;

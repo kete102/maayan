@@ -13,6 +13,7 @@
   "dependencies": {
     "@react-email/components": "^1.0.12",
     "@supabase/supabase-js": "^2.118.0",
+    "@tailwindcss/typography": "^0.5.20",
     "@upstash/ratelimit": "^2.2.1",
     "@upstash/redis": "^1.41.0",
     "@vercel/analytics": "2.0.1",

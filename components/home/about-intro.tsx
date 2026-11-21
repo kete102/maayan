@@ -4,7 +4,7 @@ export function AboutIntro() {
 	return (
 		<section
 			id="about"
-			className="relative isolate scroll-mt-8 overflow-hidden bg-white px-4 py-28 md:px-8 md:py-40"
+			className="relative isolate scroll-mt-8 overflow-hidden px-4 py-28 md:px-8 md:py-40"
 		>
 			{/* Hebrew "Maayan" (spring) as a decorative watermark. */}
 			<span

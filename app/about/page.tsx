@@ -64,7 +64,7 @@ export default async function AboutPage() {
 				</div>
 			</section>
 
-			<div className="bg-white">
+			<div className="">
 				{/* significado */}
 				<Reveal className="mx-auto max-w-3xl px-4 py-20 text-center md:px-8 md:py-28">
 					<p className="type-overline text-muted-foreground">

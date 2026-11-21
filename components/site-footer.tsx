@@ -12,11 +12,11 @@ export function SiteFooter() {
 	return (
 		<footer
 			role="contentinfo"
-			className="bg-white px-6 pt-4 pb-10 sm:px-10"
+			className="px-6 pt-4 pb-10 sm:px-10"
 		>
 			<div className="mx-auto max-w-6xl">
 				<div
-					className="mb-12 h-px bg-white"
+					className="mb-12 h-px"
 					aria-hidden="true"
 				/>
 

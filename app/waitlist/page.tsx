@@ -10,6 +10,14 @@ import { WaitlistSuccess } from "@/components/waitlist/waitlist-success";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
+function WaitlistPromotion() {
+	return (
+		<div className="mb-6 flex flex-col items-center text-center">
+			<div className="bg-border my-4 h-px w-8" />
+		</div>
+	);
+}
+
 export function WaitlistFormPage() {
 	const [formStatus, setFormStatus] = useState<FormStatus>("idle");
 	const [errorMessage, setErrorMessage] = useState("");
@@ -88,9 +96,10 @@ export function WaitlistFormPage() {
 	return (
 		<main className="text-foreground flex min-h-screen flex-col bg-white">
 			{/* Header */}
-			<header className="flex items-center justify-between px-6 py-8 md:px-12">
+			<header className="flex items-center justify-between px-5 py-8 md:px-12">
 				<Link
 					href="/"
+					aria-lable="MAAYAN - Ir al inicio"
 					className="type-wordmark tracking-[0.25em]"
 				>
 					MAAYAN
@@ -100,7 +109,7 @@ export function WaitlistFormPage() {
 					href="/"
 					className="type-overline group inline-flex items-center gap-2 opacity-70 transition-opacity duration-300 ease-in-out hover:opacity-100"
 				>
-					Volver al inicio
+					Volver
 					<ArrowUpRightIcon
 						className="size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
 						strokeWidth={1.25}
@@ -108,7 +117,7 @@ export function WaitlistFormPage() {
 				</Link>
 			</header>
 
-			{/* Main */}
+			{/* Main content */}
 			<section className="flex flex-1 items-center justify-center px-6 py-20">
 				<AnimatePresence
 					mode="wait"
@@ -158,7 +167,11 @@ export function WaitlistFormPage() {
 									}}
 									className="type-overline text-muted-foreground mb-6"
 								>
-									El comienzo de algo nuevo
+									<div className="flex w-full flex-row items-center justify-center gap-4">
+										<p className="type-body text-foreground/80">
+											ORIGEN · 1 de diciembre
+										</p>
+									</div>
 								</motion.p>
 
 								<h1 className="type-h2 md:text-5xl">
@@ -167,10 +180,13 @@ export function WaitlistFormPage() {
 									<span className="italic">comienzo.</span>
 								</h1>
 
-								<p className="type-body-sm text-muted-foreground mx-auto mt-6 max-w-85">
-									Estamos preparando algo especial. Déjanos tus datos y serás de
-									las primeras personas en descubrir MAAYAN.
+								<p className="type-body text-muted-foreground mx-auto mt-5 max-w-lg text-pretty">
+									Queremos agradecer a las primeras 50 personas que se unan a
+									nuestra lista de espera con un código exclusivo de 5 € de
+									regalo para el lanzamiento.
 								</p>
+
+								<div className="bg-border mx-auto mt-8 h-px w-8" />
 							</div>
 
 							{/* Form */}
@@ -181,7 +197,7 @@ export function WaitlistFormPage() {
 								{/* Name */}
 								<div>
 									<label
-										htmlFor="name"
+										htmlFor="user_name"
 										className="type-overline text-muted-foreground mb-2 block"
 									>
 										Nombre
@@ -202,7 +218,7 @@ export function WaitlistFormPage() {
 								{/* Surname */}
 								<div>
 									<label
-										htmlFor="surname"
+										htmlFor="user_last_name"
 										className="type-overline text-muted-foreground mb-2 block"
 									>
 										Apellidos
@@ -232,7 +248,7 @@ export function WaitlistFormPage() {
 									<input
 										id="email"
 										name="user_email"
-										type="user_email"
+										type="email"
 										autoComplete="email"
 										required
 										maxLength={254}
@@ -297,6 +313,12 @@ export function WaitlistFormPage() {
 										</>
 									)}
 								</motion.button>
+
+								{/* Availability notice */}
+								<p className="type-body-sm text-muted-foreground text-center">
+									La inscripción no reserva ni garantiza la disponibilidad de
+									una Biblia.
+								</p>
 
 								{/* Error */}
 								{formStatus === "error" && (

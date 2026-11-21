@@ -61,15 +61,6 @@ export function Countdown({ className }: { className?: string }) {
 		>
 			<section className="flex w-full flex-row items-center justify-center gap-4">
 				<p className="type-body text-foreground/80">ORIGEN · 1 de diciembre</p>
-				<div className="flex flex-row items-center">
-					<Link
-						href={"/waitlist"}
-						className="type-overline"
-					>
-						Únete a lista de espera
-					</Link>
-					<ArrowRight className="size-4" />
-				</div>
 			</section>
 			<dl className="flex items-start justify-center gap-3 sm:gap-10">
 				{units.map(({ key, label }, index) => (

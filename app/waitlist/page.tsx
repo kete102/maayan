@@ -10,14 +10,6 @@ import { WaitlistSuccess } from "@/components/waitlist/waitlist-success";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-function WaitlistPromotion() {
-	return (
-		<div className="mb-6 flex flex-col items-center text-center">
-			<div className="bg-border my-4 h-px w-8" />
-		</div>
-	);
-}
-
 export function WaitlistFormPage() {
 	const [formStatus, setFormStatus] = useState<FormStatus>("idle");
 	const [errorMessage, setErrorMessage] = useState("");
@@ -94,12 +86,12 @@ export function WaitlistFormPage() {
 		"focus-visible:ring-0 focus-visible:outline-none";
 
 	return (
-		<main className="text-foreground flex min-h-screen flex-col bg-white">
+		<main className="text-foreground flex min-h-screen flex-col">
 			{/* Header */}
 			<header className="flex items-center justify-between px-5 py-8 md:px-12">
 				<Link
 					href="/"
-					aria-lable="MAAYAN - Ir al inicio"
+					aria-label="MAAYAN - Ir al inicio"
 					className="type-wordmark tracking-[0.25em]"
 				>
 					MAAYAN
@@ -269,7 +261,7 @@ export function WaitlistFormPage() {
 									<span className="type-body-sm text-muted-foreground">
 										He leído y acepto la{" "}
 										<Link
-											href="/privacidad"
+											href="/privacy-policy"
 											className="text-foreground underline underline-offset-4 transition-opacity hover:opacity-60"
 										>
 											política de privacidad

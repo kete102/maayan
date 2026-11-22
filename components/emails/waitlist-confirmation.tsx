@@ -4,6 +4,7 @@ import {
 	Head,
 	Heading,
 	Html,
+	Img,
 	Preview,
 	Section,
 	Text,
@@ -42,15 +43,26 @@ function WaitlistConfirmationEmail({
 						backgroundColor: "#f8f4ef",
 					}}
 				>
-					<Text
-						style={{
-							textAlign: "center",
-							letterSpacing: "0.35em",
-							fontSize: 20,
-						}}
-					>
-						M A A Y A N
-					</Text>
+					<Section style={{ textAlign: "center" }}>
+						<Img
+							src="https://maayan.shop/emblem.png"
+							alt="MAAYAN"
+							width="96"
+							style={{
+								display: "block",
+								margin: "0 auto 20px",
+							}}
+						/>
+						<Text
+							style={{
+								letterSpacing: "0.35em",
+								fontSize: 20,
+								margin: 0,
+							}}
+						>
+							MAAYAN
+						</Text>
+					</Section>
 
 					<Section style={{ paddingTop: 32 }}>
 						<Heading

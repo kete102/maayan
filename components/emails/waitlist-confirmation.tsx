@@ -23,7 +23,7 @@ function WaitlistConfirmationEmail({
 	return (
 		<Html lang="es">
 			<Head />
-			<Preview>Ya formas parte del comienzo de MAAYAN.</Preview>
+			<Preview>Ya formas parte del ORIGEN · M A A Y A N.</Preview>
 
 			<Body
 				style={{
@@ -49,7 +49,7 @@ function WaitlistConfirmationEmail({
 							fontSize: 20,
 						}}
 					>
-						MAAYAN
+						M A A Y A N
 					</Text>
 
 					<Section style={{ paddingTop: 32 }}>
@@ -60,21 +60,21 @@ function WaitlistConfirmationEmail({
 								lineHeight: 1.2,
 							}}
 						>
-							Gracias por formar parte del comienzo.
+							Gracias por formar parte del ORIGEN
 						</Heading>
 
 						<Text>Hola, {name}:</Text>
 
 						<Text>
-							Tu inscripción en la primera lista de espera de MAAYAN se ha
+							Tu inscripción en la primera lista de espera de M A A Y A N se ha
 							completado.
 						</Text>
 
 						{discountCode && discountExpiresAt ? (
 							<>
 								<Text>
-									Como agradecimiento, queremos compartir contigo un descuento
-									exclusivo de 5 € para nuestra primera edición.
+									Como agradecimiento, queremos regalarte este código exclusivo
+									para nuestra primera edición - ORIGEN
 								</Text>
 
 								<Section
@@ -86,7 +86,7 @@ function WaitlistConfirmationEmail({
 										marginBottom: 28,
 									}}
 								>
-									<Text style={{ fontSize: 12 }}>TU CÓDIGO PERSONAL</Text>
+									<Text style={{ fontSize: 12 }}>Tu código personal</Text>
 
 									<Text
 										style={{
@@ -96,11 +96,6 @@ function WaitlistConfirmationEmail({
 										}}
 									>
 										{discountCode}
-									</Text>
-
-									<Text style={{ fontSize: 13 }}>
-										5 € de descuento · Un solo uso · Válido hasta el{" "}
-										{discountExpiresAt}
 									</Text>
 								</Section>
 							</>
@@ -112,10 +107,9 @@ function WaitlistConfirmationEmail({
 						)}
 
 						<Text>
-							Las ventas comenzarán el 1 de diciembre de 2026.
-							{discountCode
-								? " Podrás utilizar tu código durante la compra, sujeto a disponibilidad."
-								: " Te avisaremos cuando comience el lanzamiento."}
+							Las ventas comenzarán el día 1 de diciembre de 2026 a las 10:00h
+							hasta fin de existencias. Podrás utilizar tu código durante la
+							compra (sujeto a disponibilidad).
 						</Text>
 
 						<Text style={{ fontSize: 13 }}>
@@ -125,7 +119,7 @@ function WaitlistConfirmationEmail({
 
 						<Text>Gracias por acompañarnos en este comienzo.</Text>
 
-						<Text>MAAYAN</Text>
+						<Text>M A A Y A N</Text>
 					</Section>
 				</Container>
 			</Body>

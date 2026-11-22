@@ -41,7 +41,7 @@ export async function sendWaitlistConfirmation({
 		{
 			from,
 			to: email,
-			subject: "Ya formas parte del comienzo · MAAYAN",
+			subject: "Ya formas parte del ORIGEN · M A A Y A N",
 			react: (
 				<WaitlistConfirmationEmail
 					name={name}

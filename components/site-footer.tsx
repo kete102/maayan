@@ -44,10 +44,12 @@ export function SiteFooter() {
 								height={24}
 								className="size-8 w-auto object-contain"
 							/>
-							<p className="font-serif text-2xl tracking-[0.3em]">MAAYAN</p>
+							<p className="font-serif text-2xl tracking-[0.3em]">
+								M A A Y A N
+							</p>
 						</div>
 						<p className="text-muted-foreground font-serif text-lg italic">
-							Escrituras que Fluyen
+							La belleza tiene propósito
 						</p>
 					</div>
 
@@ -60,7 +62,7 @@ export function SiteFooter() {
 										href={href}
 										target="_blank"
 										rel="noopener noreferrer"
-										aria-label={`Maayan en ${label}`}
+										aria-label={`M A A Y A N en ${label}`}
 										className="border-border text-foreground/80 hover:border-accent hover:text-accent inline-flex size-10 items-center justify-center rounded-full border transition-colors"
 									>
 										<Icon
@@ -76,7 +78,8 @@ export function SiteFooter() {
 
 				<div className="border-foreground/10 mt-8 flex flex-col gap-4 border-t pt-5 text-center sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-8 sm:gap-y-3 sm:text-left">
 					<p className="type-body-sm text-muted-foreground sm:shrink-0">
-						© {new Date().getFullYear()} Maayan. Todos los derechos reservados.
+						© {new Date().getFullYear()} M A A Y A N. Todos los derechos
+						reservados.
 					</p>
 
 					<nav aria-label="Enlaces legales">

@@ -9,7 +9,7 @@ En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Informació
 - **Titular:** Flavius Catalin Neacsu
 - **Nombre comercial:** **M A A Y A N**
 - **NIF:** X8368659V
-- **Correo electrónico:** ***<info@maayan.shop>***
+- **Correo electrónico:** _**<info@maayan.shop>**_
 - **Sitio web:** <https://maayan.shop>
 
 ## 2. Objeto

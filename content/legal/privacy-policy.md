@@ -10,7 +10,7 @@ En cumplimiento del Reglamento (UE) 2016/679, de Protección de Datos (RGPD), y 
 - **NIF/NIE:** X8368659V
 - **Nombre comercial:** **M A A Y A N**
 - **Sitio web:** <https://maayan.shop>
-- **Correo electrónico de contacto:** ***<info@maayan.shop>***
+- **Correo electrónico de contacto:** _**<info@maayan.shop>**_
 
 ## 2. Datos personales que recopilamos
 
@@ -38,7 +38,7 @@ Cuando la tienda esté habilitada, tus datos se usarán para tramitar pedidos, g
 
 ### Comunicaciones
 
-Solo te enviaremos comunicaciones comerciales si te has inscrito para recibirlas. Cada correo incluirá un enlace para darte de baja; también puedes escribirnos a ***<info@maayan.shop>***.
+Solo te enviaremos comunicaciones comerciales si te has inscrito para recibirlas. Cada correo incluirá un enlace para darte de baja; también puedes escribirnos a _**<info@maayan.shop>**_.
 
 ### Defensa de reclamaciones
 
@@ -53,7 +53,7 @@ Conservaremos los datos necesarios para atender posibles reclamaciones y cumplir
 - **Defensa ante reclamaciones:** interés legítimo del responsable (art. 6.1.f RGPD).
 - **Seguridad y funcionamiento técnico del sitio:** interés legítimo del responsable (art. 6.1.f RGPD).
 
-Puedes retirar tu consentimiento en cualquier momento, sin que ello afecte a la licitud del tratamiento realizado antes de la retirada. Para hacerlo, escribe a ***<info@maayan.shop>*** o usa el enlace de baja de nuestros correos.
+Puedes retirar tu consentimiento en cualquier momento, sin que ello afecte a la licitud del tratamiento realizado antes de la retirada. Para hacerlo, escribe a _**<info@maayan.shop>**_ o usa el enlace de baja de nuestros correos.
 
 ## 5. Conservación de los datos
 
@@ -82,7 +82,7 @@ También podremos comunicar datos a las administraciones públicas, jueces y tri
 
 Algunos de nuestros proveedores (Supabase, Resend, Vercel y Stripe) pueden tratar datos fuera del Espacio Económico Europeo, en particular en Estados Unidos. En esos casos, la transferencia se ampara en alguna de estas garantías: la decisión de adecuación de la Comisión Europea (Marco de Privacidad de Datos UE-EE. UU., cuando el proveedor esté certificado) o las cláusulas contractuales tipo aprobadas por la Comisión Europea.
 
-Puedes pedirnos más información sobre estas garantías escribiendo a ***<info@maayan.shop>***.
+Puedes pedirnos más información sobre estas garantías escribiendo a _**<info@maayan.shop>**_.
 
 ## 8. Tus derechos
 
@@ -96,7 +96,7 @@ Puedes ejercer los siguientes derechos sobre tus datos personales:
 - **Portabilidad:** recibir tus datos en un formato estructurado y de uso común, o pedir que los enviemos a otro responsable.
 - **Retirada del consentimiento:** en cualquier momento, sin efecto retroactivo.
 
-Para ejercerlos, escribe a ***<info@maayan.shop>*** indicando el derecho que quieres ejercer. Podemos pedirte un documento que acredite tu identidad. Responderemos en el plazo máximo de un mes, ampliable en dos meses más si la solicitud es compleja.
+Para ejercerlos, escribe a _**<info@maayan.shop>**_ indicando el derecho que quieres ejercer. Podemos pedirte un documento que acredite tu identidad. Responderemos en el plazo máximo de un mes, ampliable en dos meses más si la solicitud es compleja.
 
 Si consideras que el tratamiento de tus datos vulnera la normativa, puedes presentar una reclamación ante la Agencia Española de Protección de Datos ([www.aepd.es](https://www.aepd.es)).
 

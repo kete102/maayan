@@ -56,7 +56,7 @@ La compra estará sujeta a la disponibilidad existente en el momento de realizar
 
 ## 8. Incidencias
 
-En caso de problemas relacionados con la recepción o utilización del código, los participantes podrán contactar con ***<info@maayan.shop>***.
+En caso de problemas relacionados con la recepción o utilización del código, los participantes podrán contactar con _**<info@maayan.shop>**_.
 
 **M A A Y A N** gestionará las incidencias respetando las condiciones anunciadas y los derechos de los participantes.
 

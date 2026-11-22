@@ -9,7 +9,7 @@ Las compras realizadas a través de <https://maayan.shop> son gestionadas por:
 - **Titular:** Flavius Catalin Neacsu
 - **Nombre comercial:** **M A A Y A N**
 - **NIF/NIE:** X8368659V
-- **Correo electrónico:** ***<info@maayan.shop>***
+- **Correo electrónico:** _**<info@maayan.shop>**_
 
 Al realizar un pedido, el cliente declara haber leído y aceptado estas condiciones, que se ofrecen en español.
 
@@ -67,7 +67,7 @@ Los pedidos se envían a la dirección indicada en el formulario de compra. Por 
 
 **Riesgo.** El riesgo de pérdida o deterioro del producto pasa al cliente cuando lo recibe. Recomendamos revisar el paquete al recibirlo y comunicar cuanto antes cualquier daño de transporte; esto no limita los derechos del cliente.
 
-En caso de retrasos o incidencias, el cliente puede contactar con ***<info@maayan.shop>***.
+En caso de retrasos o incidencias, el cliente puede contactar con _**<info@maayan.shop>**_.
 
 ## 8. Derecho de desistimiento
 
@@ -81,7 +81,7 @@ El derecho de desistimiento **no es aplicable** a los productos confeccionados c
 
 ### 8.3. Cómo desistir (productos estándar)
 
-El cliente debe comunicar su decisión dentro de los 14 días naturales mediante cualquier declaración inequívoca por correo electrónico a ***<info@maayan.shop>***.
+El cliente debe comunicar su decisión dentro de los 14 días naturales mediante cualquier declaración inequívoca por correo electrónico a _**<info@maayan.shop>**_.
 
 **M A A Y A N** confirmará la recepción de la comunicación por correo electrónico, indicando su contenido y la fecha y hora en que se recibió.
 
@@ -95,11 +95,11 @@ El cliente debe devolver la Biblia en un plazo máximo de 14 días desde que com
 
 ## 9. Productos defectuosos o no conformes
 
-Todos los productos de **M A A Y A N** tienen la garantía legal de tres años desde su entrega. Si la Biblia no es conforme con lo contratado, por ejemplo porque tiene un defecto de fabricación o no se corresponde con lo descrito en la ficha, el cliente puede escribir a ***<info@maayan.shop>*** y **M A A Y A N** revisará el caso.
+Todos los productos de **M A A Y A N** tienen la garantía legal de tres años desde su entrega. Si la Biblia no es conforme con lo contratado, por ejemplo porque tiene un defecto de fabricación o no se corresponde con lo descrito en la ficha, el cliente puede escribir a _**<info@maayan.shop>**_ y **M A A Y A N** revisará el caso.
 
 Las garantías legales se aplican también a los productos artesanales y personalizados. No se consideran faltas de conformidad las variaciones propias de la elaboración artesanal y de los materiales naturales descritas en la ficha del producto (por ejemplo, el grano de la piel, ligeras diferencias de tono o de cosido), ni el desgaste natural derivado del uso habitual de la Biblia o los daños causados por un uso inadecuado, golpes, humedad, calor o falta de cuidado. Sí constituyen falta de conformidad los defectos de fabricación y que **M A A Y A N** no reproduzca correctamente el texto facilitado por el cliente.
 
-Para comunicar una incidencia, el cliente puede escribir a ***<info@maayan.shop>*** indicando su número de pedido y adjuntando fotografías.
+Para comunicar una incidencia, el cliente puede escribir a _**<info@maayan.shop>**_ indicando su número de pedido y adjuntando fotografías.
 
 ## 10. Protección de datos
 
@@ -107,7 +107,7 @@ Los datos personales que el cliente facilita al comprar se tratan conforme a nue
 
 ## 11. Atención al cliente y reclamaciones
 
-Para cualquier consulta, incidencia o reclamación, el cliente puede contactar con ***<info@maayan.shop>***.
+Para cualquier consulta, incidencia o reclamación, el cliente puede contactar con _**<info@maayan.shop>**_.
 
 **M A A Y A N** atenderá las solicitudes conforme a la normativa aplicable. El cliente también puede acudir a los organismos de consumo competentes de su comunidad autónoma.
 

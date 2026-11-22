@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
 
 export function StandaloneHeader() {
@@ -18,8 +18,8 @@ export function StandaloneHeader() {
 				className="type-overline group inline-flex items-center gap-2 opacity-70 transition-opacity duration-300 ease-in-out hover:opacity-100"
 			>
 				Volver
-				<ArrowLeftIcon
-					className="size-5 transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5"
+				<ArrowUpRightIcon
+					className="size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
 					strokeWidth={1.25}
 				/>
 			</Link>

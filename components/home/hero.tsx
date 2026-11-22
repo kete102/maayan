@@ -20,7 +20,7 @@ export function Hero() {
 			 * from competing with the text; a light veil warms it to parchment.
 			 */}
 			<div
-				className="from-parchment/60 via-parchment/50 to-background/90 absolute inset-0 -z-10 bg-linear-to-b via-90%"
+				className="from-parchment/60 via-parchment/50 to-background absolute inset-0 -z-10 bg-linear-to-b via-80%"
 				aria-hidden="true"
 			/>
 

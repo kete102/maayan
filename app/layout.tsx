@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteShell } from "@/components/site-shell";
 
 const cormorant = Cormorant_Garamond({
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
 	title: "MAAYAN",
 	description:
 		"La belleza despierta algo en nosotros. Creemos que lo que vemos puede ser el comienzo de algo mucho más grande.",
+	metadataBase: new URL("https://maayan.shop"),
 	openGraph: {
 		title: "MAAYAN",
 		description:
@@ -44,7 +46,10 @@ export default function RootLayout({
 			className={`${cormorant.variable} ${dmSans.variable} bg-background`}
 		>
 			<body className="font-sans antialiased">
-				<SiteShell>{children}</SiteShell>
+				<SiteShell>
+					{children}
+					<SiteFooter />
+				</SiteShell>
 				{process.env.NODE_ENV === "production" && <Analytics />}
 			</body>
 		</html>

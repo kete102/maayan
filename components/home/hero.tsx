@@ -1,10 +1,14 @@
+"use client";
 import { ScrollCue } from "@/components/home/scroll-cue";
 import { Countdown } from "@/components/home/countdown";
 import { HeroVideo } from "@/components/home/hero-video";
+import Link from "next/link";
+import { ArrowRight, MailIcon } from "lucide-react";
+import { motion } from "motion/react";
 
 export function Hero() {
 	return (
-		<section className="relative isolate flex min-h-dvh w-full items-center justify-center overflow-hidden">
+		<section className="relative isolate flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden">
 			<HeroVideo />
 			{/* Static fallback when the user prefers reduced motion. */}
 			<div
@@ -16,7 +20,7 @@ export function Hero() {
 			 * from competing with the text; a light veil warms it to parchment.
 			 */}
 			<div
-				className="from-parchment/35 via-parchment/35 absolute inset-0 -z-10 bg-linear-to-b via-90% to-white"
+				className="from-parchment/60 via-parchment/50 to-background absolute inset-0 -z-10 bg-linear-to-b via-80%"
 				aria-hidden="true"
 			/>
 
@@ -24,11 +28,41 @@ export function Hero() {
 				<h1 className="pl-[0.32em] font-serif text-[clamp(2.75rem,10vw,8.5rem)] leading-none font-light tracking-[0.32em] text-black uppercase">
 					Maayan
 				</h1>
-				<p className="type-body text-foreground mx-auto mt-8 max-w-xl font-serif text-[1.375rem] leading-relaxed text-pretty italic sm:text-[1.75rem]">
+				<p className="type-body text-foreground mx-auto mt-8 max-w-xl font-serif text-[1.375rem] leading-[1.45] font-medium text-pretty italic sm:text-[1.75rem] sm:leading-relaxed">
 					&ldquo;La belleza despierta algo en nosotros. Creemos que lo que vemos
 					puede ser el comienzo de algo mucho más grande.&rdquo;
 				</p>
 				<Countdown className="mt-14" />
+
+				<div className="mt-16 flex flex-row items-center">
+					<motion.div
+						initial={{ opacity: 0, y: 4 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{
+							duration: 0.5,
+							delay: 0.5,
+							ease: "easeOut",
+						}}
+					>
+						<Link
+							href="/waitlist"
+							transitionTypes={["nav-forward"]}
+							className="type-button border-ink group hover:bg-ink relative inline-flex items-center gap-3 overflow-hidden rounded-full border px-8 py-3 backdrop-blur-sm transition-colors duration-350 ease-in-out hover:text-white"
+						>
+							<MailIcon
+								strokeWidth={1.25}
+								className="size-4"
+							/>
+
+							<span>Únete a la lista de espera</span>
+
+							<ArrowRight
+								strokeWidth={1.5}
+								className="size-5 transition-transform duration-300 ease-out group-hover:translate-x-1"
+							/>
+						</Link>
+					</motion.div>
+				</div>
 			</div>
 
 			<ScrollCue

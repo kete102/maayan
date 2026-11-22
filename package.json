@@ -2,7 +2,7 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@11.9.0",
+  "packageManager": "pnpm@12.21.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,16 +11,24 @@
     "db:types": "bash scripts/db-types.sh"
   },
   "dependencies": {
+    "@react-email/components": "^1.0.12",
     "@supabase/supabase-js": "^2.118.0",
+    "@tailwindcss/typography": "^0.5.20",
+    "@upstash/ratelimit": "^2.2.1",
+    "@upstash/redis": "^1.41.0",
     "@vercel/analytics": "2.0.1",
+    "@vercel/functions": "^3.11.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.65.0",
     "motion": "^14.8.0",
-    "next": "16.4.3",
+    "next": "16.4.5",
     "react": "^19",
     "react-dom": "^19",
-    "tailwind-merge": "^3.7.0"
+    "react-markdown": "^10.1.0",
+    "resend": "^6.38.1",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

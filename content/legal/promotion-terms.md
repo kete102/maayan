@@ -4,11 +4,11 @@
 
 ## 1. Organizador
 
-La promoción está organizada por M A A Y A N, cuyo titular y datos de contacto se encuentran disponibles en el [Aviso legal](/legal-notice).
+La promoción está organizada por **M A A Y A N**, cuyo titular y datos de contacto se encuentran disponibles en el [Aviso legal](/legal-notice).
 
 ## 2. Objeto de la promoción
 
-Con motivo del lanzamiento de M A A Y A N, las primeras 50 personas que se inscriban válidamente en la lista de espera recibirán un código individual de 5 € de regalo para utilizar en una compra durante el lanzamiento.
+Con motivo del lanzamiento de **M A A Y A N**, las primeras 50 personas que se inscriban válidamente en la lista de espera recibirán un código individual de 5 € de regalo para utilizar en una compra durante el lanzamiento.
 
 ## 3. Participación
 
@@ -24,15 +24,15 @@ La participación es gratuita y no obliga a realizar ninguna compra.
 
 ## 4. Asignación de códigos
 
-Los códigos se asignarán a las primeras 50 inscripciones válidas, según el orden registrado por el sistema de M A A Y A N.
+Los códigos se asignarán a las primeras 50 inscripciones válidas, según el orden registrado por el sistema de **M A A Y A N**.
 
 Cada persona beneficiaria recibirá un código individual por correo electrónico.
 
-Se permitirá una única participación por persona. M A A Y A N podrá revisar las inscripciones duplicadas o fraudulentas utilizando criterios objetivos.
+Se permitirá una única participación por persona. **M A A Y A N** podrá revisar las inscripciones duplicadas o fraudulentas utilizando criterios objetivos.
 
 ## 5. Importe del descuento
 
-Cada código permitirá descontar 5 € del precio de una Biblia de M A A Y A N.
+Cada código permitirá descontar 5 € del precio de una Biblia de **M A A Y A N**.
 
 Para un producto con precio de 33 €, el importe después del descuento será de 28 €, sin incluir los gastos de envío que pudieran corresponder.
 
@@ -56,13 +56,13 @@ La compra estará sujeta a la disponibilidad existente en el momento de realizar
 
 ## 8. Incidencias
 
-En caso de problemas relacionados con la recepción o utilización del código, los participantes podrán contactar con <info@maayan.shop>.
+En caso de problemas relacionados con la recepción o utilización del código, los participantes podrán contactar con ***<info@maayan.shop>***.
 
-M A A Y A N gestionará las incidencias respetando las condiciones anunciadas y los derechos de los participantes.
+**M A A Y A N** gestionará las incidencias respetando las condiciones anunciadas y los derechos de los participantes.
 
 ## 9. Protección de datos
 
-Los datos personales se tratarán conforme a la [Política de privacidad](/privacy-policy) de M A A Y A N.
+Los datos personales se tratarán conforme a la [Política de privacidad](/privacy-policy) de **M A A Y A N**.
 
 ## 10. Aceptación de las condiciones
 

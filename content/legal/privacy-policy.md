@@ -8,16 +8,16 @@ En cumplimiento del Reglamento (UE) 2016/679, de Protección de Datos (RGPD), y 
 
 - **Responsable:** Flavius Catalin Neacsu
 - **NIF/NIE:** X8368659V
-- **Nombre comercial:** M A A Y A N
+- **Nombre comercial:** **M A A Y A N**
 - **Sitio web:** <https://maayan.shop>
-- **Correo electrónico de contacto:** <info@maayan.shop>
+- **Correo electrónico de contacto:** ***<info@maayan.shop>***
 
 ## 2. Datos personales que recopilamos
 
 Según el uso que hagas del sitio web, podemos tratar los siguientes datos:
 
 - **Lista de espera:** nombre, dirección de correo electrónico, fecha de inscripción y constancia del consentimiento (fecha y dirección IP o confirmación por correo).
-- **Compras** (cuando la tienda esté operativa): nombre y apellidos, dirección de envío y facturación, teléfono si es necesario para la entrega, datos del pedido y datos de pago. Los datos de tarjeta los gestiona directamente Stripe; **M A A Y A N** no los almacena.
+- **Compras** (cuando la tienda esté operativa): nombre y apellidos, dirección de envío y facturación, teléfono si es necesario para la entrega, datos del pedido y datos de pago. Los datos de tarjeta los gestiona directamente Stripe; **M A A Y A N** no los almacena.
 - **Atención al cliente:** los datos que nos facilites al escribirnos.
 - **Datos técnicos:** dirección IP, tipo de navegador y registros de acceso necesarios para el funcionamiento y la seguridad del sitio.
 
@@ -27,7 +27,7 @@ Facilitar los datos de la lista de espera es voluntario, pero sin ellos no podem
 
 ### Lista de espera
 
-- Gestionar tu inscripción en la lista de espera de **M A A Y A N**.
+- Gestionar tu inscripción en la lista de espera de **M A A Y A N**.
 - Confirmar la inscripción por correo electrónico.
 - Enviarte el código promocional, cuando corresponda.
 - Informarte sobre la apertura de ventas y las novedades directamente relacionadas con el lanzamiento al que te has inscrito.
@@ -38,7 +38,7 @@ Cuando la tienda esté habilitada, tus datos se usarán para tramitar pedidos, g
 
 ### Comunicaciones
 
-Solo te enviaremos comunicaciones comerciales si te has inscrito para recibirlas. Cada correo incluirá un enlace para darte de baja; también puedes escribirnos a <info@maayan.shop>.
+Solo te enviaremos comunicaciones comerciales si te has inscrito para recibirlas. Cada correo incluirá un enlace para darte de baja; también puedes escribirnos a ***<info@maayan.shop>***.
 
 ### Defensa de reclamaciones
 
@@ -53,7 +53,7 @@ Conservaremos los datos necesarios para atender posibles reclamaciones y cumplir
 - **Defensa ante reclamaciones:** interés legítimo del responsable (art. 6.1.f RGPD).
 - **Seguridad y funcionamiento técnico del sitio:** interés legítimo del responsable (art. 6.1.f RGPD).
 
-Puedes retirar tu consentimiento en cualquier momento, sin que ello afecte a la licitud del tratamiento realizado antes de la retirada. Para hacerlo, escribe a <info@maayan.shop> o usa el enlace de baja de nuestros correos.
+Puedes retirar tu consentimiento en cualquier momento, sin que ello afecte a la licitud del tratamiento realizado antes de la retirada. Para hacerlo, escribe a ***<info@maayan.shop>*** o usa el enlace de baja de nuestros correos.
 
 ## 5. Conservación de los datos
 
@@ -82,7 +82,7 @@ También podremos comunicar datos a las administraciones públicas, jueces y tri
 
 Algunos de nuestros proveedores (Supabase, Resend, Vercel y Stripe) pueden tratar datos fuera del Espacio Económico Europeo, en particular en Estados Unidos. En esos casos, la transferencia se ampara en alguna de estas garantías: la decisión de adecuación de la Comisión Europea (Marco de Privacidad de Datos UE-EE. UU., cuando el proveedor esté certificado) o las cláusulas contractuales tipo aprobadas por la Comisión Europea.
 
-Puedes pedirnos más información sobre estas garantías escribiendo a <info@maayan.shop>.
+Puedes pedirnos más información sobre estas garantías escribiendo a ***<info@maayan.shop>***.
 
 ## 8. Tus derechos
 
@@ -96,7 +96,7 @@ Puedes ejercer los siguientes derechos sobre tus datos personales:
 - **Portabilidad:** recibir tus datos en un formato estructurado y de uso común, o pedir que los enviemos a otro responsable.
 - **Retirada del consentimiento:** en cualquier momento, sin efecto retroactivo.
 
-Para ejercerlos, escribe a <info@maayan.shop> indicando el derecho que quieres ejercer. Podemos pedirte un documento que acredite tu identidad. Responderemos en el plazo máximo de un mes, ampliable en dos meses más si la solicitud es compleja.
+Para ejercerlos, escribe a ***<info@maayan.shop>*** indicando el derecho que quieres ejercer. Podemos pedirte un documento que acredite tu identidad. Responderemos en el plazo máximo de un mes, ampliable en dos meses más si la solicitud es compleja.
 
 Si consideras que el tratamiento de tus datos vulnera la normativa, puedes presentar una reclamación ante la Agencia Española de Protección de Datos ([www.aepd.es](https://www.aepd.es)).
 
@@ -116,7 +116,7 @@ Si en el futuro incorporamos cookies que no sean estrictamente necesarias, solo 
 
 ## 11. Seguridad y decisiones automatizadas
 
-**M A A Y A N** adopta medidas técnicas y organizativas adecuadas para proteger tus datos frente a accesos no autorizados, pérdida o alteración. Si se produjera una brecha de seguridad que suponga un riesgo para tus derechos, te lo comunicaremos conforme a la normativa.
+**M A A Y A N** adopta medidas técnicas y organizativas adecuadas para proteger tus datos frente a accesos no autorizados, pérdida o alteración. Si se produjera una brecha de seguridad que suponga un riesgo para tus derechos, te lo comunicaremos conforme a la normativa.
 
 No tomamos decisiones automatizadas ni elaboramos perfiles que produzcan efectos jurídicos sobre ti o te afecten de modo significativo.
 
